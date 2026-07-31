@@ -1,0 +1,3601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f3ecdd">
+<meta name="description" content="丽江×香格里拉 六天五晚双人慢度假 · 旅行手册">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<title>丽江 × 香格里拉 · 六日慢旅行（单文件版）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   慢行滇西 · 丽江×香格里拉 六日旅行手册
+   01 · 设计令牌 / 基础样式
+   全站动画统一使用自定义非线性缓动（cubic-bezier），
+   不出现 linear 匀速运动，保持「慢度假」的呼吸感。
+   ========================================================= */
+
+:root{
+  /* —— 色彩：宣纸 / 墨 / 赭 / 苔 / 金 / 黛 —— */
+  --paper:#f3ecdd;
+  --paper-2:#ebe1cb;
+  --card:#fffcf4;
+  --ink:#2a241b;
+  --ink-2:#5b4f3d;
+  --ink-3:#8f826b;
+  --line:rgba(42,36,27,.13);
+  --line-strong:rgba(42,36,27,.26);
+
+  --accent:#9d4b2d;                 /* 纳西赭红 */
+  --accent-soft:rgba(157,75,45,.12);
+  --jade:#3e6b52;                   /* 黑龙潭苔绿 */
+  --jade-soft:rgba(62,107,82,.13);
+  --gold:#a97d2c;                   /* 藏式鎏金 */
+  --gold-soft:rgba(169,125,44,.15);
+  --blue:#4c6d94;                   /* 雪山蓝 */
+  --blue-soft:rgba(76,109,148,.13);
+  --plum:#7d4a5e;                   /* 傍晚梅紫 */
+  --plum-soft:rgba(125,74,94,.12);
+  --danger:#a34a3a;
+
+  /* —— 字体 —— */
+  --serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans:"Noto Sans SC","Source Han Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+
+  /* —— 非线性缓动曲线 —— */
+  --ease-out:cubic-bezier(.16,1,.3,1);          /* 快出慢落：入场 */
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);   /* 弹性回弹：翻转/弹出 */
+  --ease-soft:cubic-bezier(.33,1,.68,1);        /* 柔和展开 */
+  --ease-bounce:cubic-bezier(.34,1.25,.45,1.05);
+  --ease-inout:cubic-bezier(.65,0,.35,1);
+
+  /* —— 尺寸 —— */
+  --r:14px; --r-lg:20px; --r-sm:10px;
+  --shadow-1:0 2px 12px rgba(64,48,26,.07);
+  --shadow-2:0 18px 40px -18px rgba(64,48,26,.24);
+  --shadow-ink:0 16px 34px -14px rgba(30,22,10,.4);
+  --header-h:56px;
+  --pad:22px;
+  --wrap:680px;
+}
+
+/* —— Reset 与基础 —— */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:auto}
+html,body{min-height:100%}
+body{
+  font-family:var(--sans);
+  background:var(--paper);
+  color:var(--ink);
+  font-size:15px;
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+  -webkit-tap-highlight-color:transparent;
+}
+/* 宣纸颗粒感（SVG 噪点，全站固定层） */
+body::before{
+  content:"";position:fixed;inset:0;z-index:9990;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+::selection{background:rgba(157,75,45,.2)}
+img,svg{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;touch-action:manipulation}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:700;letter-spacing:.03em}
+p{margin:0}
+b,strong{font-weight:600}
+em{font-style:normal;color:var(--accent)}
+::-webkit-scrollbar{width:0;height:0}
+
+/* —— 通用排版工具 —— */
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.hl{color:var(--accent);font-weight:600}
+.hl-gold{color:var(--gold);font-weight:600}
+.hl-jade{color:var(--jade);font-weight:600}
+.quote-big{
+  font-family:var(--serif);font-size:17px;line-height:2;color:var(--ink-2);
+  border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:14px 0;
+}
+.quote-big b{color:var(--ink)}
+.quote-ink{
+  font-family:var(--serif);font-size:15px;line-height:2.1;color:var(--ink-2);
+  background:linear-gradient(180deg,var(--card),#f6efdf);
+  border:1px solid var(--line);border-radius:var(--r);
+  padding:16px 18px;margin:16px 0;
+  position:relative;
+}
+.quote-ink::before{content:"“";position:absolute;top:-8px;left:12px;font-family:var(--serif);font-size:46px;color:var(--gold);opacity:.5;line-height:1}
+.divider{display:flex;align-items:center;gap:12px;margin:26px 0;color:var(--ink-3)}
+.divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--line-strong),transparent)}
+.divider span{font-size:11px;letter-spacing:.4em}
+
+/* —— 区块标题 —— */
+.sec{padding:56px 0 6px;position:relative}
+.sec-head{margin:0 var(--pad) 24px;max-width:var(--wrap)}
+.sec-head.centered{margin-left:auto;margin-right:auto;text-align:center}
+.sec-en{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px;
+}
+.sec-en::before{content:"";width:26px;height:1.5px;background:var(--accent)}
+.sec-head.centered .sec-en::after{content:"";width:26px;height:1.5px;background:var(--accent)}
+.sec-title{font-size:30px;line-height:1.4;letter-spacing:.08em;color:var(--ink)}
+.sec-desc{margin-top:10px;font-size:14px;line-height:2;color:var(--ink-2);max-width:600px}
+.sec-head.centered .sec-desc{margin-left:auto;margin-right:auto}
+.sec-rule{width:46px;height:2.5px;background:linear-gradient(90deg,var(--accent),var(--gold));border-radius:2px;margin:18px 0 0}
+
+/* —— 入场动画（滚动触发，非线性缓动） —— */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .9s var(--ease-out),transform .9s var(--ease-out)}
+.reveal.left{transform:translateX(-30px)}
+.reveal.right{transform:translateX(30px)}
+.reveal.zoom{transform:scale(.94)}
+.reveal.in{opacity:1;transform:none}
+
+/* —— 通用控件 —— */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px 22px;border-radius:999px;
+  font-size:14px;font-weight:600;letter-spacing:.06em;
+  background:var(--ink);color:var(--paper);
+  transition:transform .5s var(--ease-spring),box-shadow .5s var(--ease-soft),background .5s var(--ease-soft);
+}
+.btn:active{transform:scale(.96)}
+.btn-gold{background:linear-gradient(135deg,#b98a33,var(--gold));color:#fffaf0}
+.btn-ghost{background:transparent;border:1.5px solid var(--line-strong);color:var(--ink)}
+.btn-ghost:active{transform:scale(.96)}
+
+.chip{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:999px;
+  border:1px solid var(--line);background:var(--card);
+  font-size:12px;font-weight:500;color:var(--ink-2);white-space:nowrap;
+}
+.chip.on{color:var(--accent);border-color:var(--accent);background:var(--accent-soft)}
+.chip.gold{color:var(--gold);border-color:rgba(169,125,44,.4);background:var(--gold-soft)}
+
+.tag{
+  display:inline-block;padding:3px 9px;border-radius:6px;
+  font-size:11px;font-weight:600;letter-spacing:.08em;
+  background:var(--ink);color:var(--paper);
+}
+.tag.pri-1{background:var(--accent);color:#fff}
+.tag.pri-2{background:var(--gold);color:#fff}
+.tag.pri-3{background:var(--paper-2);color:var(--ink-2);border:1px solid var(--line)}
+
+.stars{color:#d9a441;letter-spacing:2.5px;font-size:13px;line-height:1}
+.stars .off{color:#d8ccb2}
+
+/* —— 通用卡片 —— */
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  box-shadow:var(--shadow-1);
+}
+/* =========================================================
+   02 · 外壳：进度条 / 顶栏 / 全屏导航 / Hero / 日期坞 / 返回顶部
+   ========================================================= */
+
+/* —— 阅读进度条（JS 帧插值，指数平滑=非线性） —— */
+#prog{
+  position:fixed;top:0;left:0;height:3px;width:0;z-index:90;
+  background:linear-gradient(90deg,var(--accent),var(--gold));
+  border-radius:0 3px 3px 0;
+}
+
+/* —— 顶栏 —— */
+.hdr{
+  position:fixed;top:0;left:0;right:0;z-index:60;height:var(--header-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 var(--pad);
+  transition:background .7s var(--ease-soft),box-shadow .7s var(--ease-soft),backdrop-filter .7s var(--ease-soft);
+}
+.hdr.scrolled{
+  background:rgba(243,236,221,.88);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  box-shadow:0 1px 0 var(--line);
+}
+.brand{line-height:1.15;color:var(--ink)}
+.brand .cn{display:block;font-family:var(--serif);font-weight:700;font-size:16px;letter-spacing:.3em}
+.brand .en{display:block;font-size:8.5px;font-weight:500;letter-spacing:.36em;color:var(--ink-3);margin-top:4px}
+.menu-btn{
+  position:relative;width:44px;height:44px;border-radius:50%;
+  display:grid;place-items:center;
+}
+.menu-btn span{
+  position:absolute;width:20px;height:1.8px;background:var(--ink);border-radius:2px;
+  transition:transform .55s var(--ease-spring),opacity .4s var(--ease-out),top .55s var(--ease-spring);
+}
+.menu-btn span:nth-child(1){top:18px}
+.menu-btn span:nth-child(2){top:26px}
+.menu-btn.open span:nth-child(1){top:22px;transform:rotate(45deg)}
+.menu-btn.open span:nth-child(2){top:22px;transform:rotate(-45deg)}
+
+/* —— 全屏导航 —— */
+.nav{
+  position:fixed;inset:0;z-index:70;
+  background:rgba(243,236,221,.97);
+  -webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:calc(var(--header-h) + 18px) var(--pad) 46px;
+  opacity:0;visibility:hidden;
+  transition:opacity .55s var(--ease-soft),visibility 0s .55s;
+}
+.nav.open{opacity:1;visibility:visible;transition:opacity .55s var(--ease-soft)}
+.nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;max-width:var(--wrap);margin:0 auto;width:100%}
+.nav a{
+  position:relative;display:flex;align-items:baseline;gap:10px;
+  padding:11px 4px;font-family:var(--serif);font-weight:600;font-size:19px;
+  letter-spacing:.1em;color:var(--ink);
+  opacity:0;transform:translateY(24px);
+  transition:opacity .6s var(--ease-out),transform .8s var(--ease-spring),color .3s;
+  transition-delay:calc(var(--i) * .045s + .1s);
+}
+.nav.open a{opacity:1;transform:none}
+.nav a .no{font-family:var(--sans);font-size:10px;color:var(--accent);letter-spacing:.1em}
+.nav a:active{color:var(--accent)}
+.nav-foot{
+  margin:26px auto 0;max-width:var(--wrap);width:100%;
+  font-size:11px;letter-spacing:.3em;color:var(--ink-3);
+  display:flex;justify-content:space-between;align-items:center;
+  opacity:0;transition:opacity .8s var(--ease-out) .5s;
+}
+.nav.open .nav-foot{opacity:1}
+
+/* —— Hero —— */
+#hero{
+  position:relative;min-height:100svh;overflow:hidden;
+  display:flex;flex-direction:column;justify-content:center;
+  background:linear-gradient(180deg,#faf2de 0%,#f4e5c2 42%,#eed9ac 74%,#e9d6a8 100%);
+}
+.hero-sun{
+  position:absolute;top:8vh;right:12vw;width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle at 42% 40%,#fdf3d7 0%,#f3dcab 48%,rgba(243,220,171,0) 72%);
+  animation:heroSun 14s var(--ease-inout) infinite alternate;
+}
+.hero-moon{
+  position:absolute;top:11vh;left:12vw;width:26px;height:26px;border-radius:50%;
+  background:radial-gradient(circle at 62% 36%,#fff6e0,#e8d6a8 70%);
+  opacity:.75;box-shadow:0 0 26px 6px rgba(255,246,224,.55);
+  animation:heroMoon 11s var(--ease-inout) infinite alternate;
+}
+/* 云 */
+.cloud{position:absolute;pointer-events:none;opacity:.8;filter:blur(1.5px)}
+.c1{top:16vh;left:-20vw;width:150px;animation:cloudDrift 72s var(--ease-inout) infinite alternate}
+.c2{top:30vh;left:-30vw;width:110px;opacity:.55;animation:cloudDrift 96s var(--ease-inout) infinite alternate-reverse}
+.c3{top:48vh;left:-15vw;width:180px;opacity:.4;animation:cloudDrift 120s var(--ease-inout) infinite alternate}
+/* 飞鸟 */
+.bird{position:absolute;pointer-events:none}
+.b1{top:22vh;animation:birdFly 58s var(--ease-inout) infinite}
+.b2{top:34vh;animation:birdFly 74s var(--ease-inout) .6s infinite reverse}
+/* 山峦（三层视差层） */
+.mtn{position:absolute;left:-6%;right:-6%;bottom:0;pointer-events:none;will-change:transform}
+.mtn svg{width:100%;height:auto;display:block}
+.mtn-far{opacity:.95;z-index:2}
+.mtn-mid{z-index:3}
+.mtn-near{z-index:4}
+.mtn-mist{
+  position:absolute;left:-10%;right:-10%;bottom:16%;z-index:5;height:70px;
+  background:linear-gradient(180deg,transparent,rgba(255,252,244,.55),transparent);
+  filter:blur(10px);animation:mistSway 13s var(--ease-inout) infinite alternate;
+}
+.hero-village{position:absolute;left:8%;bottom:0;z-index:6;opacity:.9;animation:heroFloat 7s var(--ease-inout) infinite alternate}
+.hero-content{
+  position:relative;z-index:8;text-align:center;
+  padding:calc(var(--header-h) + 40px) var(--pad) 34vh;
+  color:var(--ink);
+}
+.hero-top{
+  font-size:11.5px;letter-spacing:.44em;color:var(--ink-2);margin-bottom:18px;
+  opacity:0;transform:translateY(22px);
+  animation:heroIn 1.1s var(--ease-spring) .15s forwards;
+}
+.hero-title{
+  font-size:clamp(40px,12vw,64px);line-height:1.16;font-weight:900;
+  letter-spacing:.14em;color:var(--ink);
+  text-shadow:0 2px 18px rgba(255,250,238,.5);
+}
+.hero-title .line{display:block;opacity:0;transform:translateY(56px)}
+.hero-title .line:nth-child(1){animation:heroIn 1.2s var(--ease-spring) .3s forwards}
+.hero-title .line:nth-child(3){animation:heroIn 1.2s var(--ease-spring) .45s forwards}
+.hero-x{
+  display:block;font-size:.42em;font-weight:400;color:var(--gold);
+  letter-spacing:.5em;margin:4px 0;opacity:0;
+  animation:heroX 1.4s var(--ease-spring) .6s forwards;
+}
+.hero-sub{
+  margin-top:16px;font-size:12.5px;letter-spacing:.34em;color:var(--ink-2);
+  opacity:0;transform:translateY(22px);
+  animation:heroIn 1.1s var(--ease-spring) .75s forwards;
+}
+.hero-quote{
+  margin:26px auto 0;max-width:330px;
+  font-family:var(--serif);font-size:15px;line-height:2;color:var(--ink);
+  opacity:0;transform:translateY(26px);
+  animation:heroIn 1.2s var(--ease-spring) .95s forwards;
+}
+.hero-quote::before,.hero-quote::after{content:"· · ·";display:block;font-size:9px;letter-spacing:.6em;color:var(--gold);margin:6px 0}
+.hero-chips{
+  margin-top:22px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+  opacity:0;transform:translateY(22px);
+  animation:heroIn 1.1s var(--ease-spring) 1.15s forwards;
+}
+.hero-chips .chip{background:rgba(255,252,244,.6);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.hero-vert{
+  position:absolute;right:8px;top:50%;z-index:9;transform:translateY(-50%);
+  writing-mode:vertical-rl;font-family:var(--serif);font-size:12px;
+  letter-spacing:.6em;color:rgba(42,36,27,.4);opacity:0;
+  animation:heroIn 1.4s var(--ease-out) 1.5s forwards;
+}
+.hero-scroll{
+  position:absolute;left:50%;bottom:20px;transform:translateX(-50%);z-index:10;
+  text-align:center;font-size:11px;letter-spacing:.5em;color:rgba(255,252,244,.92);
+  opacity:0;animation:heroIn 1.2s var(--ease-out) 1.6s forwards;
+}
+.scroll-line{
+  display:block;width:1.5px;height:34px;margin:10px auto 0;overflow:hidden;
+  background:rgba(255,252,244,.25);position:relative;
+}
+.scroll-line::after{
+  content:"";position:absolute;left:0;top:-40%;width:100%;height:40%;
+  background:rgba(255,252,244,.95);
+  animation:scrollDrop 2.1s var(--ease-out) infinite;
+}
+
+/* —— 日期坞（底部快速跳转） —— */
+.dock{
+  position:fixed;left:50%;bottom:16px;transform:translate(-50%,150%);z-index:50;
+  display:flex;gap:4px;align-items:center;
+  background:rgba(42,36,27,.93);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  padding:7px 9px;border-radius:999px;
+  box-shadow:var(--shadow-ink);
+  transition:transform .8s var(--ease-spring);
+}
+.dock.show{transform:translate(-50%,0)}
+.dock button{
+  width:36px;height:36px;border-radius:50%;
+  display:grid;place-items:center;flex:none;
+  font-family:var(--serif);font-size:12.5px;font-weight:600;color:#e9ddc4;
+  transition:background .5s var(--ease-soft),transform .55s var(--ease-spring),color .5s var(--ease-soft);
+}
+.dock button small{display:block;font-family:var(--sans);font-size:8px;letter-spacing:.05em;margin-top:1px;opacity:.75;font-weight:500}
+.dock button.on{background:var(--gold);color:#2a241b;transform:scale(1.14)}
+.dock button.on small{opacity:1}
+.dock button:active{transform:scale(.9)}
+
+/* —— 返回顶部 —— */
+#top{
+  position:fixed;right:14px;bottom:84px;z-index:49;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--card);border:1px solid var(--line-strong);
+  box-shadow:var(--shadow-1);display:grid;place-items:center;color:var(--ink);
+  opacity:0;visibility:hidden;transform:translateY(16px) scale(.8);
+  transition:opacity .5s var(--ease-out),transform .6s var(--ease-spring),visibility 0s .5s;
+}
+#top.show{opacity:1;visibility:visible;transform:none;transition:opacity .5s var(--ease-out),transform .6s var(--ease-spring)}
+#top:active{transform:scale(.88)}
+/* =========================================================
+   03 · 组件：翻转卡 / 每日模块 / 时间轴 / 笔记 / 账单 /
+        标签页 / 手风琴 / 决策 / 停损线 / 清单 / 预算 / 表格
+   ========================================================= */
+
+/* —— 3D 翻转卡（通用） —— */
+.flip{position:relative;perspective:1400px}
+.flip-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform 1s var(--ease-spring);
+}
+.flip.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-face{
+  position:absolute;inset:0;
+  -webkit-backface-visibility:hidden;backface-visibility:hidden;
+  overflow:hidden;
+}
+.flip-back{transform:rotateY(180deg)}
+
+/* —— 行程总览横滑 —— */
+.ov-wrap{overflow-x:auto;scroll-snap-type:x mandatory;padding:6px var(--pad) 20px;scrollbar-width:none}
+.ov-wrap::-webkit-scrollbar{display:none}
+.ov-track{display:flex;gap:13px;width:max-content;padding-right:var(--pad)}
+.ov{
+  flex:none;width:78%;max-width:340px;scroll-snap-align:center;
+  border-radius:var(--r-lg);background:var(--card);
+  border:1px solid var(--line);box-shadow:var(--shadow-1);
+  padding:20px;cursor:pointer;position:relative;overflow:hidden;
+  transition:transform .55s var(--ease-spring),box-shadow .6s var(--ease-soft),border-color .5s var(--ease-soft);
+}
+.ov:active{transform:scale(.965)}
+.ov .ov-no{
+  position:absolute;right:-4px;top:-20px;font-family:var(--serif);
+  font-size:92px;font-weight:900;color:var(--acc-soft,var(--accent-soft));line-height:1;
+}
+.ov-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ov-date{font-family:var(--serif);font-weight:700;font-size:17px;letter-spacing:.04em}
+.ov-date small{display:block;font-family:var(--sans);font-weight:500;font-size:10.5px;color:var(--ink-3);letter-spacing:.14em;margin-top:2px}
+.ov-scene{margin-top:14px;font-family:var(--serif);font-weight:600;font-size:15.5px;line-height:1.6;color:var(--ink)}
+.ov-kw{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.ov-foot{margin-top:16px;padding-top:13px;border-top:1px dashed var(--line);font-size:12px;line-height:1.8;color:var(--ink-2)}
+.ov-foot b{color:var(--ink);font-weight:600}
+.ov-go{margin-top:14px;font-size:12px;color:var(--acc,var(--accent));font-weight:600;display:inline-flex;align-items:center;gap:6px}
+
+/* —— 每日模块 —— */
+.day-mod{margin-bottom:30px;position:relative}
+.day-flip{height:290px;cursor:pointer}
+.day-front{
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:22px;border-radius:var(--r-lg);
+  background:linear-gradient(158deg,var(--card) 0%,#f7f0e1 55%,#f1e7d2 100%);
+  border:1px solid var(--line);box-shadow:var(--shadow-1);
+}
+.day-front .df-bg{
+  position:absolute;right:-10px;bottom:-34px;font-family:var(--serif);
+  font-size:150px;font-weight:900;line-height:1;
+  color:var(--acc-soft,var(--accent-soft));pointer-events:none;user-select:none;
+}
+.day-front-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.day-no{
+  flex:none;width:52px;height:52px;border-radius:16px;
+  background:var(--acc,var(--accent));color:#fff;
+  display:grid;place-items:center;font-family:var(--serif);font-weight:700;
+  font-size:22px;box-shadow:0 8px 18px -8px var(--acc,var(--accent));
+}
+.day-no small{font-family:var(--sans);font-size:9px;font-weight:500;display:block;line-height:1;margin-top:3px;letter-spacing:.18em;opacity:.85}
+.day-head-tx{flex:1;text-align:right}
+.day-title{font-family:var(--serif);font-weight:700;font-size:22px;line-height:1.3;letter-spacing:.05em}
+.day-sub{font-size:12px;color:var(--ink-2);margin-top:3px;letter-spacing:.08em}
+.day-front-mid{margin-top:6px}
+.day-theme{font-size:13px;color:var(--ink-2);line-height:1.8}
+.day-theme b{color:var(--acc,var(--accent));font-weight:600}
+.day-kw{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.day-front-foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+.day-hint{font-size:11px;color:var(--ink-3);letter-spacing:.22em;display:inline-flex;align-items:center;gap:7px}
+.day-hint .h-arr{transition:transform .6s var(--ease-spring);display:inline-block}
+.flip.flipped .day-hint .h-arr{transform:rotate(180deg)}
+/* 背面 */
+.day-back{
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding:20px 20px 15px;border-radius:var(--r-lg);
+  background:linear-gradient(158deg,#332c22,#241f18);
+  color:#e9dcc2;overflow-y:auto;
+}
+.day-back .db-t{font-family:var(--serif);font-weight:700;font-size:16px;letter-spacing:.06em;color:#f0e5cd}
+.day-back .db-t em{color:#e3b968;font-style:normal}
+.day-back p{font-size:12px;line-height:1.8;color:#cdc0a4;margin-top:8px}
+.day-back p b{color:#f0e5cd}
+.day-back .db-k{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.day-back .db-k .chip{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#d8cbb0;padding:5px 9px;font-size:11px;border-radius:8px}
+.day-open-btn{
+  margin-top:14px;width:100%;padding:12px 10px;border-radius:999px;
+  background:linear-gradient(135deg,#c49a45,var(--gold));color:#33291a;
+  font-weight:700;font-size:13px;letter-spacing:.14em;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform .55s var(--ease-spring),box-shadow .5s var(--ease-soft);
+}
+.day-open-btn:active{transform:scale(.96)}
+/* 展开的身体 */
+.day-body{
+  display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows 1s var(--ease-soft);
+}
+.day-mod.open .day-body{grid-template-rows:1fr}
+.day-body-in{overflow:hidden;min-height:0}
+.day-body-pad{padding:22px 0 6px}
+
+/* 日计划标签（Day5 A/B） */
+.plan-tabs{display:flex;gap:8px;margin-bottom:18px}
+.plan-tab{
+  flex:1;padding:11px 10px;border-radius:var(--r);
+  border:1.5px solid var(--line);background:var(--card);
+  text-align:center;font-family:var(--serif);font-weight:600;font-size:13.5px;color:var(--ink-2);
+  transition:all .5s var(--ease-soft);
+}
+.plan-tab small{display:block;font-family:var(--sans);font-weight:500;font-size:10.5px;color:var(--ink-3);margin-top:3px}
+.plan-tab.on{background:var(--acc,var(--accent));border-color:var(--acc,var(--accent));color:#fff}
+.plan-tab.on small{color:rgba(255,255,255,.8)}
+.plan-panel{display:none}
+.plan-panel.on{display:block;animation:panelIn .7s var(--ease-spring)}
+
+/* —— 时间轴 —— */
+.tl{position:relative;padding-left:58px;margin-bottom:6px}
+.tl::before{
+  content:"";position:absolute;left:19px;top:30px;bottom:-18px;width:2px;
+  background:linear-gradient(180deg,var(--acc-soft,var(--accent-soft)),rgba(143,130,107,.15));
+}
+.tl:last-child::before{display:none}
+.tl-node{
+  position:absolute;left:11px;top:26px;width:17px;height:17px;border-radius:50%;
+  background:var(--card);border:2.5px solid var(--acc,var(--accent));
+  box-shadow:0 0 0 5px var(--acc-soft,var(--accent-soft));
+  transition:transform .6s var(--ease-spring),background .5s var(--ease-soft);
+}
+.tl.open .tl-node{transform:scale(1.25);background:var(--acc,var(--accent))}
+.tl-head{
+  width:100%;display:flex;align-items:center;gap:11px;
+  padding:15px 12px 15px 0;text-align:left;
+}
+.tl-time{
+  flex:none;font-family:var(--sans);font-weight:600;font-size:12px;
+  letter-spacing:.02em;color:var(--acc,var(--accent));white-space:nowrap;
+  background:var(--acc-soft,var(--accent-soft));
+  border:1px solid color-mix(in srgb,var(--acc,var(--accent)) 30%,transparent);
+  padding:6px 10px;border-radius:9px;
+}
+.tl-title{flex:1;font-family:var(--serif);font-weight:600;font-size:15px;line-height:1.55;color:var(--ink)}
+.tl-arr{
+  flex:none;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid var(--line);color:var(--ink-2);font-size:16px;
+  transition:transform .6s var(--ease-spring),background .5s var(--ease-soft),color .5s;
+}
+.tl.open .tl-arr{transform:rotate(45deg);background:var(--acc,var(--accent));border-color:var(--acc,var(--accent));color:#fff}
+.tl-detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows .8s var(--ease-soft)}
+.tl.open .tl-detail{grid-template-rows:1fr}
+.tl-detail-in{overflow:hidden;min-height:0}
+.tl-detail-pad{padding:2px 0 18px;border-bottom:1px dashed var(--line)}
+.df{display:flex;gap:12px;margin-top:13px}
+.df-ic{
+  flex:none;width:34px;height:34px;border-radius:10px;
+  display:grid;place-items:center;background:var(--acc-soft,var(--accent-soft));
+  color:var(--acc,var(--accent));
+}
+.df-tx{flex:1;font-size:13px;line-height:1.9;color:var(--ink-2)}
+.df-tx em{
+  display:inline-block;font-style:normal;font-weight:600;font-size:11px;
+  letter-spacing:.18em;color:var(--ink-3);margin-bottom:3px;
+}
+.df-tx p{color:var(--ink-2)}
+
+/* —— 笔记卡 —— */
+.note{
+  margin-top:18px;border-radius:var(--r-lg);
+  border:1px solid var(--line);border-left:3.5px solid var(--acc,var(--accent));
+  background:var(--card);box-shadow:var(--shadow-1);padding:17px 18px;
+}
+.note-h{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.note-ic{
+  width:34px;height:34px;flex:none;border-radius:10px;display:grid;place-items:center;
+  background:var(--acc-soft,var(--accent-soft));color:var(--acc,var(--accent));
+}
+.note-h h4{font-size:15.5px;letter-spacing:.05em;color:var(--ink)}
+.note-h small{display:block;font-family:var(--sans);font-size:10px;color:var(--ink-3);letter-spacing:.14em;margin-top:2px}
+.note p{font-size:13.5px;line-height:2;color:var(--ink-2)}
+.note p+p{margin-top:8px}
+.note ul li{
+  position:relative;padding-left:18px;margin:8px 0;
+  font-size:13.5px;line-height:1.95;color:var(--ink-2);
+}
+.note ul li::before{
+  content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;border-radius:50%;
+  background:var(--acc,var(--accent));
+}
+.note .kw-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+
+/* —— 支出卡 —— */
+.cost{margin-top:20px;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow-1)}
+.cost-h{
+  display:flex;align-items:center;gap:10px;padding:14px 18px;
+  background:linear-gradient(135deg,var(--paper-2),#f0e6cf);
+  font-family:var(--serif);font-weight:700;font-size:15px;letter-spacing:.06em;color:var(--ink);
+}
+.cost-h svg{color:var(--gold)}
+.cost-b{padding:6px 18px 14px;background:var(--card)}
+.bd-row{display:flex;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px dashed var(--line);font-size:13px;color:var(--ink-2)}
+.bd-row:last-child{border-bottom:0}
+.bd-row .bd-v{color:var(--ink);font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.bd-total{
+  margin:16px 18px 18px;border-radius:var(--r);
+  background:linear-gradient(135deg,#37301f,#4c3f28);
+  color:#f0e5cd;padding:15px 18px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  box-shadow:var(--shadow-2);
+}
+.bd-total .bd-t-l{font-size:12.5px;letter-spacing:.12em;color:#d9cbae}
+.bd-total .bd-t-r{font-family:var(--serif);font-weight:700;font-size:19px;color:#ecc27a;white-space:nowrap}
+
+/* —— 标签页（摄影） —— */
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 0 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:none;padding:9px 17px;border-radius:999px;
+  border:1px solid var(--line);background:var(--card);
+  font-size:13px;font-weight:600;color:var(--ink-2);letter-spacing:.1em;
+  transition:all .5s var(--ease-soft);
+}
+.tab.on{background:var(--ink);border-color:var(--ink);color:var(--paper);transform:translateY(-1px)}
+.panel{display:none}
+.panel.on{display:block;animation:panelIn .7s var(--ease-spring)}
+.p-row{
+  display:flex;gap:14px;padding:16px;margin-bottom:12px;
+  border:1px solid var(--line);border-radius:var(--r);background:var(--card);
+  animation:pRowIn .8s var(--ease-spring) both;
+}
+.p-row:nth-child(2){animation-delay:.06s}
+.p-row:nth-child(3){animation-delay:.12s}
+.p-row:nth-child(4){animation-delay:.18s}
+.p-row:nth-child(5){animation-delay:.24s}
+.p-idx{
+  flex:none;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+  background:var(--blue-soft);color:var(--blue);
+  font-family:var(--serif);font-weight:700;font-size:15px;
+}
+.p-row h5{font-size:14.5px;letter-spacing:.04em;margin-bottom:5px}
+.p-row .p-kw{font-size:11.5px;color:var(--gold);font-weight:600;letter-spacing:.1em;margin-bottom:5px}
+.p-row p{font-size:12.5px;line-height:1.85;color:var(--ink-2)}
+
+/* —— 手风琴（美食/备选/通用） —— */
+.acc{
+  border:1px solid var(--line);border-radius:var(--r);background:var(--card);
+  overflow:hidden;margin-bottom:12px;box-shadow:var(--shadow-1);
+  transition:border-color .5s var(--ease-soft);
+}
+.acc.open{border-color:color-mix(in srgb,var(--acc,var(--accent)) 40%,var(--line))}
+.acc-head{
+  width:100%;display:flex;align-items:center;gap:13px;
+  padding:16px 16px;text-align:left;
+}
+.acc-ic{
+  flex:none;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+  background:var(--acc-soft,var(--accent-soft));color:var(--acc,var(--accent));
+}
+.acc-tx{flex:1;min-width:0}
+.acc-tx h5{font-size:15px;letter-spacing:.05em;color:var(--ink);line-height:1.5}
+.acc-tx small{display:block;font-family:var(--sans);font-size:11px;color:var(--ink-3);margin-top:3px;line-height:1.6}
+.acc-arr{
+  flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);
+  display:grid;place-items:center;color:var(--ink-2);font-size:15px;
+  transition:transform .6s var(--ease-spring),background .5s var(--ease-soft),color .5s;
+}
+.acc.open .acc-arr{transform:rotate(45deg);background:var(--acc,var(--accent));border-color:var(--acc,var(--accent));color:#fff}
+.acc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .8s var(--ease-soft)}
+.acc.open .acc-body{grid-template-rows:1fr}
+.acc-body-in{overflow:hidden;min-height:0}
+.acc-pad{padding:2px 16px 17px;border-top:1px dashed var(--line);margin-top:2px;padding-top:14px}
+.acc-pad p{font-size:13.5px;line-height:2;color:var(--ink-2)}
+.acc-pad ul li{
+  position:relative;padding-left:18px;margin:7px 0;font-size:13.5px;line-height:1.95;color:var(--ink-2);
+}
+.acc-pad ul li::before{content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--acc,var(--accent))}
+.acc-pad .sub-h{font-weight:600;color:var(--ink);font-size:13px;margin:12px 0 4px;display:flex;align-items:center;gap:8px}
+.acc-pad .sub-h::before{content:"";width:14px;height:2px;background:var(--gold);border-radius:2px}
+.acc-pad .stars{margin-bottom:4px}
+
+/* —— 决策场景（香格里拉日期） —— */
+.scn-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.scn-opt{
+  position:relative;border:1.5px solid var(--line);border-radius:var(--r);
+  background:var(--card);padding:13px 14px;text-align:left;
+  font-size:12.5px;line-height:1.7;color:var(--ink-2);
+  transition:border-color .5s var(--ease-soft),transform .55s var(--ease-spring),box-shadow .5s var(--ease-soft),background .5s;
+}
+.scn-opt b{display:block;font-family:var(--serif);font-size:13.5px;color:var(--ink);margin-bottom:3px;letter-spacing:.03em}
+.scn-opt.on{border-color:var(--accent);background:#fffaf2;box-shadow:var(--shadow-1);transform:translateY(-2px)}
+.scn-opt.on b{color:var(--accent)}
+.scn-opt .scn-ck{
+  position:absolute;top:9px;right:10px;width:20px;height:20px;border-radius:50%;
+  border:1.5px solid var(--line-strong);display:grid;place-items:center;color:transparent;
+  font-size:12px;transition:all .5s var(--ease-spring);
+}
+.scn-opt.on .scn-ck{background:var(--accent);border-color:var(--accent);color:#fff}
+.scn-ck svg{
+  width:12px;height:12px;opacity:0;
+  transform:scale(.3) rotate(-50deg);
+  transition:opacity .35s var(--ease-out),transform .6s var(--ease-spring);
+}
+.scn-opt.on .scn-ck svg{opacity:1;transform:scale(1) rotate(0)}
+.scn-res{
+  margin-top:14px;border-radius:var(--r-lg);
+  background:linear-gradient(135deg,#37301f,#4c3f28);color:#f0e5cd;
+  padding:18px 20px;box-shadow:var(--shadow-2);position:relative;overflow:hidden;
+}
+.scn-res .sr-tag{display:inline-block;font-size:10.5px;letter-spacing:.3em;color:#ecc27a;margin-bottom:8px}
+.scn-res p{font-family:var(--serif);font-size:14.5px;line-height:2;color:#f0e5cd}
+.scn-res.pop{animation:resPop .8s var(--ease-spring)}
+
+/* —— 停损线 —— */
+.sl-item{
+  display:flex;gap:13px;align-items:flex-start;padding:13px 15px;
+  border:1px solid var(--line);border-radius:var(--r);background:var(--card);
+  margin-bottom:10px;cursor:pointer;width:100%;text-align:left;
+  transition:opacity .5s var(--ease-soft),background .5s var(--ease-soft),transform .5s var(--ease-spring);
+}
+.sl-item:active{transform:scale(.98)}
+.sl-check{
+  flex:none;width:24px;height:24px;margin-top:2px;border-radius:50%;
+  border:2px solid var(--line-strong);display:grid;place-items:center;color:transparent;
+  transition:all .55s var(--ease-spring);
+}
+.sl-item.ack{opacity:.52;background:var(--paper-2);border-color:var(--line)}
+.sl-item.ack .sl-check{background:var(--jade);border-color:var(--jade);color:#fff}
+.sl-check svg{
+  width:15px;height:15px;opacity:0;
+  transform:scale(.3) rotate(-50deg);
+  transition:opacity .35s var(--ease-out),transform .6s var(--ease-spring);
+}
+.sl-item.ack .sl-check svg{opacity:1;transform:scale(1) rotate(0)}
+.sl-tx{flex:1;font-size:13px;line-height:1.85;color:var(--ink-2)}
+.sl-tx b{color:var(--ink);font-weight:600}
+.sl-item.ack .sl-tx{text-decoration:line-through;text-decoration-color:rgba(42,36,27,.35)}
+
+/* —— 清单（预约/出发） —— */
+.ck-cat{margin-bottom:22px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow-1);overflow:hidden}
+.ck-cat-h{display:flex;align-items:center;gap:12px;padding:15px 18px;background:linear-gradient(135deg,var(--paper-2),#f1e7d0)}
+.ck-cat-h .ck-t{flex:1}
+.ck-cat-h h4{font-size:15.5px;letter-spacing:.05em}
+.ck-cat-h small{display:block;font-family:var(--sans);font-size:11px;color:var(--ink-3);margin-top:3px}
+.ck-bar{width:74px;height:6px;border-radius:4px;background:rgba(42,36,27,.12);overflow:hidden}
+.ck-bar i{display:block;height:100%;width:0;border-radius:4px;background:linear-gradient(90deg,var(--jade),#7fae8f);transition:width .9s var(--ease-out)}
+.ck-num{font-family:var(--serif);font-weight:700;font-size:15px;color:var(--jade);min-width:38px;text-align:right}
+.ck-item{display:flex;gap:12px;align-items:flex-start;padding:12px 18px;border-top:1px dashed var(--line);cursor:pointer}
+.ck-box{
+  flex:none;width:22px;height:22px;margin-top:3px;border-radius:7px;
+  border:2px solid var(--line-strong);display:grid;place-items:center;color:transparent;
+  transition:all .5s var(--ease-spring);
+}
+.ck-item.done .ck-box{background:var(--jade);border-color:var(--jade);color:#fff;transform:scale(1.05)}
+.ck-box svg{
+  width:14px;height:14px;opacity:0;
+  transform:scale(.3) rotate(-50deg);
+  transition:opacity .35s var(--ease-out),transform .6s var(--ease-spring);
+}
+.ck-item.done .ck-box svg{opacity:1;transform:scale(1) rotate(0)}
+.ck-txt{flex:1;font-size:13.5px;line-height:1.85;color:var(--ink-2)}
+.ck-txt b{color:var(--ink);font-weight:600}
+.ck-item.done .ck-txt{color:var(--ink-3)}
+.ck-item.done .ck-txt b{color:var(--ink-3);text-decoration:line-through;text-decoration-color:rgba(42,36,27,.3)}
+.ck-badge{flex:none;margin-top:2px}
+
+/* —— 预算 —— */
+.bd-head-opt{display:flex;gap:8px;margin:14px 0 4px}
+.bd-head-opt .btn{padding:9px 16px;font-size:12.5px}
+.bd-head-opt .btn.on{background:var(--accent);color:#fff}
+.bd-totals{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.bd-tcard{
+  border-radius:var(--r-lg);padding:16px 18px;position:relative;overflow:hidden;
+  transition:transform .55s var(--ease-spring),box-shadow .5s var(--ease-soft),opacity .5s;
+}
+.bd-tcard.off{opacity:.38;transform:scale(.97)}
+.bd-tcard .bt-t{font-size:11px;letter-spacing:.22em;color:#d9cbae;display:block;margin-bottom:8px}
+.bd-tcard .bt-n{font-family:var(--serif);font-weight:700;font-size:20px;color:#ecc27a;white-space:nowrap}
+.bd-tcard .bt-s{display:block;font-size:10.5px;color:rgba(240,229,205,.6);margin-top:6px;line-height:1.7}
+.bd-tcard.main{background:linear-gradient(135deg,#37301f,#4c3f28);box-shadow:var(--shadow-2)}
+.bd-tcard.sub{background:linear-gradient(135deg,#4d4433,#5d523b);box-shadow:var(--shadow-1)}
+
+/* —— 文化预习翻卡 —— */
+.culture-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.culture{height:268px;cursor:pointer}
+.cult-face{
+  display:flex;flex-direction:column;padding:22px;border-radius:var(--r-lg);
+  border:1px solid var(--line);box-shadow:var(--shadow-1);
+}
+.cult-front{background:linear-gradient(160deg,var(--card),#f4ecda);justify-content:space-between}
+.cult-no{font-family:var(--serif);font-weight:900;font-size:64px;line-height:1;color:var(--acc-soft,var(--accent-soft))}
+.cult-name{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:.1em;margin-top:8px}
+.cult-en{font-size:10.5px;letter-spacing:.3em;color:var(--ink-3);margin-top:5px}
+.cult-kw{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.cult-back{background:linear-gradient(160deg,#332c22,#241f18);color:#e9dcc2;overflow-y:auto}
+.cult-back h4{font-size:15px;color:#f0e5cd;margin-bottom:8px;letter-spacing:.08em}
+.cult-back p{font-size:12.5px;line-height:2;color:#cdc0a4}
+.cult-back p+p{margin-top:8px}
+.cult-back .kw-row{margin-top:12px}
+
+/* —— 交通 —— */
+.tr-card{margin-bottom:14px;border-radius:var(--r-lg);border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow-1);padding:18px;position:relative;overflow:hidden}
+.tr-card .tr-no{position:absolute;right:14px;top:10px;font-family:var(--serif);font-weight:900;font-size:56px;color:var(--blue-soft);line-height:1}
+.tr-line{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.tr-dot{width:10px;height:10px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+.tr-line h4{font-size:15.5px;letter-spacing:.04em}
+.tr-scheme{font-size:12.5px;color:var(--ink-2);margin:8px 0 4px}
+.tr-scheme b{color:var(--blue);font-family:var(--serif);font-size:13.5px}
+.tr-rule{font-size:12px;color:var(--ink-3);line-height:1.9}
+.tr-rule em{color:var(--accent);font-style:normal;font-weight:600}
+.tr-list li{
+  display:flex;gap:13px;padding:13px 16px;margin-bottom:10px;
+  border:1px solid var(--line);border-radius:var(--r);background:var(--card);
+  font-size:13px;line-height:1.9;color:var(--ink-2);
+}
+.tr-list li b{color:var(--ink);flex:none}
+.tr-list .tr-ic{flex:none;width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:var(--blue-soft);color:var(--blue)}
+
+/* —— 安全规则 —— */
+.safe-grid{display:grid;grid-template-columns:1fr;gap:14px}
+.safe-card{border-radius:var(--r-lg);border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow-1);padding:19px}
+.safe-card .sc-h{display:flex;align-items:center;gap:11px;margin-bottom:13px}
+.safe-card .sc-ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--acc-soft,var(--accent-soft));color:var(--acc,var(--accent))}
+.safe-card h4{font-size:16px;letter-spacing:.06em}
+.safe-card h4 small{display:block;font-family:var(--sans);font-size:10px;color:var(--ink-3);letter-spacing:.16em;margin-top:3px;font-weight:500}
+.safe-card ol{counter-reset:s}
+.safe-card ol li{
+  counter-increment:s;position:relative;padding-left:36px;margin:10px 0;
+  font-size:13.5px;line-height:1.95;color:var(--ink-2);
+}
+.safe-card ol li::before{
+  content:counter(s,decimal-leading-zero);
+  position:absolute;left:0;top:3px;width:24px;height:24px;border-radius:8px;
+  background:var(--gold-soft);color:var(--gold);
+  font-family:var(--serif);font-size:11px;font-weight:700;
+  display:grid;place-items:center;letter-spacing:0;
+}
+.safe-card ul li{
+  position:relative;padding-left:18px;margin:8px 0;font-size:13.5px;line-height:1.95;color:var(--ink-2);
+}
+.safe-card ul li::before{content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--acc,var(--accent))}
+
+/* —— 表格 —— */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--card);box-shadow:var(--shadow-1);-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px}
+.tbl th{
+  background:var(--ink);color:#efe4cc;padding:11px 13px;text-align:left;
+  font-weight:600;font-size:12px;letter-spacing:.08em;white-space:nowrap;
+}
+.tbl td{padding:11px 13px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.8;color:var(--ink-2)}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td b{color:var(--ink)}
+.tbl .td-k{color:var(--accent);font-weight:600;white-space:nowrap}
+.tbl tr:hover td{background:#faf5e9}
+
+/* —— 结语 footer —— */
+footer{
+  position:relative;margin-top:80px;overflow:hidden;
+  background:linear-gradient(180deg,#2e281e,#1d1812);
+  color:#d9cbae;text-align:center;
+  padding:64px var(--pad) 128px;
+}
+footer::before{
+  content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);
+  width:1.5px;height:46px;
+  background:linear-gradient(180deg,var(--gold),transparent);
+}
+.f-quote{font-family:var(--serif);font-size:21px;line-height:2.1;letter-spacing:.1em;color:#f0e5cd}
+.f-quote em{color:#e3b968;font-style:normal}
+.f-quote-sub{margin-top:14px;font-size:12px;letter-spacing:.3em;color:#b3a586}
+.f-mtn{margin:26px auto 0;opacity:.9;max-width:340px}
+.f-meta{margin-top:22px;font-size:10.5px;letter-spacing:.22em;color:#8f826b;line-height:2.2}
+.f-seal{
+  margin:26px auto 0;width:74px;height:74px;border-radius:50%;
+  border:1.5px solid rgba(227,185,104,.55);display:grid;place-items:center;
+  font-family:var(--serif);font-size:15px;letter-spacing:.22em;color:#e3b968;
+  writing-mode:vertical-rl;padding:8px 0;
+  box-shadow:inset 0 0 0 5px rgba(227,185,104,.08);
+  animation:sealPulse 6s var(--ease-inout) infinite alternate;
+}
+/* =========================================================
+   04 · 关键帧动画 / 响应式 / 减弱动效
+   所有动画均为非线性：cubic-bezier 关键帧或缓动过渡。
+   ========================================================= */
+
+/* —— Hero 入场（弹性） —— */
+@keyframes heroIn{
+  from{opacity:0;transform:translateY(46px);filter:blur(4px)}
+  to{opacity:1;transform:none;filter:blur(0)}
+}
+@keyframes heroX{
+  0%{opacity:0;transform:scale(.4) rotate(-120deg)}
+  55%{opacity:1;transform:scale(1.18) rotate(6deg)}
+  100%{opacity:1;transform:scale(1) rotate(0)}
+}
+@keyframes heroSun{from{transform:translate(0,0) scale(1)}to{transform:translate(-14px,10px) scale(1.06)}}
+@keyframes heroMoon{from{transform:translate(0,0)}to{transform:translate(10px,-8px)}}
+@keyframes heroFloat{from{transform:translateY(0)}to{transform:translateY(-7px)}}
+
+/* —— 云朵漂移（不同路径深度） —— */
+@keyframes cloudDrift{
+  0%{transform:translateX(0) scale(1)}
+  30%{transform:translateX(24vw) scale(1.06)}
+  55%{transform:translateX(52vw) scale(.96)}
+  100%{transform:translateX(110vw) scale(1.04)}
+}
+@keyframes mistSway{from{transform:translateX(-14px)}to{transform:translateX(14px)}}
+
+/* —— 飞鸟 —— */
+@keyframes birdFly{
+  0%{transform:translate(-6vw,0) scale(.7);opacity:0}
+  8%{opacity:.85}
+  46%{transform:translate(46vw,-6vh) scale(1)}
+  88%{opacity:.6}
+  100%{transform:translate(106vw,-2vh) scale(.9);opacity:0}
+}
+
+/* —— 滚动提示 —— */
+@keyframes scrollDrop{
+  0%{top:-45%}
+  100%{top:110%}
+}
+
+/* —— 面板入场 —— */
+@keyframes panelIn{
+  from{opacity:0;transform:translateY(22px) scale(.985)}
+  to{opacity:1;transform:none}
+}
+@keyframes pRowIn{
+  from{opacity:0;transform:translateX(-22px)}
+  to{opacity:1;transform:none}
+}
+@keyframes resPop{
+  0%{opacity:.25;transform:scale(.96) translateY(10px)}
+  60%{opacity:1;transform:scale(1.015) translateY(-1px)}
+  100%{opacity:1;transform:none}
+}
+
+/* —— 印章呼吸 —— */
+@keyframes sealPulse{
+  from{box-shadow:inset 0 0 0 5px rgba(227,185,104,.08),0 0 0 0 rgba(227,185,104,0)}
+  to{box-shadow:inset 0 0 0 5px rgba(227,185,104,.16),0 0 26px 2px rgba(227,185,104,.14)}
+}
+
+/* —— 通用微动效 —— */
+@keyframes floatY{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+
+/* =========================================================
+   响应式：≥720px（平板/桌面微调）
+   ========================================================= */
+@media (min-width:720px){
+  :root{--pad:34px}
+  .sec{padding:72px 0 8px}
+  .sec-title{font-size:36px}
+  .hero-vert{right:22px}
+  .ov{width:44%;max-width:400px}
+  .day-flip{height:310px}
+  .culture-grid{grid-template-columns:repeat(3,1fr);gap:16px}
+  .culture{height:300px}
+  .safe-grid{grid-template-columns:1fr 1fr}
+  .scn-grid{grid-template-columns:repeat(4,1fr)}
+  .hero-title{font-size:72px}
+  .hero-quote{max-width:420px;font-size:16px}
+  #top{bottom:96px;right:22px}
+}
+
+/* =========================================================
+   减弱动效（系统偏好）
+   ========================================================= */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal,.nav a,.nav-foot,.hero-content>*{opacity:1!important;transform:none!important}
+}
+/* =========================================================
+   05 · 补充组件（理念翻卡 / 徽章微调）
+   ========================================================= */
+
+/* —— 旅行理念翻转卡 —— */
+.prin{height:172px;cursor:pointer}
+.prin-face{
+  border-radius:var(--r);padding:18px 16px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  overflow-y:auto;
+}
+.prin-front{background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow-1)}
+.prin-front .prin-no{font-family:var(--serif);font-weight:900;font-size:27px;color:var(--gold);line-height:1}
+.prin-front h4{font-size:16px;letter-spacing:.1em;margin-top:8px;color:var(--ink)}
+.prin-front .prin-hint{font-size:10px;color:var(--ink-3);letter-spacing:.22em;margin-top:12px}
+.prin-back{background:linear-gradient(160deg,#332c22,#241f18)}
+.prin-back p{font-size:12.5px;line-height:2;color:#cdc0a4}
+
+/* —— 清单徽章 —— */
+.ck-badge{flex:none;display:inline-block;margin-left:4px}
+.ck-badge .tag{display:inline-block}
+
+/* —— 预算玩法切换按钮 —— */
+.bd-head-opt .btn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* —— 收藏夹式备忘小字 —— */
+.hero-top,.f-meta{text-transform:none}
+
+</style>
+</head>
+<body>
+
+<!-- 阅读进度 -->
+<div id="prog"></div>
+
+<!-- ============ 顶栏 ============ -->
+<header class="hdr" id="hdr">
+  <div class="brand">
+    <span class="cn">慢行滇西</span>
+    <span class="en">LIJIANG · SHANGRI-LA</span>
+  </div>
+  <button class="menu-btn" id="menuBtn" aria-label="打开导航">
+    <span></span><span></span>
+  </button>
+</header>
+
+<!-- ============ 全屏导航 ============ -->
+<nav class="nav" id="nav" aria-hidden="true">
+  <div class="nav-grid" id="navGrid"></div>
+  <div class="nav-foot">
+    <span>2026 · 08.06—08.11</span>
+    <span>成都 → 丽江 → 香格里拉</span>
+  </div>
+</nav>
+
+<!-- ============ Hero ============ -->
+<section id="hero">
+  <div class="hero-sun"></div>
+  <div class="hero-moon"></div>
+  <svg class="cloud c1" viewBox="0 0 120 40" fill="none"><ellipse cx="34" cy="26" rx="30" ry="12" fill="#fff8ea" opacity=".9"/><ellipse cx="64" cy="20" rx="26" ry="11" fill="#fffdf4" opacity=".95"/><ellipse cx="92" cy="27" rx="22" ry="9" fill="#fff8ea" opacity=".85"/></svg>
+  <svg class="cloud c2" viewBox="0 0 120 40" fill="none"><ellipse cx="40" cy="26" rx="28" ry="10" fill="#fff8ea"/><ellipse cx="68" cy="22" rx="22" ry="9" fill="#fffdf4"/><ellipse cx="90" cy="27" rx="20" ry="8" fill="#fff8ea"/></svg>
+  <svg class="cloud c3" viewBox="0 0 140 44" fill="none"><ellipse cx="36" cy="28" rx="34" ry="12" fill="#fffdf4" opacity=".8"/><ellipse cx="72" cy="22" rx="30" ry="12" fill="#fffef8" opacity=".9"/><ellipse cx="106" cy="28" rx="28" ry="10" fill="#fffdf4" opacity=".8"/></svg>
+
+  <svg class="bird b1" width="26" height="12" viewBox="0 0 26 12" fill="none"><path d="M1 6 Q6.5 1 13 6 T25 6" stroke="#5b4f3d" stroke-width="1.6" stroke-linecap="round"/></svg>
+  <svg class="bird b2" width="20" height="10" viewBox="0 0 20 10" fill="none"><path d="M1 5 Q5 1 10 5 T19 5" stroke="#5b4f3d" stroke-width="1.4" stroke-linecap="round"/></svg>
+
+  <!-- 远山 -->
+  <div class="mtn mtn-far" data-parallax="0.06">
+    <svg viewBox="0 0 800 260" preserveAspectRatio="none">
+      <path d="M0,260 L0,148 Q95,116 170,130 Q245,144 320,108 Q400,70 470,118 Q540,162 610,120 Q690,76 800,110 L800,260 Z" fill="#c9bda2"/>
+      <path d="M320,108 Q360,88 400,70 Q440,52 470,118 Q430,98 400,96 Q368,94 320,108 Z" fill="#efe7d2" opacity=".85"/>
+      <path d="M610,120 Q650,98 690,76 Q732,54 800,110 L800,132 Q730,92 690,106 Q652,120 610,120 Z" fill="#efe7d2" opacity=".7"/>
+    </svg>
+  </div>
+  <!-- 中山 -->
+  <div class="mtn mtn-mid" data-parallax="0.12">
+    <svg viewBox="0 0 800 260" preserveAspectRatio="none">
+      <path d="M0,260 L0,180 Q80,150 150,166 Q230,182 300,140 Q370,100 450,152 Q540,208 620,160 Q700,116 800,150 L800,260 Z" fill="#a99a7d"/>
+      <path d="M300,140 Q335,120 370,100 Q398,84 450,152 Q410,130 370,124 Q336,120 300,140 Z" fill="#f2ead4" opacity=".9"/>
+      <path d="M620,160 Q660,138 700,116 Q728,102 800,150 L800,168 Q740,126 700,142 Q662,158 620,160 Z" fill="#f2ead4" opacity=".75"/>
+    </svg>
+  </div>
+  <!-- 近山 -->
+  <div class="mtn mtn-near" data-parallax="0.2">
+    <svg viewBox="0 0 800 260" preserveAspectRatio="none">
+      <path d="M0,260 L0,214 Q90,186 170,200 Q260,214 330,186 Q400,158 470,196 Q560,244 660,210 Q730,188 800,206 L800,260 Z" fill="#85745c"/>
+      <path d="M330,186 Q365,170 400,158 Q435,146 470,196 Q430,180 400,178 Q368,176 330,186 Z" fill="#e9e0c9" opacity=".8"/>
+    </svg>
+    <svg class="hero-village" viewBox="0 0 220 70" fill="none">
+      <g fill="#5f513d">
+        <path d="M10 70 L10 46 L30 34 L50 46 L50 70 Z"/>
+        <path d="M8 42 Q20 30 32 42 Z" fill="#6e5f48"/>
+        <path d="M60 70 L60 52 L74 44 L88 52 L88 70 Z"/>
+        <path d="M58 50 Q74 40 90 50 Z" fill="#6e5f48"/>
+        <path d="M104 70 L104 58 L114 52 L124 58 L124 70 Z"/>
+        <path d="M102 56 Q114 48 126 56 Z" fill="#6e5f48"/>
+        <rect x="134" y="56" width="20" height="14" fill="#5f513d"/>
+        <path d="M132 56 Q144 44 156 56 Z" fill="#6e5f48"/>
+      </g>
+      <g fill="#4c4232">
+        <rect x="174" y="54" width="14" height="16"/>
+        <path d="M172 54 Q181 44 190 54 Z"/>
+        <rect x="196" y="60" width="12" height="10"/>
+        <path d="M195 60 Q202 53 209 60 Z"/>
+      </g>
+    </svg>
+  </div>
+  <div class="mtn-mist"></div>
+
+  <div class="hero-content">
+    <p class="hero-top">2026 · 08.06 — 08.11 · 成都出发</p>
+    <h1 class="hero-title">
+      <span class="line">丽江</span>
+      <span class="hero-x">×</span>
+      <span class="line">香格里拉</span>
+    </h1>
+    <p class="hero-sub">六天五晚 · 双人慢度假</p>
+    <div class="hero-quote">慢下来不是减少旅行内容<br>而是让每一段体验真正留下来</div>
+    <div class="hero-chips">
+      <span class="chip">不换酒店</span>
+      <span class="chip">每天一个主场景</span>
+      <span class="chip">雪山随缘</span>
+      <span class="chip">给余裕留位置</span>
+    </div>
+  </div>
+
+  <span class="hero-vert">慢行滇西</span>
+  <div class="hero-scroll">向下 · 慢慢走<span class="scroll-line"></span></div>
+</section>
+<!-- ============ 旅行理念 ============ -->
+<section class="sec" id="philosophy">
+  <div class="sec-head reveal">
+    <span class="sec-en">The Way of Slow</span>
+    <h2 class="sec-title">这趟旅行真正想要的是什么</h2>
+    <p class="sec-desc">这不是一条「六天尽量塞满景点」的路线，而是一趟以舒服、浪漫和有余裕为完成标准的双人慢度假。最好的完成标准不是「每个点都去了」，而是两个人在古城、雪山、高原文化和酒店时光之间，始终保持轻松、舒服和有余裕。</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="wrap" id="prinGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px"></div>
+  <div class="wrap">
+    <div class="quote-ink reveal">最好的完成标准不是「每个点都去了」，而是两个人在古城、雪山、高原文化和酒店时光之间，始终保持<em>轻松、舒服和有余裕</em>。</div>
+  </div>
+</section>
+
+<!-- ============ 酒店 ============ -->
+<section class="sec" id="hotel">
+  <div class="sec-head reveal">
+    <span class="sec-en">The Courtyard</span>
+    <h2 class="sec-title">花间府 · 植梦</h2>
+    <p class="sec-desc">五晚不换酒店，把百年纳西院落当作旅行主场。</p>
+    <div class="sec-rule"></div>
+  </div>
+
+  <div class="wrap">
+    <div class="note reveal" style="--acc:var(--gold)">
+      <div class="note-h">
+        <span class="note-ic">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/></svg>
+        </span>
+        <h4>百年纳西老宅 · 四合五天井<small>花间堂品牌早期院落之一 · 绍恒堂和氏老宅改造</small></h4>
+      </div>
+      <p>主院、侧院、廊道和大小天井共同组织采光、通风与家庭生活。木门窗、雕饰、瓦檐、石阶和花木形成层层递进的空间——从热闹街巷走进院门后，声音和节奏会自然慢下来。这种「外面是古城，里面是家」的反差，正是六天行程的固定主场。</p>
+    </div>
+
+    <div class="note reveal" style="--acc:var(--jade)">
+      <div class="note-h">
+        <span class="note-ic">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        </span>
+        <h4>酒店在本次行程中的五个功能<small>院子不只是住的地方</small></h4>
+      </div>
+      <ul>
+        <li><b>抵达后的适应空间</b>——第一晚不急着打卡，先在院子和房间内恢复长途动车的疲劳。</li>
+        <li><b>每日节奏的中点</b>——古城日和恢复日都保留午休，不连续暴走。</li>
+        <li><b>雨天备用目的地</b>——遇阵雨、大雨或身体疲劳，直接把下午改为庭院喝茶、拍照、看书和休息。</li>
+        <li><b>情侣摄影场景</b>——木门、回廊、花窗、檐下和雨后石板，适合拍安静、生活感较强的照片。</li>
+        <li><b>行李与交通协调点</b>——出发前确认古城外围最近下车点、行李接应方式、两笔订单连续入住与早出晚归安排。</li>
+      </ul>
+    </div>
+
+    <div class="note reveal" style="--acc:var(--blue)">
+      <div class="note-h">
+        <span class="note-ic">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg>
+        </span>
+        <h4>建议提前向酒店确认<small>以管家回复为准，出发前 3—7 天处理</small></h4>
+      </div>
+      <ul>
+        <li>两笔订单是否已备注为<b>同一房间连续入住</b>；</li>
+        <li>丽江站到古城后，最方便的<b>下车点和管家接应位置</b>；</li>
+        <li>大件行李能否协助转运、是否收费；</li>
+        <li>早餐时间、下午茶或其他住客活动是否正常提供；</li>
+        <li>8/9 或 8/10 早上前往丽江站能否协助叫车；</li>
+        <li>8/11 退房和行李送到古城外上车点的安排。</li>
+      </ul>
+      <p style="margin-top:10px;font-size:12px;color:var(--ink-3)">※ 早餐、下午茶、迷你吧、汉服体验、伴手礼等具体服务来自现有资料，可能随房型、日期和运营调整，均以酒店管家最终确认为准。</p>
+    </div>
+  </div>
+</section>
+<!-- ============ 行程总览 ============ -->
+<section class="sec" id="overview">
+  <div class="sec-head reveal">
+    <span class="sec-en">Itinerary</span>
+    <h2 class="sec-title">六日行程总览</h2>
+    <p class="sec-desc">左右滑动查看每一天 · 点击卡片直达当日详情</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="ov-wrap reveal">
+    <div class="ov-track" id="ovTrack"></div>
+  </div>
+  <div class="wrap">
+    <p class="reveal" style="font-size:12.5px;color:var(--ink-3);line-height:1.9">
+      ★ 强度：1—5 颗星（香格里拉日 ★★★☆☆ 为全程最重的一天）· 全程不换酒店，每天只设一个主场景。
+    </p>
+  </div>
+</section>
+
+<!-- ============ 两个关键决定 ============ -->
+<section class="sec" id="decisions">
+  <div class="sec-head reveal">
+    <span class="sec-en">Two Decisions</span>
+    <h2 class="sec-title">出发前的两个关键决定</h2>
+    <p class="sec-desc">慢度假的从容，来自提前把「怎么办」想清楚。这两件事在出发前就要确定下来。</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="wrap">
+    <div class="note reveal" style="--acc:var(--accent)">
+      <div class="note-h">
+        <span class="note-ic">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>
+        </span>
+        <h4>决定一 · 香格里拉最终选哪一天<small>主计划 8/9（周日）前往；8/10 为天气和身体状态备用日 · 8/8 傍晚最终判断</small></h4>
+      </div>
+      <div class="scn-grid" id="scnGrid"></div>
+      <div class="scn-res" id="scnRes">
+        <span class="sr-tag">当前决定</span>
+        <p id="scnResTx"></p>
+      </div>
+      <p style="margin-top:14px;font-size:12px;color:var(--ink-3)">※ 购票原则：不要为了等天气拖到前一天才抢票。先以 8/9 为默认日期，开售时锁定合适车次；需要调整时再按 12306 当时的改签、退票规则处理。</p>
+    </div>
+
+    <div class="note reveal" style="--acc:var(--jade)">
+      <div class="note-h">
+        <span class="note-ic">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+        </span>
+        <h4>决定二 · 每天的「停损线」<small>任一情况出现 → 当天立即改为酒店休息、古城咖啡或短距离吃饭</small></h4>
+      </div>
+      <div id="slBox"></div>
+      <p style="margin-top:12px;font-size:12.5px;color:var(--ink-3)">这不是浪费行程。对慢度假来说，<b>舒服地放弃一个可选点，比疲惫地完成它更重要</b>。</p>
+    </div>
+  </div>
+</section>
+<!-- ============ 每日详细行程 ============ -->
+<section class="sec" id="days">
+  <div class="sec-head reveal">
+    <span class="sec-en">Day by Day</span>
+    <h2 class="sec-title">每日详细行程</h2>
+    <p class="sec-desc">点击日期卡翻转查看核心取舍，再点「展开全天时间轴」查看每一段安排的详细内容。</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="wrap" id="daysRoot"></div>
+</section>
+
+<!-- ============ 三地文化预习 ============ -->
+<section class="sec" id="culture">
+  <div class="sec-head reveal">
+    <span class="sec-en">Culture Primer</span>
+    <h2 class="sec-title">三地文化预习</h2>
+    <p class="sec-desc">在路上之前，先在心里种下三条线索——点击卡片翻转，看看每一地最值得记住的东西。</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="wrap">
+    <div class="culture-grid" id="cultureGrid"></div>
+  </div>
+</section>
+<!-- ============ 摄影氛围指南 ============ -->
+<section class="sec" id="photo">
+  <div class="sec-head reveal">
+    <span class="sec-en">Photo Notes</span>
+    <h2 class="sec-title">摄影氛围指南</h2>
+    <p class="sec-desc">不为打卡而拍，为「留下来的画面」而拍。切换地点查看各自的场景与建议。</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="wrap">
+    <div class="tabs reveal" id="photoTabs"></div>
+    <div id="photoPanel"></div>
+  </div>
+</section>
+
+<!-- ============ 美食清单 ============ -->
+<section class="sec" id="food">
+  <div class="sec-head reveal">
+    <span class="sec-en">Taste of the Trip</span>
+    <h2 class="sec-title">美食清单与点餐攻略</h2>
+    <p class="sec-desc">这份清单的作用是帮现场快速决定「吃什么」，而不是要求逐项打卡。所有店铺名称仅作搜索候选，出发前请在地图平台查看最近 1—3 个月评价并确认营业状态。</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="wrap" id="foodRoot"></div>
+</section>
+<!-- ============ 备选景点及替换攻略 ============ -->
+<section class="sec" id="alt">
+  <div class="sec-head reveal">
+    <span class="sec-en">Plan B</span>
+    <h2 class="sec-title">备选景点及替换攻略</h2>
+    <p class="sec-desc">所有备选点遵循「替换，不叠加」的原则。主计划完成得轻松时，不需要因为还有体力就继续增加景点；只有原景点因天气、人流、身体状态或临时关闭无法执行时，才从清单中选一个替代。</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="wrap" id="altRoot"></div>
+  <div class="wrap">
+    <div class="note reveal" style="--acc:var(--gold)">
+      <div class="note-h">
+        <span class="note-ic">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M9 4v16"/></svg>
+        </span>
+        <h4>备选景点快速决策表<small>遇到问题时，按这张表现场决定</small></h4>
+      </div>
+      <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>原计划出现的问题</th><th>首选替代</th><th>次选替代</th><th>不建议做法</th></tr></thead>
+          <tbody>
+            <tr><td class="td-k">Day 2 上午想增加人文内容</td><td>木府</td><td>文化场馆</td><td>木府＋万古楼＋黑龙潭全走</td></tr>
+            <tr><td class="td-k">Day 2 下午阴天但无雨</td><td>黑龙潭</td><td>古城巷弄</td><td>为雪山反复等待</td></tr>
+            <tr><td class="td-k">Day 2 持续下雨</td><td>酒店庭院／咖啡馆</td><td>文化场馆</td><td>雨中爬狮子山</td></tr>
+            <tr><td class="td-k">白沙人流过大</td><td>束河古镇</td><td>酒店慢度假</td><td>白沙、束河同日叠加</td></tr>
+            <tr><td class="td-k">白沙下雨</td><td>白沙壁画＋咖啡</td><td>束河或酒店</td><td>连换多家露台追雪山</td></tr>
+            <tr><td class="td-k">香格里拉天气普通</td><td>独克宗室内妆造＋短逛</td><td>提前返程</td><td>临时增加普达措、松赞林寺</td></tr>
+            <tr><td class="td-k">独克宗行程提前结束</td><td>坐下休息</td><td>条件全满足时短停纳帕海</td><td>为「来都来了」环湖</td></tr>
+            <tr><td class="td-k">Day 5 状态很好</td><td>玉湖村半日</td><td>忠义市场＋咖啡</td><td>玉湖、白沙、束河连走</td></tr>
+            <tr><td class="td-k">Day 5 疲劳或下雨</td><td>酒店慢度假</td><td>忠义市场短逛</td><td>临时寻找远距离景点</td></tr>
+            <tr><td class="td-k">任一方不想继续</td><td>回酒店休息</td><td>就近吃饭／咖啡</td><td>以已付款或攻略清单强迫继续</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:12px;font-size:12.5px;color:var(--ink-3)">最终判断标准始终是：<b>这个备选能不能让当天更舒服</b>，而不是能不能让景点数量变得更多。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 交通与现场操作 ============ -->
+<section class="sec" id="transport">
+  <div class="sec-head reveal">
+    <span class="sec-en">Getting Around</span>
+    <h2 class="sec-title">交通与现场操作</h2>
+    <p class="sec-desc">大交通只在 12306 购票；市内以网约车／正规出租车为主，古城内以步行为主。</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="wrap" id="transportRoot"></div>
+</section>
+<!-- ============ 穿搭·天气·高原安全 ============ -->
+<section class="sec" id="safety">
+  <div class="sec-head reveal">
+    <span class="sec-en">Be Safe, Stay Easy</span>
+    <h2 class="sec-title">穿搭 · 天气 · 高原安全</h2>
+    <p class="sec-desc">8 月是雨季，丽江紫外线强、昼夜温差大，香格里拉更冷更干。核心不是带很多厚衣服，而是方便增减。</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="wrap" id="safetyRoot"></div>
+</section>
+
+<!-- ============ 预约与核验清单 ============ -->
+<section class="sec" id="bookings">
+  <div class="sec-head reveal">
+    <span class="sec-en">Bookings</span>
+    <h2 class="sec-title">预约与核验清单</h2>
+    <p class="sec-desc">出发前逐项核对，勾选状态会保存在本机浏览器中，路上随时回来查看。</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="wrap" id="bookingRoot"></div>
+</section>
+
+<!-- ============ 双人预算 ============ -->
+<section class="sec" id="budget">
+  <div class="sec-head reveal">
+    <span class="sec-en">Budget</span>
+    <h2 class="sec-title">双人参考预算</h2>
+    <p class="sec-desc">不含已支付酒店。切换两种玩法查看对应区间，数字以实际支付为准。</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="wrap" id="budgetRoot"></div>
+</section>
+
+<!-- ============ 出发清单 ============ -->
+<section class="sec" id="packing">
+  <div class="sec-head reveal">
+    <span class="sec-en">Packing List</span>
+    <h2 class="sec-title">出发清单</h2>
+    <p class="sec-desc">收拾行李时对照勾选，勾选状态自动保存。全部完成后，就可以慢慢出发了。</p>
+    <div class="sec-rule"></div>
+  </div>
+  <div class="wrap">
+    <div id="packRoot"></div>
+    <p style="text-align:center;margin-top:6px">
+      <button class="btn btn-ghost" id="packReset" style="padding:9px 20px;font-size:12.5px">清空所有勾选</button>
+    </p>
+  </div>
+</section>
+<!-- ============ 结语 ============ -->
+<footer id="end">
+  <p class="f-quote reveal">这趟旅行最珍贵的部分，不一定是完整露出的玉龙雪山、最热门的咖啡馆或一次塞满景点的香格里拉，<br>而是两个人能在一座百年院落里睡到自然醒，在白沙的屋顶看云慢慢移动，<br>在独克宗穿着藏服走过石板路，<em>也能在下雨或疲惫时坦然回酒店休息</em>。</p>
+  <p class="f-quote-sub reveal" style="margin-top:22px">慢下来不是减少旅行内容，而是让每一段体验真正留下来。</p>
+
+  <svg class="f-mtn reveal" viewBox="0 0 340 90" fill="none">
+    <path d="M0,90 L0,56 Q40,44 74,52 Q110,60 138,38 Q166,16 196,42 Q226,68 258,50 Q288,34 340,52 L340,90 Z" fill="#4a4130" opacity=".9"/>
+    <path d="M138,38 Q152,27 166,16 Q180,5 196,42 Q180,28 166,26 Q152,24 138,38 Z" fill="#6b5f44" opacity=".8"/>
+    <path d="M258,50 Q278,42 298,34 Q318,26 340,52 L340,60 Q314,38 296,46 Q278,54 258,50 Z" fill="#6b5f44" opacity=".7"/>
+  </svg>
+
+  <div class="f-seal reveal">慢行滇西</div>
+
+  <p class="f-meta reveal">
+    成都出发 · 2026.08.06 — 08.11 · 情侣二人<br>
+    丽江古城花间府·植梦 连续入住 5 晚<br>
+    「以丽江为主场、香格里拉为重点体验 · 全程不换酒店 · 每天只设一个主场景」
+  </p>
+</footer>
+
+<!-- ============ 日期坞 / 返回顶部 ============ -->
+<div class="dock" id="dayDock" aria-hidden="true"></div>
+<button id="top" aria-label="返回顶部">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+/* =========================================================
+   慢行滇西 · 数据文件 1/3 —— 每日行程 Day 1—2
+   时间轴字段：t=时间节点 h=主题 d=详细安排 f=餐饮内容 m=交通方式 n=备注
+   ========================================================= */
+window.LJ = window.LJ || {};
+
+LJ.DAYS = [
+/* ---------------- Day 1 · 成都→丽江 ---------------- */
+{
+  n:1, date:'8/6', weekday:'周四', en:'Arrival',
+  title:'成都 → 丽江', sub:'抵达与第一夜',
+  theme:'动车＋酒店＋五一街近距离散步', intensity:1,
+  keywords:['动车','入住','清淡晚餐'],
+  tradeoff:'抵达后不正式打卡', backup:'吃饭后直接回酒店',
+  goal:'完成长距离移动、顺利入住、适应丽江海拔，不立刻进入“打卡模式”。',
+  outfit:[
+    '动车上以舒适分层为主：短袖或薄长袖、宽松长裤、轻薄外套',
+    '穿方便走石板路的防滑运动鞋，不穿硬底凉鞋或高跟鞋',
+    '随身包放身份证、充电宝、充电线、纸巾、水、少量零食和常用药',
+    '长途乘车注意颈部和腰部支撑，每隔一段时间活动一下'
+  ],
+  accent:'#7c6a4e', accentSoft:'rgba(124,106,78,.12)',
+  plans:[{ label:'主时间轴', sub:'抵达 · 入住 · 熟悉环境', timeline:[
+    {t:'07:20—08:00', h:'抵达成都南站',
+     d:'完成进站、安检和候车。进入候车区后先确认电子车票中的日期、车次、检票口和座位号，再去洗手间、接饮用水，把身份证和手机放在随手可取的位置。',
+     f:'早餐尽量在上车前解决，选择包子、鸡蛋、粥、面条等温热且容易消化的食物，不空腹开始九小时左右的长途动车。可另准备水果、面包或坚果，但不需要购买太多零食。',
+     m:'地铁／网约车→步行进站',
+     n:'建议至少提前 40—60 分钟到站。大件行李提前贴好识别标记；贵重物品、药品、充电设备和证件放入随身包，不全部塞进行李箱。'},
+    {t:'08:33（参考）', h:'乘 D239 出发',
+     d:'乘坐 D239 从成都南前往丽江。上车后先安置行李、确认充电口和洗手间位置，再把颈枕、外套、水和耳机拿出来，避免途中反复翻箱。',
+     f:'前半程可以休息、看下载好的电影或整理旅行清单；沿途经过地形变化明显的区域时，从车窗观察川西南至滇西北景观逐渐变化。今天的重点是保存体力。',
+     m:'动车',
+     n:'车次、发车时间和到达时间只以 12306 订单为准。每隔一至两小时起身活动几分钟；手机不用一直开高亮导航，给抵达后的叫车和联系酒店留足电量。'},
+    {t:'12:00 左右', h:'动车上午餐与补水',
+     d:'在动车上解决午餐，同时补水和短暂活动。吃完后把垃圾及时整理，去车厢连接处站立或缓慢走动几分钟，再回座位休息。',
+     f:'午餐以米饭、面条、鸡蛋、清淡肉类和水果为主，避免连续吃辣条、卤味、甜饮或过油盒饭。抵达前保持胃部舒服、不过饱，比“在车上吃得丰富”更重要。',
+     m:'动车内',
+     n:'不一次性喝大量冰饮，也不靠浓咖啡硬撑精神。容易晕车或肠胃敏感时，优先吃自己熟悉的食物，并把常用药放在座位旁而不是行李架上。'},
+    {t:'17:46（参考）', h:'抵达丽江站',
+     d:'列车进站前 15—20 分钟开始收拾物品，检查座位缝隙、充电口、行李架和小桌板；下车后先在人流较少的位置停一下，确认两件行李和随身包都在。',
+     f:'丽江城区海拔约 2400 米，刚下车时不奔跑、不抢车、不急着拖行李快走。先感受气温和是否下雨，再联系司机和酒店管家，确认古城外围的具体接应点。',
+     m:'动车→步行出站',
+     n:'若出现轻微疲劳或心跳较快，先坐下喝几口水，不需要紧张；若有明显胸闷、持续头痛或走路不稳，优先寻求现场工作人员帮助。不接受站外陌生人临时推荐的包车、住宿或旅行团。'},
+    {t:'17:55—18:30', h:'前往丽江古城',
+     d:'从丽江站乘正规网约车或出租车前往丽江古城外围。上车后把酒店名称、文治巷位置以及管家确认的下车点同时发给司机，临近古城时再次联系管家准备接应。',
+     f:'沿途以抵达和休息为主，不临时增加“先去某个观景台”或“顺路吃网红店”。如果窗外天气不错，可以简单看看城市与远山。',
+     m:'网约车／正规出租车',
+     n:'古城内部多数道路不能让普通车辆直达酒店门口，最终会有一段石板路步行。行李较重时务必提前确认酒店能否接送或协助转运；下车前检查后备箱，不让司机提前结束订单。'},
+    {t:'18:30—19:10', h:'入住花间府·植梦',
+     d:'由管家接应进入酒店，办理入住并完成第一次院落熟悉。先核对两笔订单是否连续、房型是否一致，再了解早餐地点、进出路线、前台／管家联系方式和行李服务。',
+     f:'进入房间后先放下行李、洗手、换舒适衣物，简单检查热水、空调／地暖、插座和网络。可以在主院或茶桌边坐十几分钟，喝温水、吃少量水果，让身体切换到休息状态。',
+     m:'古城外围下车→管家接应／步行',
+     n:'暂时不要展开全部行李，也不用一入住就拍完整套酒店照片。先把身份证、返程票、常用药和第二天要穿的衣服归位；向管家询问最近的清淡餐厅和夜间回酒店最清楚的主街路线。'},
+    {t:'19:20—20:10', h:'第一顿丽江晚餐',
+     d:'在文治巷或五一街附近吃第一顿丽江晚餐。选择步行距离短、不需要长时间排队的餐厅，坐下后先点热水或热汤，再决定主食和菜品。',
+     f:'推荐小锅米线、汽锅鸡、清炒时蔬、清汤类纳西家常菜或一荤一素的简单组合。两个人只需点够吃的分量，暂不挑战大份腊排骨、野生菌火锅和烈酒。',
+     m:'步行',
+     n:'候选店铺只作为方向，现场以近期营业状态、卫生、座位和等候时间为准。若排队超过 20—30 分钟，直接换附近有座位的店，不让第一晚变成排队任务。'},
+    {t:'20:10—20:50', h:'文治巷 · 五一街夜走',
+     d:'饭后只在文治巷、五一街和酒店附近熟悉环境。认清酒店院门、最近的主街、便利店、早餐方向和容易辨认的路口，最多走到一两个安静水巷后原路返回。',
+     f:'夜间可以拍暖色灯笼、湿润石板、流水和木门，但以随手记录为主。两人并肩慢走、在桥边短停或用门框拍生活感画面即可，不进入嘈杂酒吧街，不为了夜景走到古城另一端。',
+     m:'步行',
+     n:'古城小巷相似，第一晚不要完全依赖“凭感觉抄近路”。雨后石板很滑，缩短步幅，不边走边看手机；若已经明显疲劳，晚饭后直接回酒店也完全符合计划。'},
+    {t:'21:00 后', h:'洗漱 · 补水 · 早睡',
+     d:'返回酒店洗漱、补水并准备睡觉。简单整理第二天的衣服、雨具和随身包，查看天气即可，不在睡前继续研究大量攻略。',
+     f:'可以在院子里安静坐十分钟，听雨声或喝温水，然后回房休息。今晚不吃重口夜宵、不饮酒，也不泡太久热水澡；身体需要的是稳定睡眠。',
+     m:'酒店内',
+     n:'若出现头晕、心慌、明显疲劳或睡眠困难，减少活动、保持通风和温暖；症状持续或加重时及时联系酒店工作人员。把手机、身份证和水放在床边，闹钟不必设得过早。'}
+  ]}],
+  notes:[
+    {t:'酒店初见 · 怎样感受这座院子', icon:'house',
+     list:[
+       '一个人沿回廊慢走，另一个人在廊柱后取景',
+       '用门框或花窗形成天然画框',
+       '坐在茶桌边拍手部、茶杯和木纹细节',
+       '雨后拍石板反光、屋檐滴水和暖色窗光'
+     ]},
+    {t:'第一晚餐饮候选', icon:'bowl',
+     para:'选择原则：离酒店近、热食、清淡、无需排长队。',
+     list:[
+       '主选方向：小锅米线、汽锅鸡、时蔬、清汤类家常菜',
+       '备选方向：五一街附近近期评价稳定的纳西家常菜',
+       '暂不安排：腊排骨大餐、野生菌火锅、烈酒、长时间夜宵'
+     ]},
+    {t:'今日停损线', icon:'shield',
+     para:'长途动车已经是今天的主要任务。抵达后只要完成入住和吃饭，就算圆满；任何额外散步都属于赠送内容。'}
+  ],
+  cost:{ rows:[
+    ['丽江站至古城用车','40—80 元'],
+    ['晚餐','100—180 元'],
+    ['零食／饮水','20—50 元']
+  ], total:['当日合计（不含动车和酒店）','160—310 元'] }
+},
+
+/* ---------------- Day 2 · 丽江古城慢逛＋黑龙潭 ---------------- */
+{
+  n:2, date:'8/7', weekday:'周五', en:'Old Town',
+  title:'丽江古城慢逛 ＋ 黑龙潭', sub:'高原适应日',
+  theme:'五一街—四方街外围—木府周边巷弄—酒店午休—黑龙潭', intensity:2,
+  keywords:['小巷','纳西文化','午休','雨后散步'],
+  tradeoff:'不把古城走成任务', backup:'咖啡馆／酒店休息',
+  goal:'完成高原适应日，在古城的巷弄、水系和纳西建筑中建立对丽江的第一层理解。',
+  outfit:[
+    '薄长袖衬衫或短袖＋防晒外搭，搭配薄长裤',
+    '防滑、鞋底柔软的运动鞋',
+    '帽子、太阳镜、防晒霜和折叠伞／轻便雨衣',
+    '下午可能转凉，随身带轻薄外套'
+  ],
+  accent:'#3e6b52', accentSoft:'rgba(62,107,82,.13)',
+  plans:[{ label:'主时间轴', sub:'巷弄 · 水系 · 午休 · 黑龙潭', timeline:[
+    {t:'09:00—10:00', h:'早餐与出门判断',
+     d:'自然醒后到酒店早餐区用餐，先吃热食和主食，再根据当时阳光、降雨和身体状态决定具体出门时间。早餐后不要立刻离开，可在院子里喝茶或坐十几分钟。',
+     f:'可优先尝试米线、粥、鸡蛋、纳西粑粑等温热食物，配少量水果和饮品。今天需要步行但不是暴走日，早餐吃到七八分饱即可。',
+     m:'酒店内步行',
+     n:'早餐品类和供应以当天酒店为准。出门前完成防晒，随身带薄外套、雨具、水和纸巾；鞋带重新系紧，避免在湿石板上松脱。'},
+    {t:'10:15—10:40', h:'沿五一街水系走向小石桥',
+     d:'从文治巷出发，沿五一街水系缓慢走向小石桥一带。第一段不急着导航景点，而是观察早晨店铺开门、居民出入、溪水与石桥之间的关系。',
+     f:'重点看沿水而建的民居入口、木门、屋檐、花木和石板。遇到安静支巷可以进去几十米看看，但不要连续钻入复杂小巷，保持对主街方向的判断。',
+     m:'步行',
+     n:'清晨光线较柔和，适合拍流水、门窗和街巷空镜。拍当地居民、店员或私人院落前先征得同意，不把镜头直接伸入开放的家门。'},
+    {t:'10:40—11:30', h:'小石桥及附近支巷慢逛',
+     d:'两个人采用“一段走路、一段停坐”的节奏，看到感兴趣的东巴文字、手工作坊或民居细节再短暂停留。',
+     f:'这里的体验不是购物，而是理解古城如何依水生长。可以寻找五花石板被长期行走磨出的光泽、桥边水渠、照壁和院门结构，并留意商业街与居民巷的气氛差异。',
+     m:'步行',
+     n:'不在第一家店冲动购买银饰、药材或高价茶叶。若阳光突然增强，及时戴帽子、补防晒；遇阵雨就进屋檐或正规店铺暂避，不在湿滑路面快走。'},
+    {t:'11:30—12:20', h:'四方街外围 · 木府周边巷子',
+     d:'四方街只需要短停观察空间和人流，再沿外围寻找相对安静的石巷、门洞和红墙，不把时间全部花在中心广场。',
+     f:'四方街曾承担茶马古道集市功能，可把它理解为古城的历史商业中心；木府周边则对应木氏土司的政治与建筑记忆。默认只看外围，若两人都对木氏历史感兴趣，再用可选方案进入木府。',
+     m:'步行',
+     n:'四方街人多时保管好手机和随身包。拍照优先利用门洞、墙面和巷道纵深，不在人流主通道长时间站立；今天不安排狮子山、万古楼和木府三处连走。'},
+    {t:'12:30—13:40', h:'纳西风味午餐',
+     d:'在古城内吃纳西风味午餐。入座后先休息几分钟再点菜，两个人选择 2—3 道菜和一份主食即可，避免为了“尝遍特色”点得过多。',
+     f:'可选鸡豆凉粉、银鱼炒蛋、纳西炒饭、水性杨花、老奶洋芋、汽锅鸡等较容易入口的菜。餐厅可搜索阿妈意、丽鹤饭店或同类近期评价稳定的纳西家常菜，但不绑定具体店。',
+     m:'步行',
+     n:'鸡豆凉粉口感和做法因店而异，作为尝鲜小份即可。腊排骨较咸、牦牛肉较扎实，若午餐选择这些菜，晚餐就相应清淡一些。排队过长时直接换店。'},
+    {t:'13:40—15:30', h:'回酒店午休',
+     d:'沿最熟悉、最平缓的路线回酒店午休。回房后先补水、洗手和整理照片，再拉上窗帘真正躺下休息，不把午休变成持续刷攻略。',
+     f:'午休是今天固定内容，用来躲开正午强光、恢复脚力，也给下午黑龙潭留出体力。如果上午进入了木府或步行较多，可把午休延长到 16:00。',
+     m:'步行→酒店',
+     n:'回酒店途中可买一小瓶水或水果，不顺路增加忠义市场等新地点。出现头痛、恶心或明显疲劳时，下午直接取消黑龙潭。'},
+    {t:'15:30—16:00', h:'下午判断 · 是否去黑龙潭',
+     d:'起床后根据逐小时天气、云量和身体感受做第二次判断。雨势减弱、路面安全且两人状态正常，再准备前往黑龙潭；否则启动雨天替代。',
+     f:'若云层打开，黑龙潭可能看到水面、古树与玉龙雪山方向的层次；若仍阴天，也可将重点改为园林、水面倒影和散步，不把“雪山必须露出”设为成功条件。',
+     m:'酒店内判断→打车／公交',
+     n:'出发前带好薄外套和雨具，确认黑龙潭当日开放、入园凭证及临时管理要求。相关规则以现场和官方提示为准。'},
+    {t:'16:00—17:30', h:'黑龙潭低强度散步',
+     d:'先从入口附近慢慢进入，以五孔桥、古树、水面和开阔视线为主，走到舒适的位置就停，不需要完整绕行所有区域。',
+     f:'五孔桥与水面适合形成传统山水式构图；有雪山时将雪山作为远景，没有雪山时就拍树影、倒影、桥和人物。可以在湖边坐一会儿，享受下午转凉后的安静。',
+     m:'网约车／公交＋步行',
+     n:'不翻越围栏，不靠近湿滑水边。拍照时一人看路、一人取景，避免两个人都后退找角度；遇到雷声、强风或明显降雨立即离开开阔水面区域。'},
+    {t:'18:00—19:20', h:'返回古城晚餐',
+     d:'今天可以比第一晚更正式地尝试纳西菜或小份腊排骨，但仍以坐得舒服、上菜稳定、距离酒店不远为首要条件。',
+     f:'可选小份腊排骨配蔬菜和土豆，或纳西烤肉、水性杨花、汽锅鸡等组合。候选可参考阿婆情、小喜客或同类正规餐厅；两个人不同时点火锅、烧烤和大量酒水。',
+     m:'网约车／公交→步行',
+     n:'腊排骨盐分较高，适量喝水但不要短时间灌大量饮料。若下午已经疲劳，晚餐直接选择酒店附近家常菜，不再追求景观位或热门店。'},
+    {t:'19:30—20:30', h:'夜间二选一',
+     d:'根据体力二选一：在五一街做一次夜间短逛，或找安静民谣／清吧坐 30—60 分钟。重点是放松聊天，而不是体验丽江“越夜越热闹”的全部内容。',
+     f:'民谣店以听歌和喝无酒精饮品为主；夜间散步则可拍灯笼、流水、屋檐和湿石板反光。两种活动只选其一，不再加夜宵打卡。',
+     m:'步行',
+     n:'进店前问清最低消费、演出费、座位费和饮品价格，不接受街边拉客。出现嘈杂、吸烟严重或消费说明含糊时立即离开。'},
+    {t:'21:00 左右', h:'返回酒店 · 复盘 · 早睡',
+     d:'沿主街返回酒店，洗漱、补水并复盘今天的步行量。把明天白沙要穿的拍照服装、外套和雨具提前放好。',
+     f:'回房后可以挑选少量照片，不熬夜修图。若脚底或小腿酸胀，做轻柔拉伸并早睡，为明天白沙留体力。',
+     m:'步行→酒店',
+     n:'不走地图推荐的偏僻“近路”，以今天白天已经熟悉的主街为准。若夜间降雨，优先慢走和防滑，不撑伞边走边拍。'}
+  ]}],
+  notes:[
+    {t:'文化视角 · 怎样看懂丽江古城', icon:'book',
+     para:'丽江古城并不是整齐规划的棋盘式城市，而是随山势和水系自然生长。城中的溪流、石桥、街巷和院落彼此连接，很多道路沿水展开——逛古城最合适的方式不是机械导航每个地标，而是顺着水、石板和屋檐慢慢移动。',
+     para2:'这里长期是茶马古道的重要商贸枢纽：四方街曾承担集市功能，马帮在此歇脚、交换茶叶、盐巴、药材和皮毛。今天被踩磨得发亮的五花石板，以及老街中保存的马蹄痕迹，都是这段历史最直观的线索。',
+     list:['今天不必一次学完，只要记住三个观察词'],
+     kw:['水','石板','院落']},
+    {t:'木府要不要进入', icon:'flag',
+     list:[
+       '<b>慢逛版（默认）</b>：只看木府外围、忠义坊附近和周边巷弄，把时间留给午休和黑龙潭',
+       '<b>人文版（可选替换）</b>：若两人都对木氏土司历史和建筑感兴趣，可用 60—90 分钟进入木府，同时缩短四方街和晚间活动，不再增加万古楼'
+     ]},
+    {t:'摄影氛围与机位思路', icon:'camera',
+     list:[
+       '小石桥和水巷：适合拍环境人像，人物不要正对镜头，沿水边慢走更自然',
+       '木府周边巷子：利用门洞、屋檐和石墙制造纵深',
+       '四方街外围：比中心区更容易拍到建筑层次，避开人群正面合影',
+       '黑龙潭：五孔桥、古树和水面形成传统山水式构图；完整雪山只是加分项',
+       '雨天：拍屋檐滴水、雨伞、湿润石板和咖啡馆窗边，不必取消摄影'
+     ]},
+    {t:'餐厅与咖啡候选', icon:'bowl',
+     para:'店铺只作为候选，不绑定打卡：',
+     list:[
+       '古城午餐：阿妈意纳西美食、丽鹤饭店或同类近期评价稳定的纳西家常菜',
+       '晚餐：阿婆情腊排骨、小喜客云南特色菜或同类正规餐厅',
+       '雨天咖啡：五一街附近安静庭院咖啡、茶馆；山舍·庭院咖啡可作搜索候选，需核验是否仍营业和实际位置'
+     ]},
+    {t:'雨天替代', icon:'cloud',
+     para:'取消黑龙潭，回酒店午休后选择以下一项：',
+     list:[
+       '在酒店庭院喝茶、拍雨景',
+       '找安静咖啡馆坐到傍晚',
+       '若当日开放且两人有兴趣，选择一个室内文化场馆，不额外增加远距离移动'
+     ]}
+  ],
+  cost:{ rows:[
+    ['午餐＋晚餐','260—450 元'],
+    ['黑龙潭往返用车／公交','20—80 元'],
+    ['咖啡／茶／短时民谣','60—180 元'],
+    ['木府可选门票','以当日官方价格为准']
+  ], total:['当日合计','340—710 元＋可选门票'] }
+}
+];
+/* =========================================================
+   数据文件 2/3 —— Day 3 白沙 · Day 4 香格里拉
+   ========================================================= */
+LJ.DAYS = LJ.DAYS.concat([
+
+/* ---------------- Day 3 · 白沙古镇＋雪山脚下咖啡 ---------------- */
+{
+  n:3, date:'8/8', weekday:'周六', en:'Baisha',
+  title:'白沙古镇 ＋ 雪山咖啡', sub:'村落 · 雪山 · 发呆',
+  theme:'白沙古镇', intensity:2,
+  keywords:['古镇','雪山','纳西村落','发呆'],
+  tradeoff:'不叠加第二个古镇', backup:'改束河或酒店躺平',
+  goal:'看纳西村落、看雪山方向、拍照和发呆；不再增加第二个古镇。',
+  outfit:[
+    '可准备一套更适合雪山背景的拍照服装：米白、红棕、深蓝、墨绿等与石墙和雪山对比明显的颜色',
+    '日常层仍以薄长袖／短袖＋外搭、薄长裤为主',
+    '防滑运动鞋，不建议为拍照换难走的鞋',
+    '带雨具、防晒、太阳镜和轻薄外套，露台风大时及时加衣'
+  ],
+  accent:'#4c6d94', accentSoft:'rgba(76,109,148,.13)',
+  plans:[{ label:'主时间轴', sub:'村落 · 壁画 · 屋顶咖啡', timeline:[
+    {t:'08:30—09:30', h:'早餐与雪山观察',
+     d:'自然醒后吃酒店早餐，同时从院子或天气 App 观察云层、降雨和玉龙雪山方向。早餐结束后再决定穿哪一套拍照服装，避免一早为了看雪山过度赶时间。',
+     f:'早餐仍以热食、主食和蛋白质为主，可少量尝试酒店特色。今天在白沙以慢逛和咖啡休息为主，不需要吃得太撑，也不空腹出发。',
+     m:'酒店内',
+     n:'把备用薄外套、雨具、防晒、充电宝和一小瓶水装入轻便包。拍照服装应能正常走路，鞋子仍以防滑运动鞋为主，不为了裙装搭配更换难走的鞋。'},
+    {t:'09:30—10:20', h:'前往白沙古镇',
+     d:'从古城外围乘正规网约车或出租车前往白沙古镇。上车前把目的地设为提前确认的主街入口或便于返程叫车的位置，并保存下车点。',
+     f:'沿途可观察丽江城区逐渐过渡到村落、田野和雪山脚下的空间变化。天气好时远山可能在车窗中出现，但不要求司机临时停车或绕路追景。',
+     m:'步行至上车点→网约车／出租车',
+     n:'周六可能遇到车流和游客增加，时间允许前后浮动 20—30 分钟。不要接受司机途中临时推荐的收费观景点、骑马或包车项目。'},
+    {t:'10:20—10:50', h:'熟悉白沙主街',
+     d:'抵达后先用半小时熟悉白沙主街：确认洗手间、午餐候选、咖啡馆大致位置和返程上车点，再开始正式慢逛。',
+     f:'第一段只观察主街尺度、店铺和人流，不急着购物或立即进网红咖啡馆。可以找一个相对开阔的位置看雪山方向，判断今天适合远景还是更适合拍村落细节。',
+     m:'步行',
+     n:'白沙主街人多时注意随身物品，不站在道路中央拍照。看到收费拍照院落或观景平台时，先问清规则和价格，再决定是否进入。'},
+    {t:'10:50—12:20', h:'支巷 · 石墙 · 木门慢走',
+     d:'离开最拥挤的主街，在允许通行的支巷、石墙、木门和纳西民居外部慢慢走。每走一段就停下来观察建筑与雪山之间的关系，寻找自然的双人合影位置。',
+     f:'重点不是“打卡多少家店”，而是看石墙、旧木门、屋檐、花墙和生活场景。若雪山露出，可用街道或屋檐做前景；若云层厚，就把注意力放在墙面纹理、院门和人物近景。',
+     m:'步行',
+     n:'不擅自进入私人院落，不推门、不倚靠居民家门拍摄。拍当地居民或手艺人时先征得同意；支巷路面不平，拍照后退时由另一人提醒脚下。'},
+    {t:'12:20—13:30', h:'白沙午餐',
+     d:'在白沙古镇内选择有庭院、室内座位或相对安静的餐厅吃午饭。先坐下休息和补水，再根据下午咖啡计划控制餐量。',
+     f:'可选纳西家常菜、米线、炒饭、简单套餐或一荤一素。景观位不是必须，卫生、座位舒适、上菜速度和不需要久等更重要。',
+     m:'步行',
+     n:'不为了某家网红餐厅排队超过 20—30 分钟。若中午突然下雨，优先选能避雨、可多坐一会儿的店，并把文化项目或咖啡顺序灵活调整。'},
+    {t:'13:30—14:10', h:'白沙壁画（可选）',
+     d:'按兴趣决定是否进入白沙壁画或其他正规文化空间。若进入，放慢观看速度，先看整体题材和人物关系，再看服饰、线条与多种文化元素。',
+     f:'白沙壁画是理解纳西、藏传佛教及中原文化交流的重要线索。今天不追求背诵年代和知识点，只需留意不同宗教、人物和绘画风格如何同时出现在一组壁画中。',
+     m:'步行',
+     n:'开放时间、票价、拍照限制和讲解安排以现场官方信息为准。若两人兴趣不高、排队较长或天气突然转好，可以放弃入内，把时间留给街巷和雪山咖啡。'},
+    {t:'14:10—16:00', h:'屋顶咖啡 · 庭院咖啡',
+     d:'选择一家有座位、能坐得久的屋顶咖啡、庭院咖啡、书店或咖啡空间。先在室内休息，天气和风力合适时再到露台短时间看雪山。',
+     f:'可以点云南咖啡、茶或简单甜品，整理上午照片、聊天、看云层变化。若雪山出现，不需要立刻换多家店追求“最佳角度”，在当前舒适位置欣赏即可。',
+     m:'步行',
+     n:'露台紫外线和风都可能较强，拍完及时回室内。点单前确认最低消费、露台使用规则和是否限时；排队过长就换旁边有座位的店。'},
+    {t:'16:00—16:50', h:'提前返程',
+     d:'提前叫车返回丽江古城，不在白沙拖到傍晚高峰。上车前检查相机、手机、充电宝和购物袋，确认没有遗留在咖啡馆。',
+     f:'回程主要休息，不安排“顺路再去束河”。从雪山脚下回到古城的路上可以看看田野和村落，但不要求临时停车。',
+     m:'网约车／出租车',
+     n:'下雨或周末打车紧张时可提前 20—30 分钟叫车，并在清楚、正规、车辆方便停靠的位置等候。不搭乘价格和路线不明确的揽客车辆。'},
+    {t:'17:00—18:30', h:'回酒店休息',
+     d:'回酒店洗漱、换衣、补水和休息。把相机或手机照片备份，坐一会儿再决定晚餐，不把返城后的空档继续塞满。',
+     f:'若酒店当天有正常提供的住客活动，可按管家通知选择参加；否则就在院子里喝茶、看照片或午睡片刻。今天明确不新增束河、玉湖或狮子山。',
+     m:'酒店内',
+     n:'若白沙步行后脚部疲劳，可抬高双腿、做轻柔拉伸。不要在酒店休息时临时被短视频种草，又冲出去追新的日落点。'},
+    {t:'18:30—19:50', h:'五一街自由晚餐',
+     d:'在五一街附近自由晚餐，选择前两天没有吃过的口味。可以吃汽锅鸡、纳西家常菜、米线或小份创意云南菜，不需要再次安排大型火锅。',
+     f:'晚餐以方便、热食和回酒店距离短为原则。若中午吃得较多，可用一份汤、一份主食和蔬菜解决；若中午简单，则适量增加肉菜。',
+     m:'步行',
+     n:'店铺仍以当天营业和近期评价为准，不绑定原攻略中的具体名字。今晚不喝酒或只选择无酒精饮品，为明天香格里拉保持睡眠和身体状态。'},
+    {t:'20:00—20:30', h:'香格里拉最终确认',
+     d:'回到酒店完成香格里拉最终确认。两个人一起查看 8/9 和 8/10 逐小时天气、雷暴／暴雨预警、铁路订单、旅拍预约以及各自身体感受。',
+     f:'按「两个关键决定」区的判断表做决定：天气可接受、无预警且身体正常就执行 8/9；若 8/10 明显更好则改签；若身体不适则缩短或取消。',
+     m:'酒店内',
+     n:'决定后立即确认车次、叫车时间、旅拍门店地址、返程票和所需物品，不继续反复纠结。把身份证、外套、雨具、充电宝和常用药装入轻便小包。'},
+    {t:'20:30 后', h:'提前休息',
+     d:'洗漱并提前休息。把第二天早餐时间、离开酒店时间和丽江站进站时间写在手机备忘录或纸条上，避免早晨临时计算。',
+     f:'不安排夜游、酒吧和重口夜宵。睡前只需少量喝水，保持房间舒适和温暖，以良好睡眠作为是否顺利上高原的重要准备。',
+     m:'酒店内',
+     n:'若睡前已经出现明显头痛、恶心、胸闷或极度疲劳，不要抱着“睡一晚就一定好”的假设，第二天早上重新评估并优先取消。'}
+  ]}],
+  notes:[
+    {t:'文化视角 · 白沙为什么与大研不同', icon:'book',
+     para:'白沙是丽江地区重要的纳西族聚居地和文化源流地之一。与大研古城相比，白沙的尺度更小，村落和生活感更明显。这里的看点不只是“雪山咖啡”，还包括石墙、木门、院落、旧街和仍然延续的日常生活。',
+     para2:'白沙壁画始于明代，呈现东巴文化、藏传佛教及中原文化相互交融的特点。它的价值不只在绘画技法，更在于同一地区不同民族与宗教文化长期交流后形成的复合面貌。',
+     kw:['文化交融','村落日常']},
+    {t:'摄影氛围与构图建议', icon:'camera',
+     list:[
+       '雪山同框：用街道、屋檐或花墙做前景，让雪山处在画面远处，而不是单纯放大雪峰',
+       '石墙与木门：适合拍低饱和、有生活感的人像',
+       '屋顶露台：人物侧坐或背对镜头看雪山，比正面打卡照更自然',
+       '咖啡馆窗边：利用玻璃倒影、杯子和窗外云层拍安静的双人细节',
+       '阴天：石墙和木门的颜色更均匀，适合近景人像；无需把阴天视为失败'
+     ]},
+    {t:'午餐与咖啡选择', icon:'bowl',
+     para:'午餐方向：纳西家常菜、米线、简餐或庭院餐厅，优先卫生、座位和上菜速度。咖啡方向：有露台的庭院咖啡、书店咖啡、咖啡博物馆或安静室内空间。选择原则：现场看座位和排队，不为了某一家网红店等待一小时。'},
+    {t:'候选替换 · 束河古镇', icon:'mount',
+     para:'如果白沙当天人流过大、持续下雨，或两个人只想更懒，可以改为束河古镇溪边散步和喝茶。束河与茶马古道关系密切，青龙桥、老街和水系具有较强的古镇氛围。<b>白沙与束河二选一，不同日临时叠加。</b>'},
+    {t:'今晚的决定 · 香格里拉日期', icon:'clock',
+     para:'20:00—20:30 两人一起回到「两个关键决定」区完成判断：天气可接受、无预警且身体正常 → 执行 8/9；8/10 明显更好 → 改签；身体不适 → 缩短或取消。决定后立即锁定车次与旅拍，不再反复纠结。'}
+  ],
+  cost:{ rows:[
+    ['丽江古城↔白沙往返用车','80—160 元'],
+    ['午餐＋晚餐','260—450 元'],
+    ['咖啡／甜品','80—180 元'],
+    ['白沙壁画等可选文化项目','以现场官方信息为准']
+  ], total:['当日合计','420—790 元＋可选项目'] }
+},
+
+/* ---------------- Day 4 · 香格里拉一日往返（默认日） ---------------- */
+{
+  n:4, date:'8/9', weekday:'周日', en:'Shangri-La',
+  title:'香格里拉一日往返', sub:'独克宗 · 藏服 · 转经筒',
+  theme:'独克宗古城', intensity:3,
+  keywords:['藏服','独克宗','藏餐','转经筒'],
+  tradeoff:'主场只做独克宗', backup:'视天气顺延至 8/10',
+  goal:'在身体舒适的前提下体验独克宗古城、藏服妆造、藏餐和藏地文化，不追求“香格里拉全部景点”。',
+  outfit:[
+    '分层穿搭：薄长袖／长袖内搭＋保暖层＋轻薄防风防水外套，搭配长裤和防滑运动鞋',
+    '拍藏服时可脱去外层，但拍摄结束立即保暖',
+    '随身小包只带：身份证、车票信息、充电宝、雨具、保暖外套、水、能量零食、润唇膏、防晒用品、常用药',
+    '不要背过重的摄影包'
+  ],
+  accent:'#b3542f', accentSoft:'rgba(179,84,47,.13)',
+  plans:[{ label:'主时间轴', sub:'藏餐 · 妆造 · 旅拍 · 慢逛', timeline:[
+    {t:'07:50—08:35', h:'自查 · 早餐 · 轻装出发',
+     d:'起床后先自查睡眠、头痛、恶心、胸闷和疲劳情况，确认无明显不适再吃早餐。早餐后检查身份证、车票、旅拍预约和返程安排，轻装出发。',
+     f:'早餐必须包含热食和主食，例如米线、粥、鸡蛋、馒头或纳西粑粑，可少量配水果。不要空腹上高原，也不要吃得过撑或用浓咖啡代替早餐。',
+     m:'酒店内',
+     n:'只带轻便小包，不背大行李。分层穿好薄长袖、保暖层和防风防水外套；藏服拍摄需要换装，但自己的外套必须随身携带。'},
+    {t:'08:40—09:15', h:'前往丽江站',
+     d:'从酒店步行至古城外约定上车点，乘正规网约车或出租车前往丽江站。途中再次确认列车没有临时调整，并把旅拍店地址发给同行人。',
+     f:'今天不在路上购买大量早餐或临时用品，水、零食和常用药已提前准备好。抵达车站后直接安检、找检票口和洗手间，不在站外逗留。',
+     m:'步行＋网约车／出租车',
+     n:'预留古城石板路、早高峰、安检和找站台的时间。若叫车延误，优先联系正规平台和酒店协助，不搭乘价格不明的临时揽客车。'},
+    {t:'09:41（参考）', h:'乘动车赴香格里拉',
+     d:'乘动车从丽江前往香格里拉。上车后将外套、水、零食和身份证放在随手位置，保持安静休息，不在车厢内来回走动或做剧烈拉伸。',
+     f:'途中可以观察高原地貌逐渐变化，但不必一直举着手机拍窗外。少量、分次补水，饿时吃面包或饼干，不吃大量甜食和油腻零食。',
+     m:'动车',
+     n:'具体车次和时刻以 12306 订单为准。若在车上已经出现明显持续头痛、恶心或胸闷，到站后先寻求帮助，不直接进入旅拍流程。'},
+    {t:'11:22 左右', h:'抵达香格里拉站',
+     d:'下车时放慢动作，跟随人流正常行走，在站内或出站后停一两分钟确认呼吸和身体状态，再叫车。',
+     f:'香格里拉海拔高于丽江，第一感受可能是风更凉、空气更干。先穿好外套、戴帽子，再处理叫车和导航，不为了抢第一辆车奔跑。',
+     m:'动车→步行出站',
+     n:'不在站外临时拼团、包车或购买“全景点一日游”。若天气与计划不符，也只调整独克宗内部活动，不临时接受陌生人推销的普达措、松赞林寺或纳帕海组合。'},
+    {t:'11:30—12:00', h:'前往独克宗',
+     d:'乘正规网约车或出租车前往独克宗北门、月光广场附近或已预约的旅拍门店。途中与门店再次确认到店时间、服装套数和拍摄结束时间。',
+     f:'车上以休息、保暖和熟悉古城位置为主。到达后先确认返程叫车方便的区域，避免拍摄结束才发现门店位于难以停车的陡坡深巷。',
+     m:'网约车／正规出租车',
+     n:'把返程列车时间告诉司机或门店，但不把个人全部行程交给陌生人安排。车费、路线和终点以平台显示为准。'},
+    {t:'12:00—12:50', h:'藏餐午餐',
+     d:'在独克宗附近吃一顿热而不过量的藏餐午饭。入座后先休息和喝少量温水，再点主菜、主食和一份饮品，不急着立即开始妆造。',
+     f:'推荐一份牦牛肉主菜或汤面，配青稞饼、蔬菜和藏式酸奶；酥油茶可以少量尝试。两个人不需要同时点火锅、土锅鸡和多份主食，避免吃得过饱影响换装和走路。',
+     m:'步行',
+     n:'候选可参考塔洛藏餐吧、顺顺小吃或古城内近期评价稳定的藏餐，实际以营业、卫生、座位和距离为准。“酥油茶抗高反”等说法不作为医疗依据。'},
+    {t:'13:00—13:40', h:'旅拍店选装 · 确认订单',
+     d:'到旅拍店选服装、确认订单与费用。先看服装清洁情况、尺码和配饰，再让店员把底片、精修、外景、加片、换装和交片规则逐项写清。',
+     f:'服装选择兼顾保暖、行动和照片效果，不为追求复杂造型选择过重头饰或过长裙摆。情侣服装不必完全同色，可用相近材质或一深一浅形成协调。',
+     m:'步行至门店',
+     n:'在妆造开始前完成价格确认，拒绝拍摄中途不断追加不透明费用。自己的身份证、手机和贵重物品放在可控位置，不完全交给陌生店员保管。'},
+    {t:'13:40—14:30', h:'妆造',
+     d:'完成妆面、发型和配饰。妆造过程中尽量坐着休息，及时表达头饰过紧、衣服过冷或身体不适，不为了造型忍受明显不舒服。',
+     f:'可以利用妆造时间确认外景只选月光广场、仓房街或门店附近一至两个区域，不做长距离爬坡式旅拍。拍摄动作以牵手、并肩走、整理衣领和回望为主。',
+     m:'门店内',
+     n:'妆造店内常较暖，出门前必须穿或携带自己的保暖外套。若出现头痛或恶心，先停止妆造并休息，不把“已经付钱”作为继续硬撑的理由。'},
+    {t:'14:30—15:20', h:'情侣外景拍摄',
+     d:'先从平缓、离门店近的街巷开始，再根据身体状态决定是否到月光广场或龟山附近；拍够一组完整画面后即可结束。',
+     f:'可拍藏式门窗、石板街、经幡远景、月光广场开阔背景和双人互动。摄影师应控制走动距离，不为十几个机位反复爬坡；文化场所和宗教活动以尊重为先。',
+     m:'步行',
+     n:'不触碰或拉扯经幡，不占据转经通道，不要求当地居民配合摆拍。天气突变时优先回檐下或门店补拍室内氛围，不冲去远处追晴。'},
+    {t:'15:20—15:40', h:'回门店过渡',
+     d:'回门店卸下过重配饰、穿回自己的保暖外套，确认原片和交片方式。喝少量温水、吃一点能量零食，给身体留出从拍摄到慢逛的过渡。',
+     f:'简单查看是否已经完成双人全身、半身、互动和环境照片，不在现场长时间挑精修。若照片达到预期，就不为“再多几个机位”延长拍摄。',
+     m:'门店内',
+     n:'再次核对是否有隐形加费和物品遗漏。出现明显疲劳时，后续只去月光广场短坐并提前返程。'},
+    {t:'15:40—16:30', h:'独克宗慢逛',
+     d:'只从月光广场、仓房街、白塔、龟山公园中选择一至两处。先走平缓街巷，最后再决定是否登少量台阶靠近转经筒。',
+     f:'月光广场适合观察古城开阔空间和藏式建筑；仓房街适合看石板、门窗与生活细节；龟山转经筒以顺时针参与和文化体验为主，不把它变成摆拍道具。',
+     m:'步行',
+     n:'高原环境下缩短步幅、避免快走。转经筒需要多人合力时跟随现场秩序，不逆向推动；不随意触摸宗教物品或进入标明限制的区域。'},
+    {t:'16:30—17:00', h:'坐下休息 · 返程准备',
+     d:'找一家距离叫车点较近的正规店坐下休息，少量尝试酥油茶、牦牛酸奶或热饮，同时整理随身物品并确认返程路线。',
+     f:'这半小时的核心是坐下和恢复，不是继续寻找“最好喝”的店。可顺便购买少量正规包装食品，但不为伴手礼跑多个店或进行高价购物。',
+     m:'步行',
+     n:'返程列车是今天的硬边界。至少提前 45—60 分钟离开古城前往车站；下雨、周末或叫车紧张时进一步提前。'},
+    {t:'返程前 45—60 分钟', h:'前往香格里拉站',
+     d:'从独克宗乘正规网约车或出租车前往香格里拉站。上车后检查身份证、手机、充电宝、相机、原片交付凭证和个人外套。',
+     f:'前往车站途中不再临时停纳帕海或其他观景点。抵达车站后先完成安检和候车，再决定是否购买水或简单食物。',
+     m:'网约车／正规出租车',
+     n:'不接受路边司机以“时间还早”为由增加收费景点。若遇堵车，及时查看订单和与车站工作人员沟通，始终把准时进站放在首位。'},
+    {t:'傍晚返程', h:'乘动车返回丽江',
+     d:'上车后脱下潮湿外层、保持保暖，少量补水并安静休息；可以简单看当天照片，但不长时间低头修图。',
+     f:'若晚餐时间与列车冲突，可在车站或车上吃熟悉、清淡的热食／主食，回丽江后不再安排大餐。',
+     m:'动车',
+     n:'出现持续不适时及时告知列车工作人员。氧气只能作为按需辅助，不替代医疗判断；严重症状应寻求专业帮助。'},
+    {t:'抵达丽江后', h:'直接回酒店休息',
+     d:'从丽江站直接返回酒店。到房间后先换衣、喝温水和洗漱，饿了就在酒店附近吃米线、粥或简单热食，不进入古城夜游。',
+     f:'今天已经完成跨城、高原、妆造和拍摄，返回酒店即结束任务。可以向管家确认第二天早餐和恢复日安排，然后尽早睡觉。',
+     m:'网约车／出租车＋步行',
+     n:'不饮酒、不泡过久热水澡、不继续安排清吧或夜宵。若返回较晚，提前请酒店确认古城外接应和夜间进入路线。'}
+  ]}],
+  notes:[
+    {t:'出发前再次确认', icon:'check',
+     para:'当天早上满足以下条件才出发：',
+     list:[
+       '没有明显或持续头痛、恶心、胸闷或严重疲劳',
+       '无暴雨、雷暴、道路或铁路预警',
+       '往返车票、旅拍预约和身份证均已确认',
+       '两人都接受今天“只做独克宗”，不临时加普达措或松赞林寺'
+     ]},
+    {t:'交通选择', icon:'train',
+     para:'原规划可参考 <b>C985 丽江 09:41→香格里拉 11:22</b>；返程优先选择约 17:00—18:00 离开的班次，拍摄延迟且身体状态良好时才考虑约 19:00 的晚班。所有车次、时刻、票价和停运信息只以 12306 为准。出发前一天不要只截图车次，要在订单中再次确认车站、日期和检票信息。'},
+    {t:'文化视角 · 怎样理解“月光城”独克宗', icon:'book',
+     para:'独克宗古城的名字常被解释为“白色石头城”或“月光之城”。古城始建历史悠久，曾是茶马古道上的重要驿站，马帮在这里补充给养、交换物资，再继续向滇川藏地区前行。',
+     para2:'古城沿山势展开，白色或土色墙体、平顶、彩绘装饰和石板路共同构成厚重、安静的空间感。月光广场和龟山公园是最容易理解古城结构的区域，巨型转经筒则是独克宗最醒目的地标之一。',
+     list:['转动转经筒时应顺时针进行，不逆向转动；不要随意触摸、踩踏经幡、玛尼堆或宗教用品。遇到宗教活动和当地居民时保持距离，不用镜头打扰。']},
+    {t:'藏服旅拍预约清单', icon:'camera',
+     para:'预约前逐项问清并保留文字记录：',
+     list:[
+       '服装套数和可选范围',
+       '妆造、发型、配饰是否包含',
+       '拍摄总时长和外景范围',
+       '原片是否全送、精修张数和加修价格',
+       '换装、道具、外景交通是否另收费',
+       '交片时间和交付方式',
+       '因天气、交通或身体原因改期／取消的规则',
+       '是否有实体门店、明确价目表和近期真实评价'
+     ],
+     list2:['不接受古城门口强拉客，不在没有看清价目表时交大额定金。']},
+    {t:'摄影氛围与构图建议', icon:'camera',
+     list:[
+       '月光广场：适合拍开阔环境和藏式建筑背景；人多时用长焦压缩画面',
+       '仓房街与支巷：石墙、木门和经幡适合拍行走感照片',
+       '龟山转经筒：以文化体验为先，不长时间占位摆拍',
+       '白塔和经幡：利用风吹经幡形成动态，但不要拉扯或触碰',
+       '双人旅拍：动作以并肩走、整理衣领、牵手、回望为主，减少僵硬正面站姿',
+       '雨天：妆造店室内、檐下和藏式窗框仍可完成一组氛围照，不需要临时冲去远景点'
+     ]},
+    {t:'藏餐候选', icon:'bowl',
+     list:[
+       '候选参考：塔洛藏餐吧、顺顺小吃或独克宗内近期评价稳定的藏餐店',
+       '选择方向：牦牛肉、青稞饼、汤面、藏式酸奶、酥油茶',
+       '饮食原则：热食、适量、不过油，不把“抗高反”寄托在某一种食物上'
+     ]},
+    {t:'纳帕海的取舍', icon:'moon',
+     para:'<b>不列入主线。</b>只有在以下条件同时满足时，才考虑正规观景点短停 45—60 分钟：',
+     list:[
+       '16:00 前已完成拍摄',
+       '天气稳定、无预警',
+       '两人均无头痛、气短或明显疲劳',
+       '返程票时间充足',
+       '已落实正规往返交通'
+     ],
+     list2:[
+       '即便满足，也不环湖、不骑马、不追网红公路、不接受路边临时收费项目，其余情况全部放弃。',
+       '为什么不列入主线：独克宗当天已包含跨城动车、海拔变化、藏餐、妆造、旅拍和古城步行，纳帕海会增加交通和时间的不确定性，容易破坏返程安全边界。'
+     ]},
+    {t:'高原安全硬规则', icon:'shield',
+     list:[
+       '走慢、少爬坡、不空腹、不饮酒、不做剧烈运动',
+       '防晒和保暖同时做，阴天也不能忽略紫外线',
+       '便携氧气可按需购买，但不能替代医疗处理',
+       '出现明显或持续加重的头痛、恶心、胸闷、气短、走路不稳时，立即停止活动并寻求帮助',
+       '出现严重呼吸困难或意识异常，应尽快就医或下降，不要只靠休息或吸氧硬扛'
+     ]}
+  ],
+  cost:{ rows:[
+    ['丽江↔香格里拉动车','约 280 元 · 以 12306 为准'],
+    ['两地车站短途交通','100—220 元'],
+    ['藏餐＋饮品','180—350 元'],
+    ['藏服妆造／简易跟拍','300—800 元'],
+    ['氧气、水和零食','40—100 元']
+  ], total:['当日合计','900—1,750 元'] }
+}
+]);
+/* =========================================================
+   数据文件 3/3 —— Day 5 恢复日／玉湖村 · Day 6 返程
+   ========================================================= */
+LJ.DAYS = LJ.DAYS.concat([
+
+/* ---------------- Day 5 · 恢复日／玉湖村二选一 ---------------- */
+{
+  n:5, date:'8/10', weekday:'周一', en:'Rest Day',
+  title:'恢复日 ／ 玉湖村', sub:'酒店 · 咖啡 · 伴手礼',
+  theme:'酒店＋咖啡＋伴手礼，可选村落', intensity:2,
+  keywords:['酒店','咖啡','伴手礼','可选村落'],
+  tradeoff:'默认恢复，不强行加点', backup:'若顺延，执行香格里拉日',
+  goal:'恢复体力，把酒店、咖啡和闲散时间正式纳入旅行；只有天气和身体都很好时才去玉湖村。',
+  outfit:[
+    '休闲短袖／薄长袖＋薄长裤或舒适长裙，穿便于在古城走路的鞋',
+    '主要在酒店和古城活动，也要做好防晒和防雨'
+  ],
+  accent:'#5f7d5a', accentSoft:'rgba(95,125,90,.13)',
+  plans:[
+    { label:'A 酒店慢度假版', sub:'首选 · ★☆☆☆☆', timeline:[
+      {t:'09:00—10:00', h:'自然醒 · 早餐',
+       d:'睡到自然醒后去吃早餐，不设置必须几点出门的压力。先观察前一晚香格里拉后的睡眠、头痛和疲劳情况，再决定今天完全休息还是只做短距离活动。',
+       f:'早餐可以慢慢尝试酒店当天提供的米线、粥、鸡蛋、纳西粑粑等，配少量水果和热饮。今天没有远程任务，吃完后可继续在院子坐一会儿。',
+       m:'酒店内',
+       n:'若昨晚返回较晚或睡眠质量差，把上午全部留给酒店，不因“已经九点多”产生浪费感。<b>恢复日本身就是主计划。</b>'},
+      {t:'10:00—11:30', h:'庭院喝茶 · 拍照',
+       d:'在酒店庭院喝茶、看书、聊天和拍照。先用上午柔和光线拍主院、木门、回廊和花木，再拍两个人整理衣服、端茶或沿廊道慢走的生活感画面。',
+       f:'不追求一次拍完所有角度，可按“环境空镜—单人—双人—细节”顺序慢慢完成。若酒店当天提供住客活动，以管家通知和实际开放为准，自愿参加。',
+       m:'酒店内步行',
+       n:'尊重其他住客安静和隐私，不长时间占据公共廊道，也不把镜头对准他人房门。雨天可利用屋檐、滴水和石板反光拍摄。'},
+      {t:'11:30—12:10', h:'忠义市场 或 五一街慢走',
+       d:'根据体力二选一：前往忠义市场感受本地生活，或只在五一街附近慢走。若去市场，先从生鲜、水果和小吃区域观察，不立即开始大量购物。',
+       f:'可尝少量烤饵块、烤乳扇、鸡豆凉粉、当季水果等，也可查看现烤鲜花饼和正规包装伴手礼。今天以体验烟火气为主，不把市场走成购物任务。',
+       m:'步行／短程打车',
+       n:'市场人流较多，保管好手机和钱包。生鲜菌子、药材、高价茶和银饰不冲动购买；试吃后不必因为店员热情就购买大份。'},
+      {t:'12:10—13:10', h:'午餐',
+       d:'在忠义市场或五一街附近吃午餐。选择上菜快、能坐得舒服的家常餐厅，吃完不继续逛街，直接准备回酒店午休。',
+       f:'可选米线、汽锅鸡、纳西家常菜、炒饭或一荤一素的简单组合。候选可搜索桥边小楼或同类近期评价稳定店，但不为了临水位排长队。',
+       m:'步行',
+       n:'若在市场已经吃了较多小吃，午餐相应减量；野生菌菜只在正规餐厅、明确完全煮熟的情况下考虑。'},
+      {t:'13:10—15:30', h:'回酒店午休',
+       d:'先整理上午采购、给电子设备充电，再真正躺下休息；即使睡不着，也可以关掉手机看书或听轻音乐。',
+       f:'这是香格里拉高原日后的主要恢复窗口，不安排修图、做攻略或临时预订下一处景点。',
+       m:'步行→酒店',
+       n:'若仍有头痛、恶心、胸闷或明显气短，下午继续留在酒店并根据症状联系当地工作人员或医疗帮助。'},
+      {t:'15:30—17:10', h:'庭院咖啡 · 茶馆',
+       d:'选择一家五一街附近安静、能坐久的庭院咖啡或茶馆。先看是否有空座和室内避雨空间，再点一杯云南咖啡、茶或无酒精饮品。',
+       f:'可以整理照片、写旅行记录、聊天或观察窗外古城。候选中的邂逅花镜、山舍等只作为地图搜索方向，必须核验是否营业和近期评价。',
+       m:'步行',
+       n:'不为了网红景观位排队，也不连续换店。咖啡因敏感时选择茶或低咖啡因饮品，避免影响返程前一晚睡眠。'},
+      {t:'17:10—18:10', h:'伴手礼采购',
+       d:'购买第二天返程需要的伴手礼和路上零食。优先选择包装完整、日期清楚、方便携带的鲜花饼、咖啡、酸角糕等，并控制重量。',
+       f:'可以先在两三家正规店比较价格和保质期，再集中购买。需要邮寄时确认运费、包装、破损责任和到货时间。',
+       m:'步行',
+       n:'不购买需要长时间议价、鉴定或邮寄的大件商品。菌干、药材、银饰和高价茶叶除非已有可靠店铺，否则直接放弃。'},
+      {t:'18:30—20:00', h:'告别晚餐',
+       d:'安排全程唯一一顿相对正式的告别晚餐。提前选择一家近期评价稳定、距离酒店适中的纳西菜或创意云南菜餐厅，入座后慢慢吃。',
+       f:'可从小份腊排骨、纳西烤肉、水性杨花、汽锅鸡、时蔬等中组合 2—3 道菜。候选可参考云雪丽、小喜客、阿婆情等，但只选一家且以当天营业为准。',
+       m:'步行',
+       n:'不同时安排酒吧、重口宵夜和大量饮酒。若热门店排队过长，立即改为附近正规家常餐厅，让告别晚餐保持舒适。'},
+      {t:'20:00—21:00', h:'整理返程物品',
+       d:'返回酒店整理行李和返程物品。把第二天动车上需要的身份证、充电宝、耳机、外套、药品和零食单独放进随身包，伴手礼集中装好。',
+       f:'可以最后在院子里坐一会儿、备份照片或写几句旅行记录，但不熬夜进行大量修图。',
+       m:'步行→酒店',
+       n:'检查退房时间、行李接应、古城外上车点和叫车时间。确保液体、刀具等物品符合铁路携带规定。'}
+    ]},
+    { label:'B 玉湖村半日版', sub:'天气好且体力充足 · ★★☆☆☆', timeline:[
+      {t:'09:00—10:00', h:'“是否启动玉湖村”最终判断',
+       d:'早餐后进行最终判断：查看逐小时降雨、道路情况、司机确认和两人身体状态。只有全部条件满足才出发，否则立即切换回酒店慢度假版。',
+       f:'早餐以热食和主食为主，带少量水和能量零食。今天不是登山日，不需要准备复杂徒步装备，但仍要带防晒、雨具和薄外套。',
+       m:'酒店内',
+       n:'不因已经预约车辆而忽视身体不适；取消和费用规则提前与司机确认。若返程车辆或时间仍含糊，直接不去。'},
+      {t:'10:30 左右', h:'出发前往玉湖村',
+       d:'在古城外约定点乘提前落实的正规往返车辆前往玉湖村。上车时再次确认返程时间、上车位置、费用和司机联系方式。',
+       f:'沿途观察城市、田野、山体与村落的变化即可，不临时增加收费骑马、观景平台或其他村落。',
+       m:'步行＋预约车辆',
+       n:'必须是往返安排，不临时单程打车上山。保存车牌、订单和司机电话，并把信息发给同行人。'},
+      {t:'11:20—11:40', h:'抵达 · 适应',
+       d:'抵达后先确认返程集合点、洗手间和村内主要步行方向，再用十几分钟适应风、温度和光线。',
+       f:'先看雪山方向是否清晰，再决定今天以远山还是石头房子和村巷为主要拍摄内容。',
+       m:'步行',
+       n:'不一下车就快走或爬坡。玉湖附近风和紫外线可能明显，及时加外套、戴帽子和补防晒。'},
+      {t:'11:40—13:00', h:'石头房子 · 村巷慢走',
+       d:'在石头房子、村巷和允许通行的公共区域慢走。每段步行控制在十几分钟，中间停下来观察房屋材质、山体和村落生活。',
+       f:'重点拍石墙、木门、村巷、远山和双人行走画面。雪山露出时用房屋与道路作为前景；云多时拍石墙纹理和低饱和人像。',
+       m:'步行',
+       n:'不擅自进入私人院落，不推门、不拍摄不愿入镜的居民。村路不平时以安全为先，不为了角度倒退或攀高。'},
+      {t:'13:00—14:00', h:'村内简单午餐',
+       d:'在村内正规餐饮点吃简单午餐或热饮，并坐下充分休息。若选择有限，不追求特色大餐，确保有热食、主食和干净座位即可。',
+       f:'可选米线、炒饭、汤面、家常菜或热饮。不要空腹继续拍照，也不在来源不明的摊点购买野生菌或药材。',
+       m:'步行',
+       n:'午餐时再次联系司机确认返程时间。若雨势增强、风大或身体疲劳，吃完立即提前返程。'},
+      {t:'14:00—14:40', h:'短距离补拍',
+       d:'只做一段短距离自由活动和补拍。选择离返程集合点不远的一个区域完成双人合影、环境空镜和细节照，不再向更远处探索。',
+       f:'可拍牵手走村巷、坐在公共石墙旁看山、整理外套等自然动作。云量大时不死等雪山，不把时间全部耗在同一机位。',
+       m:'步行',
+       n:'给集合和找车预留时间，拍照结束后检查手机、相机、外套和购物袋。'},
+      {t:'15:00—16:00', h:'返回丽江古城',
+       d:'按约定时间乘车返回丽江古城。上车后休息、补水并观察天气，不要求司机途中绕去其他景点。',
+       f:'回程不叠加白沙、束河或黑龙潭。今天的主要价值是村落与雪山脚下的半日体验，完成后直接回酒店。',
+       m:'预约车辆',
+       n:'若路况、降雨或车流出现变化，服从安全安排提前返程。到古城外下车后联系酒店协助行李或确认回院路线。'},
+      {t:'16:00—17:30', h:'回酒店休息',
+       d:'回酒店洗漱、喝茶和午休。把外出衣物晾干、设备充电，先恢复体力，再考虑晚饭。',
+       f:'可在庭院安静坐着或整理少量照片，不去咖啡馆继续打卡。',
+       m:'酒店内',
+       n:'若回程后出现头痛、恶心或明显疲劳，当晚只吃简单热食并早睡。'},
+      {t:'18:00—19:30', h:'告别晚餐',
+       d:'在酒店附近吃告别晚餐，选择纳西家常菜、汽锅鸡或小份腊排骨。餐后直接返回酒店整理返程行李。',
+       f:'两个人点 2—3 道菜即可，不安排酒吧和重口夜宵。',
+       m:'步行',
+       n:'明天需要早退房和乘动车，晚餐不饮酒、不拖到太晚。'}
+    ]}
+  ],
+  notes:[
+    {t:'A 方案 · 酒店摄影氛围', icon:'camera',
+     para:'今天可以把酒店拍得更完整：',
+     list:[
+       '上午拍庭院自然光和花木',
+       '下午拍茶桌、书、窗边和两个人的生活细节',
+       '傍晚拍暖灯、回廊和深色木门',
+       '不追求“古装大片”，更适合日常、安静、像共同生活的画面'
+     ]},
+    {t:'忠义市场与伴手礼', icon:'bag',
+     para:'忠义市场更适合观察本地烟火气，也可以作为购买水果、现烤鲜花饼、酸角糕等候选地点。野生菌干、药材、银饰和高价茶叶不要在陌生店铺冲动购买；需要邮寄时先问清包装、保质期和快递责任。'},
+    {t:'A 方案 · 餐饮与咖啡候选', icon:'bowl',
+     list:[
+       '午餐：忠义市场附近家常菜、桥边小楼或同类近期评价稳定餐厅',
+       '下午：五一街庭院咖啡、茶馆；邂逅花镜咖啡可作搜索候选，需核验营业状态',
+       '告别晚餐：云雪丽、小喜客、阿婆情腊排骨或同类正规餐厅，只选择其中一家'
+     ]},
+    {t:'B 方案 · 启动条件', icon:'check',
+     para:'玉湖村半日版需要同时满足：',
+     list:[
+       '8/9 已经完成香格里拉，且当晚睡眠正常',
+       '两人均无头痛、恶心、胸闷或明显疲劳',
+       '天气稳定、路况正常',
+       '已请酒店或正规司机落实往返车辆和返程时间',
+       '返程时间、费用和集合点均明确'
+     ]},
+    {t:'B 方案 · 摄影氛围', icon:'camera',
+     para:'玉湖村适合石头房子、村巷、山体和雪山方向的低饱和画面。服装可选择米白、深蓝、棕红等颜色；拍摄时尊重村民生活和私人院落，不擅自进入、不开门、不持续对着居民拍摄。'},
+    {t:'今日停损线', icon:'shield',
+     para:'只要出现疲劳、下雨、返程车不确定或两人意见不一致，直接执行 A 方案。<b>恢复日本身就是主计划，不是退而求其次。</b>'}
+  ],
+  cost:{ rows:[
+    ['A 酒店慢度假：餐饮、咖啡、伴手礼','450—1,000 元'],
+    ['B 玉湖村：往返车、餐饮、咖啡','650—1,300 元']
+  ], total:['当日合计','450—1,300 元（视方案）'] }
+},
+
+/* ---------------- Day 6 · 丽江→成都 ---------------- */
+{
+  n:6, date:'8/11', weekday:'周二', en:'Homeward',
+  title:'丽江 → 成都', sub:'从容退房 · 准时到站',
+  theme:'从容退房、准时到站', intensity:1,
+  keywords:['早餐','退房','动车'],
+  tradeoff:'不安排临时景点', backup:'直接前往车站',
+  goal:'从容退房、准时到站，不把最后半天排满。',
+  outfit:[
+    '穿适合长途动车的舒适衣物和运动鞋，外套放在容易取用的位置',
+    '鲜花饼、咖啡和零食尽量放在便于安检和取用的袋子里；液体、刀具及特殊物品按铁路要求整理'
+  ],
+  accent:'#4a4a52', accentSoft:'rgba(74,74,82,.13)',
+  plans:[{ label:'主时间轴', sub:'早餐 · 退房 · 返程动车', timeline:[
+    {t:'08:20—09:10', h:'最后一顿酒店早餐',
+     d:'起床后先完成房间第一轮检查，再去吃最后一顿酒店早餐。早餐时确认动车订单、叫车时间、古城外上车点和行李接应，不临时讨论新增景点。',
+     f:'早餐选择米线、粥、鸡蛋、纳西粑粑等热食，吃到七八分饱。可准备一小份方便携带的面包或鲜花饼作为途中补充，但是否可打包以酒店当日规则为准。',
+     m:'酒店内',
+     n:'检查床头、插座、洗手间、衣柜、保险箱、窗台和充电器。身份证、手机、耳机、药品和动车零食放进随身包，不托付在大行李中。'},
+    {t:'09:10—09:40', h:'退房与第二轮检查',
+     d:'返回房间完成打包、退房和第二轮检查。向管家确认账单、押金、遗留物和行李送往古城外的方式，两笔订单都要显示已正常结束。',
+     f:'伴手礼集中装入结实袋子，易碎食品用衣物或气泡材料保护。将途中要用的外套和水放在随手位置，不压在箱底。',
+     m:'酒店内→前台／管家接应',
+     n:'不在退房时临时采购酒店周边商品。若酒店可协助行李转运，明确交接人和最终取行李位置，避免两个人分别以为对方在看管。'},
+    {t:'09:40—10:00', h:'前往古城外上车点',
+     d:'与管家告别，沿确认好的主路线走到古城外上车点。到达后先核对行李数量，再联系司机和确认车牌。',
+     f:'这段路只用于离开古城，不绕去四方街、大水车或伴手礼店拍“最后一张照片”。需要留念可在酒店院门或上车点附近快速完成。',
+     m:'步行／行李协助',
+     n:'石板路拖箱较慢，预留时间并穿防滑鞋。下雨时优先保护证件和电子设备，不撑伞边走边拖多个箱子。'},
+    {t:'10:00 左右', h:'前往丽江站',
+     d:'乘正规网约车或出租车前往丽江站。上车后确认终点是正确车站，查看预计到达时间，并把身份证和手机留在身边。',
+     f:'车上可以回顾这几天的行程或安静休息，不临时要求司机绕路采购。抵达车站前再次检查座位和脚下物品。',
+     m:'网约车／正规出租车',
+     n:'预留堵车、下车取行李、安检和找站台时间。若车辆迟到，立即通过平台或酒店处理，不接受陌生车辆私下加价。'},
+    {t:'10:30 左右', h:'安检 · 候车',
+     d:'抵达丽江站后完成安检和候车。先确认检票口和列车状态，再去洗手间、接水或购买必要食物，不在商业区长时间闲逛。',
+     f:'午餐可在车站购买正规包装食品，也可以上车后根据时间吃。食品以方便、熟悉、易消化为主，不购买太多需要手提的特产。',
+     m:'步行进站',
+     n:'遵守铁路对充电宝、液体、刀具等物品的规定。车站人多时把行李放在视线内，不让陌生人代看。'},
+    {t:'11:03（参考）', h:'乘 D240 返程',
+     d:'乘 D240 从丽江返回成都南。上车后先安置大件行李和伴手礼，再拿出颈枕、外套、充电设备和水，准备长途休息。',
+     f:'返程途中可以整理照片、共同选出最喜欢的画面、写旅行记录或看离线内容。每隔一段时间起身活动，按正常节奏吃午餐和晚餐，不用一直回顾攻略。',
+     m:'动车',
+     n:'最终车次、站台和到达时间只以 12306 订单为准。贵重物品随身保管，伴手礼不要堵塞过道或放在容易被压的位置。'},
+    {t:'动车途中', h:'返程节奏',
+     d:'按“吃饭—休息—活动—整理照片”的节奏度过返程，不在车上立即规划下一次高强度旅行。列车到站前 20 分钟开始收拾。',
+     f:'午晚餐选择米饭、面条、鸡蛋、熟食和水果等，适量补水。可共同回顾酒店、白沙和独克宗最喜欢的时刻，而不是统计漏掉了多少景点。',
+     m:'动车',
+     n:'到达成都南前检查座位缝隙、充电口、行李架和小桌板。确认所有行李和伴手礼数量后再下车。'}
+  ]}],
+  notes:[
+    {t:'最后采购原则', icon:'bag',
+     para:'伴手礼尽量在 Day 5 买好。返程早晨不购买需要挑选、议价或邮寄的商品。菌干、药材、银饰和高价茶叶不在陌生店铺冲动购买。'}
+  ],
+  cost:{ rows:[
+    ['古城至丽江站用车','40—80 元'],
+    ['动车餐食／饮水','60—150 元'],
+    ['临时补充采购','0—200 元']
+  ], total:['当日合计（不含动车）','100—430 元'] }
+}
+]);
+
+</script>
+<script>
+/* =========================================================
+   扩展数据 1/4 —— 三地文化预习 + 摄影氛围指南
+   ========================================================= */
+
+LJ.CULTURE = [
+  { no:'壹', name:'丽江古城', en:'LIJIANG OLD TOWN', accent:'#3e6b52', accentSoft:'rgba(62,107,82,.13)',
+    paras:[
+      '丽江古城形成于宋元时期，并在后续发展中成为纳西族聚居与区域贸易的重要中心。它没有整齐的城墙和笔直道路，而是顺应山势、水系和生活需要逐渐形成。古城常见的「三坊一照壁」「四合五天井」等民居形式，融合了纳西、汉、藏等多种建筑文化。',
+      '在这里可以关注三条文化线索：东巴文字、仪式、绘画和相关传统构成的东巴文化；木府及其周边代表的木氏土司与地方政治；以及四方街、石板路和马蹄痕迹连接的茶马古道贸易记忆。'
+    ],
+    kw:['东巴文化','木氏土司','茶马古道'] },
+  { no:'贰', name:'白沙古镇', en:'BAISHA VILLAGE', accent:'#4c6d94', accentSoft:'rgba(76,109,148,.13)',
+    paras:[
+      '白沙比大研古城更接近村落尺度。这里的老街、民居、石墙和日常生活能帮助人理解纳西文化并不只存在于景区表演，而是延续在家庭、建筑、饮食和手工艺中。',
+      '白沙壁画集中体现了不同民族和宗教文化的交流。游览时不必只看「画得像不像」，可以观察人物、服饰、构图和宗教题材怎样出现在同一空间中——壁画始于明代，呈现东巴文化、藏传佛教及中原文化相互交融的特点。'
+    ],
+    kw:['文化交融','村落日常'] },
+  { no:'叁', name:'独克宗古城', en:'DUKEZONG · SHANGRI-LA', accent:'#b3542f', accentSoft:'rgba(179,84,47,.13)',
+    paras:[
+      '独克宗是香格里拉重要的历史文化空间。古城沿山势展开，石板路、藏式民居、白塔、月光广场和龟山转经筒共同构成独特的视觉与信仰景观，名字常被解释为「白色石头城」或「月光之城」。',
+      '这里同样属于茶马古道的历史网络。丽江与独克宗并不是两个彼此孤立的旅游目的地，而是在过去长期由马帮、物资和文化交流联系在一起。将两个地方放在同一趟旅行中，正好能够看到纳西文化圈和藏文化圈之间的连接。'
+    ],
+    kw:['月光城','茶马古道驿站','转经筒'] }
+];
+
+LJ.PHOTO = {
+  '丽江古城': [
+    { scene:'酒店庭院', kw:'木门、花窗、茶桌、暖灯', tip:'用门框构图，拍生活细节，不必总看镜头' },
+    { scene:'五一街水巷', kw:'流水、石桥、屋檐', tip:'清晨或雨后拍，人物沿水边慢走' },
+    { scene:'木府周边', kw:'红墙、门洞、巷道纵深', tip:'利用建筑线条，避开正午强光' },
+    { scene:'黑龙潭', kw:'五孔桥、古树、水面、雪山方向', tip:'雪山不露时拍树影和倒影' },
+    { scene:'雨中古城', kw:'湿石板、雨伞、檐下灯光', tip:'低机位拍反光，注意防滑和设备防水' }
+  ],
+  '白沙古镇': [
+    { scene:'老街与支巷', kw:'石墙、木门、花墙', tip:'选低饱和服装，拍自然走动' },
+    { scene:'雪山方向', kw:'街道前景、屋檐、远山', tip:'不要只拉近雪山，用村落建立层次' },
+    { scene:'屋顶咖啡', kw:'云层、杯子、侧影', tip:'人物背对镜头或侧坐看山' },
+    { scene:'阴天白沙', kw:'均匀光、石墙纹理', tip:'适合近景人像和细节' }
+  ],
+  '独克宗古城': [
+    { scene:'月光广场', kw:'开阔、藏式建筑、经幡', tip:'人多时用长焦或拍局部' },
+    { scene:'仓房街', kw:'石路、藏式门窗、行走感', tip:'拍牵手、回望和整理服饰' },
+    { scene:'龟山转经筒', kw:'金色、信仰、山势', tip:'体验优先，不长时间占位' },
+    { scene:'雨天檐下', kw:'藏式窗框、暖色室内', tip:'可完成安静、电影感画面' }
+  ]
+};
+/* =========================================================
+   扩展数据 2/4 —— 美食清单与点餐攻略
+   ========================================================= */
+
+LJ.FOOD = {
+  mains:[
+    { name:'腊排骨火锅', stars:5, when:'Day 2 晚餐 或 Day 5 告别晚餐',
+      points:[
+        '小份腊排骨锅 1 份；土豆、时令蔬菜或水性杨花 1—2 份；一份清淡主食',
+        '不再叠加纳西烤肉、烧烤和大量酒水'
+      ],
+      note:'丽江腊排骨通常以腌制猪排骨为主，加入土豆、蔬菜和汤底炖煮，整体咸香浓郁。腊排骨通常偏咸，第一晚和香格里拉返回当晚不安排；肠胃敏感时少喝浓汤，多搭配蔬菜；两人不必点大锅，优先确认是否有小份或双人套餐；排队超过 20—30 分钟，直接更换附近正规餐厅。',
+      search:'候选搜索：阿婆情腊排骨或近期评价稳定的同类餐厅。' },
+    { name:'汽锅鸡', stars:5, when:'抵达第一晚、古城午餐或恢复日',
+      points:[
+        '小份汽锅鸡 1 份；清炒时蔬 1 份；米饭或其他主食 1—2 份',
+        '已经点鸡汤时，不再叠加另一种大型汤锅'
+      ],
+      note:'汽锅鸡以蒸汽慢慢凝结成汤，通常比火锅和烧烤清淡，适合作为刚抵达丽江后的第一顿热食，也适合旅途中需要恢复体力时食用。看鸡肉是否新鲜、汤是否自然；不需要执着景观餐厅；第一晚优先选择距离酒店近、能快速入座的店。',
+      search:'' },
+    { name:'纳西烤肉', stars:4, when:'Day 2、Day 3 或告别晚餐',
+      points:[
+        '纳西烤肉只点一份小份；配水性杨花、青菜或凉拌蔬菜',
+        '当餐已经吃腊排骨时，不再点烤肉；不建议晚上较晚时单独把它当夜宵'
+      ],
+      note:'纳西烤肉通常使用带皮猪肉，外层焦香、内部保留一定油脂，味道偏重，适合与清淡蔬菜、米饭搭配。',
+      search:'' },
+    { name:'水性杨花', stars:4, when:'大多数丽江正餐',
+      points:[
+        '两人点一份即可；优先选择清炒或蒜蓉做法',
+        '将它作为蔬菜，不必为了“特色”连续多餐点'
+      ],
+      note:'水性杨花是云南湖区常见的水生植物菜肴，口感清爽，可作为腊排骨、烤肉等偏重菜品的搭配。',
+      search:'' },
+    { name:'鸡豆凉粉', stars:4, when:'古城午餐、忠义市场小吃或纳西菜餐厅',
+      points:[
+        '第一次点小份尝鲜；肠胃敏感时少辣、少冰',
+        '已经在忠义市场尝过，正餐不必再次重复；不需要专门排队寻找所谓“唯一正宗店”'
+      ],
+      note:'鸡豆凉粉是丽江常见的小吃，可以凉拌，也可能以煎制或热食方式出现。不同店铺的酸、辣、香料和口感差异比较明显。',
+      search:'' },
+    { name:'老奶洋芋', stars:4, when:'古城午餐或纳西家常菜',
+      points:[
+        '两人点一小份；当餐已有炒饭、青稞饼等较多主食时，可以不点',
+        '适合不太能吃辣的一方'
+      ],
+      note:'老奶洋芋类似柔软的云南风味土豆泥，口感绵软，接受度较高，适合搭配烤肉和蔬菜。',
+      search:'' },
+    { name:'纳西炒饭或纳西家常菜', stars:4, when:'不想吃火锅、赶时间或身体疲劳时',
+      points:[
+        '炒饭、鸡蛋、时蔬、简单肉菜和汤组成的一餐，往往比连续打卡热门餐厅更舒服',
+        '适合：白沙中午需要快速吃饭；香格里拉返回后只想补充热食；下雨或疲劳，不愿继续寻找餐厅；前一餐已经比较油腻'
+      ],
+      note:'旅行中不必每顿都是“大菜”。',
+      search:'' }
+  ],
+  snacks:[
+    { name:'小锅米线', stars:5, when:'第一晚、早餐、夜间简单加餐或返程前',
+      points:[
+        '可要求少辣；加鸡蛋或少量肉类即可',
+        '夜间不要同时搭配大量烧烤；优先选择店内整洁、食材周转快的店'
+      ],
+      note:'小锅米线属于容易找到、出餐较快的热食，适合刚到丽江、身体疲劳或不想吃大餐时。',
+      search:'' },
+    { name:'纳西粑粑', stars:4, when:'酒店早餐或古城小吃',
+      points:[
+        '趁热吃口感更好；已经吃了米线、粥等主食时，分食一个即可',
+        '不建议购买大量冷却后长时间携带'
+      ],
+      note:'可作为早餐主食少量尝试。不同店铺可能有甜、咸或不同馅料，不需要一次购买很多。',
+      search:'' },
+    { name:'烤饵块', stars:4, when:'忠义市场',
+      points:[
+        '酱料选择少辣；可搭配鸡蛋，但不需要加入过多加工肉',
+        '作为小吃即可，不要与烤乳扇、凉粉等一次吃太多后再吃正餐'
+      ],
+      note:'烤饵块适合两个人分食一个，感受云南米制小吃的软糯口感。',
+      search:'' },
+    { name:'烤乳扇', stars:3, when:'忠义市场或正规小吃店',
+      points:[
+        '不习惯乳制品气味时不要一次买多；趁热吃',
+        '肠胃敏感或乳糖不耐受者谨慎尝试'
+      ],
+      note:'乳扇带有比较明显的乳香，口感和味道并非所有人都喜欢，适合先买一份两人分食。',
+      search:'' },
+    { name:'鲜花饼', stars:4, when:'恢复日现烤品尝、返程伴手礼',
+      points:[
+        '先买一两个现烤口味试吃；确定喜欢后再购买盒装',
+        '查看生产日期、保质期和配料；不购买过多，避免返程携带困难',
+        '需要邮寄时确认包装、破损责任和到货时间'
+      ],
+      note:'现场品尝与购买伴手礼应分开处理。现烤鲜花饼适合当天吃，带回家的产品优先选择包装、生产日期和保质期清楚的正规商品。',
+      search:'' },
+    { name:'酸角糕及果干', stars:3, when:'伴手礼或动车零食',
+      points:[
+        '适合少量购买，选择独立包装、日期清楚的正规产品',
+        '不建议在无标价、无完整包装的小店一次购买大量散装产品'
+      ],
+      note:'',
+      search:'' }
+  ],
+  baisha:[
+    { t:'白沙午餐方向', icon:'bowl', body:[
+      '纳西家常菜；米线、炒饭或简单套餐；有庭院或室内座位的餐厅；下雨时能避雨、允许适当多坐一会儿的店',
+      '两人点餐组合：一荤一素＋主食；米线或炒饭＋一份小菜；上午已经吃过小吃时，相应减少午餐分量'
+    ], list:[
+      '选择标准排序：① 有空座 ② 干净卫生 ③ 上菜速度合理 ④ 能避雨或休息 ⑤ 最后才考虑是否为网红景观位'
+    ]},
+    { t:'白沙雪山咖啡', icon:'coffee', body:[
+      '体验重点：坐得舒服比店铺名气重要。适合选择屋顶咖啡、庭院咖啡、书店咖啡、咖啡博物馆或室内咖啡空间。',
+      '饮品方向：云南咖啡、手冲或拿铁、茶饮、简单甜品。'
+    ], list:[
+      '先确认室内是否有座位，再考虑露台；查看是否有最低消费、限时或露台附加规则',
+      '雪山没有露出时，不连续更换多家咖啡馆追景；露台风大、紫外线强，拍照后及时返回室内',
+      '排队超过 20—30 分钟，换一家有座位的店'
+    ]}
+  ],
+  tibet:[
+    { name:'牦牛肉', stars:5, when:'独克宗午餐',
+      points:[
+        '一份牦牛肉主菜；一份青稞饼或主食；一份蔬菜或汤；一份藏式酸奶或少量酥油茶',
+        '不同时点牦牛火锅、土锅鸡和多份肉菜；吃到七八分饱即可',
+        '选择热食，但避免过油、过辣'
+      ],
+      note:'牦牛肉可以选择汤锅、炒制、盖饭或汤面形式。由于午饭后还有妆造和旅拍，不建议选择过大的牦牛肉火锅。',
+      search:'' },
+    { name:'青稞饼', stars:4, when:'藏餐主食',
+      points:['适合作为藏餐主食，两个人点一份分食即可','若已经点汤面、米饭等主食，可以不再额外增加'],
+      note:'', search:'' },
+    { name:'藏式酸奶或牦牛酸奶', stars:4, when:'藏餐搭配',
+      points:['通常酸味比较明显，可以先点一份两人分食','不要因为是“特色”就一次点多份；肠胃敏感或乳制品不耐受者谨慎','添加糖、蜂蜜等以餐厅实际提供为准'],
+      note:'', search:'' },
+    { name:'酥油茶', stars:3, when:'少量体验',
+      points:['第一次可先点小壶或单杯，两个人共同尝试','不喜欢咸奶味时不必勉强喝完；不要用大量酥油茶替代正常饮水'],
+      note:'酥油茶具有明显的咸香和乳脂口感。<b>它是饮食文化体验，不是高原反应治疗手段。</b>',
+      search:'' },
+    { name:'尼西土锅鸡', stars:3, when:'时间充足的正式晚餐',
+      points:['本次行程午餐后需要妆造和拍摄，不建议点耗时较长、分量较大的土锅鸡','只有返程时间较晚、餐厅出餐时间明确且两人都很想尝试时，才考虑用它替换其他主菜'],
+      note:'',
+      search:'' }
+  ],
+  drinks:[
+    { t:'云南咖啡', icon:'coffee', body:[
+      '可在古城或白沙安排 1—2 次，不需要每天打卡。适合场景：白沙看雪山和云层；恢复日下午整理照片；古城雨天替代。',
+      '选择建议：能坐得久、有室内空间；饮品价格和最低消费清楚；不为拍照频繁换店；咖啡因敏感者下午选择低咖啡因、茶或其他饮品。'
+    ]},
+    { t:'丽江酸梅汤及果饮', icon:'leaf', body:[
+      '可以作为体验饮品少量尝试，但不要在高原、长途移动或肠胃不适时大量饮用冰饮。酒店是否提供相关饮品，以入住期间实际服务为准。'
+    ]},
+    { t:'清吧或民谣店', icon:'music', body:[
+      '全程最多安排一个晚上，坐 30—60 分钟即可。<b>适合时间：Day 2 晚上，且两人身体正常、第二天不需要早起。</b>不适合时间：抵达第一晚、香格里拉返回当晚、返程前一晚。',
+      '进店前确认：最低消费、座位费、演出费、饮品价格、是否允许随时离店。优先选择无酒精饮品或低度饮品，不接受街边拉客。'
+    ]}
+  ],
+  market:{
+    steps:[
+      '先逛水果、生鲜和本地生活区域',
+      '两人分食一份烤饵块',
+      '从烤乳扇、鸡豆凉粉中再选择一项',
+      '购买少量当季水果',
+      '试吃现烤鲜花饼',
+      '确定喜欢后再采购伴手礼',
+      '中午仍保留正常但减量的正餐'
+    ],
+    avoid:[
+      '来源不清楚的野生菌',
+      '无完整包装的药材',
+      '需要现场鉴定的银饰',
+      '高价茶叶',
+      '无清晰价格和保质期的散装食品'
+    ]
+  },
+  week:[
+    ['Day 1','成都出发前热食','动车上清淡餐食','小锅米线、汽锅鸡或家常菜'],
+    ['Day 2','酒店早餐','纳西家常菜','小份腊排骨或云南菜'],
+    ['Day 3','酒店早餐','白沙简餐／纳西菜','五一街附近清淡晚餐'],
+    ['Day 4','酒店早餐','独克宗藏餐','返程后米线、粥或简单热食'],
+    ['Day 5','酒店早餐','忠义市场附近家常菜','正式告别晚餐'],
+    ['Day 6','酒店早餐','动车餐食','根据抵达成都时间安排']
+  ]
+};
+/* =========================================================
+   扩展数据 3/4 —— 备选景点及替换攻略
+   遵循「替换，不叠加」原则
+   ========================================================= */
+
+LJ.ALT = [
+  { t:'木府', pos:'丽江古城人文类备选', icon:'flag', stars:4, time:'60—90 分钟', replace:'替换 Day 2 上午部分古城巷弄',
+    warn:'不建议叠加：万古楼、狮子山和大量古城步行',
+    blocks:[
+      { h:'看什么', p:'木府与丽江历史上的木氏土司有关，建筑布局可以帮助理解纳西、汉、藏等文化在丽江的交流。适合对建筑、历史和地方政治文化感兴趣的人。' },
+      { h:'游览方式', list:[
+        '从主入口进入后沿主要建筑轴线游览',
+        '优先看院落、回廊、门窗雕饰和建筑层次',
+        '有讲解时可跟随正规讲解了解木氏历史',
+        '后部需要爬坡的区域按体力决定是否继续',
+        '游览结束后直接去午餐，不再继续登万古楼'
+      ]},
+      { h:'摄影建议', list:[
+        '利用红墙、门洞和回廊形成框景',
+        '上午光线比正午更柔和；建筑区域人多时拍局部和细节',
+        '不在狭窄通道长时间占位'
+      ]},
+      { h:'启动条件', list:[
+        '两个人都对历史建筑感兴趣；当日无明显疲劳',
+        '排队时间可以接受；已确认当日开放和购票规则'
+      ]}
+    ]},
+  { t:'黑龙潭', pos:'古城附近自然散步备选', icon:'lake', stars:4, time:'60—90 分钟', replace:'安排 Day 2 下午雨停后',
+    warn:'',
+    blocks:[
+      { h:'看什么', p:'黑龙潭的主要体验是水面、五孔桥、古树、园林和玉龙雪山方向。雪山露出时可以形成经典远景；雪山未露时，树影、桥、水面倒影和散步本身仍然有价值。' },
+      { h:'游览方式', list:[
+        '午休后根据云量和降雨决定是否出发',
+        '进入后只走入口、五孔桥和主要水面区域',
+        '找到舒服的位置后停留，不需要完整绕园',
+        '雷雨、强风或持续降雨时取消'
+      ]},
+      { h:'摄影建议', list:[
+        '五孔桥作为中景，雪山方向作为远景',
+        '阴天拍古树、倒影和桥梁',
+        '人物可沿水边慢走或在桥侧停留',
+        '不靠近湿滑水边，不后退找角度'
+      ]},
+      { h:'替代方案', p:'如果下午持续下雨，改为酒店庭院、古城茶馆或咖啡馆，不再寻找另一个户外景点。' }
+    ]},
+  { t:'束河古镇', pos:'白沙古镇的同级替代', icon:'bridge', stars:4, time:'3—5 小时', replace:'替换 Day 3 白沙古镇',
+    warn:'硬规则：白沙和束河当天二选一',
+    blocks:[
+      { h:'适合什么情况', list:[
+        '白沙周末人流过大',
+        '白沙持续降雨，不适合雪山露台',
+        '两个人更想看溪水、石桥和古镇街巷',
+        '不追求雪山咖啡，更想轻松散步和喝茶'
+      ]},
+      { h:'看什么', p:'束河与茶马古道历史有关，主要体验包括老街、水系、石桥和相对舒缓的古镇环境。与白沙相比，它更偏向水边古镇氛围；与大研古城相比，尺度相对松弛。' },
+      { h:'半日路线', list:[
+        '从正规入口或方便返程的位置下车；先确认返程叫车点',
+        '沿溪水、石桥和老街慢走；青龙桥等核心区域短停',
+        '找一家水边茶馆或咖啡馆休息',
+        '下午 16:00 左右返程；回酒店后不再增加其他古镇'
+      ]},
+      { h:'摄影建议', list:[
+        '石桥、溪流和树影适合环境人像',
+        '人物沿水边慢走，不必一直正对镜头',
+        '雨后拍湿石板与水面；尊重居民空间，不进入私人院落'
+      ]}
+    ]},
+  { t:'白沙壁画', pos:'白沙当天的文化类可选项目', icon:'art', stars:4, time:'30—60 分钟', replace:'替换白沙主街购物或部分咖啡时间',
+    warn:'',
+    blocks:[
+      { h:'看什么', p:'白沙壁画体现了不同民族、宗教和艺术传统在丽江地区的交融。游览重点不只是记年代，而是观察人物、服饰、构图和宗教题材如何共同出现。' },
+      { h:'游览方式', list:[
+        '先看整体画面，再看人物和局部',
+        '有正规讲解时可选择简短讲解；遵守拍照限制',
+        '若排队较长或两人兴趣一般，直接放弃',
+        '天气突然转好、雪山露出时，也可以将时间留给户外'
+      ]},
+      { h:'适合人群', list:[
+        '对纳西文化和绘画感兴趣',
+        '希望白沙不只停留在咖啡和拍照',
+        '雨天需要短时室内项目'
+      ]}
+    ]},
+  { t:'玉湖村', pos:'Day 5 恢复日的天气型备选', icon:'mount', stars:4, time:'半日', replace:'替换 Day 5 酒店慢度假',
+    warn:'启动门槛较高',
+    blocks:[
+      { h:'必须同时满足', list:[
+        '香格里拉已经在 Day 4 完成；前一晚睡眠正常',
+        '两人无头痛、恶心、胸闷或明显疲劳',
+        '天气稳定、道路正常',
+        '已经落实正规往返车辆；返程时间、费用和集合点均明确'
+      ]},
+      { h:'看什么', p:'玉湖村适合看石头房子、村巷、山体和玉龙雪山方向。相比古城，它更接近雪山脚下村落的安静环境。' },
+      { h:'半日路线', list:[
+        '10:30 左右 乘提前预约的往返车辆出发',
+        '11:20 左右 确认返程集合点和村内方向',
+        '11:40—13:00 石头房子、村巷和公共区域慢走',
+        '13:00—14:00 简单午餐或热饮',
+        '14:00—14:40 在集合点附近补拍',
+        '15:00 左右 乘原车返回丽江；16:00 后回酒店休息，不再增加白沙或束河'
+      ]},
+      { h:'摄影建议', list:[
+        '用石墙、道路和房屋作为雪山前景',
+        '服装可选择米白、深蓝、棕红',
+        '云层厚时拍石墙纹理和低饱和人像',
+        '不进入私人院落，不持续拍摄居民',
+        '不为了雪山继续向更高、更远处步行'
+      ]},
+      { h:'取消条件', p:'出现下雨、强风、叫车不确定、疲劳或意见不一致，立即改回酒店慢度假方案。' }
+    ]},
+  { t:'纳帕海短停', pos:'独克宗当天的极低优先级附加选项', icon:'lake', stars:2, time:'45—60 分钟', replace:'默认决定：不去',
+    warn:'',
+    blocks:[
+      { h:'只有以下条件全部满足才考虑', list:[
+        '藏服拍摄在 16:00 前结束',
+        '天气稳定，无降雨和道路预警',
+        '两人没有头痛、气短或明显疲劳',
+        '返程车票较晚，进站时间充足',
+        '已经落实正规往返车辆',
+        '不需要为此压缩吃饭、休息和进站时间'
+      ]},
+      { h:'执行方式', list:[
+        '只去正规、明确的观景区域；短停拍照后原车返回',
+        '不环湖、不骑马、不追网红公路、不接受路边临时收费项目',
+        '不因为“已经来了香格里拉”而勉强执行'
+      ]},
+      { h:'为什么不列入主线', p:'独克宗当天已经包含跨城动车、海拔变化、藏餐、妆造、旅拍和古城步行。纳帕海会增加交通和时间的不确定性，容易破坏返程安全边界，因此只有状态非常宽裕时才考虑。' }
+    ]},
+  { t:'狮子山与万古楼', pos:'古城全景类低优先级备选', icon:'tower', stars:3, time:'60—90 分钟', replace:'替换 Day 2 黑龙潭或部分古城巷弄',
+    warn:'不适合：与木府、黑龙潭在同一天全部叠加',
+    blocks:[
+      { h:'看什么', p:'主要价值是从较高位置观察丽江古城屋顶和城市格局，天气通透时可能看到玉龙雪山方向。' },
+      { h:'游览提醒', list:[
+        '需要一定上坡和台阶；雨后路面湿滑时取消',
+        '午后强晒或身体疲劳时不去',
+        '已经决定进入木府并走较多台阶时，不再加万古楼',
+        '开放时间和门票以当天官方信息为准'
+      ]},
+      { h:'摄影建议', list:[
+        '用屋顶层次表现古城规模',
+        '雪山未露时，拍瓦屋、云层和城市纹理',
+        '不在边缘区域倒退取景；风大时注意帽子和随身物品'
+      ]}
+    ]},
+  { t:'丽江文化场馆', pos:'持续降雨时的室内文化备选', icon:'museum', stars:3, time:'60—90 分钟', replace:'替换 Day 2 黑龙潭',
+    warn:'',
+    blocks:[
+      { h:'适合什么情况', list:[
+        'Day 2 下午持续下雨；黑龙潭无法执行',
+        '两个人对东巴文化、纳西历史和茶马古道感兴趣',
+        '希望增加室内项目，但不想远距离移动'
+      ]},
+      { h:'参观方法', list:[
+        '优先看东巴文字、纳西服饰、祭祀与生活用具',
+        '关注茶马古道相关交通、贸易和马帮展品',
+        '不需要逐块展板全部读完',
+        '参观后直接回酒店或去附近咖啡馆',
+        '不与木府、万古楼等人文项目全部安排在同一天'
+      ]},
+      { h:'注意', p:'现有资料中提到丽江博物院、东巴文字、传统服饰和茶马古道相关展览，但具体场馆名称、开放时间和预约要求需要出发前核验。' }
+    ]},
+  { t:'忠义市场', pos:'恢复日的城市生活类备选', icon:'market', stars:4, time:'60—90 分钟', replace:'替换 Day 5 部分活动',
+    warn:'',
+    blocks:[
+      { h:'攻略', list:[
+        '上午较适合逛；先看生活区，再少量尝小吃',
+        '两个人每种小吃分食，不连续大量进食',
+        '鲜花饼、酸角糕等先试吃再购买',
+        '不购买来源不明的野生菌、药材、银饰和高价茶叶',
+        '市场结束后回酒店午休，不继续叠加古城远距离景点'
+      ]},
+      { h:'定位', p:'忠义市场的价值不在于景观，而在于观察丽江本地的水果、生鲜、小吃和日常生活，可与午餐和伴手礼采购合并。' }
+    ]},
+  { t:'酒店庭院＋古城咖啡馆', pos:'所有户外行程的通用雨天、疲劳和情绪备选', icon:'house', stars:5, time:'按状态自由安排', replace:'任何一天的替代',
+    warn:'',
+    blocks:[
+      { h:'这不是退而求其次', p:'这不是“没有地方可去才选择的方案”，而是本次慢度假的正式组成部分。' },
+      { h:'酒店庭院可以做什么', list:[
+        '喝茶、看书和午睡',
+        '拍木门、花窗、回廊和雨后石板',
+        '整理照片和写旅行记录',
+        '向管家了解院落故事',
+        '等阵雨结束后再决定是否短距离出门'
+      ]},
+      { h:'咖啡馆选择标准', list:[
+        '距离酒店近；有室内座位',
+        '可以坐 1—2 小时；消费规则清楚',
+        '不需要长时间排队',
+        '不把景观位和网红名气作为第一标准'
+      ]},
+      { h:'候选搜索', list:[
+        '五一街附近庭院咖啡或茶馆',
+        '山舍·庭院咖啡',
+        '邂逅花镜咖啡'
+      ], p2:'后两者来自原有资料，仅作为地图搜索候选，必须确认是否仍营业、位置是否准确及近期评价。' }
+    ]}
+];
+/* =========================================================
+   扩展数据 4/4 —— 交通 / 安全 / 预约 / 预算 / 出发清单 /
+   香格里拉日期决策 / 停损线 / 旅行理念 / 导航
+   ========================================================= */
+
+LJ.TRANSPORT = {
+  big:[
+    { line:'成都南 → 丽江', scheme:'D239 · 参考 08:33—17:46', rule:'只在 12306 购票；无票优先候补' },
+    { line:'丽江 → 成都南', scheme:'D240 · 参考 11:03—20:18', rule:'不把退房和采购压在一起' },
+    { line:'丽江 ↔ 香格里拉', scheme:'动车当日往返', rule:'去程不必过早，回程留足休息和进站时间' }
+  ],
+  local:[
+    ['丽江站 → 古城','网约车或正规出租车；先确认古城外围下车点和酒店行李接应。'],
+    ['古城 → 白沙／束河','优先网约车或出租车；返程避开晚高峰和持续降雨时段。'],
+    ['玉湖村','必须提前落实正规往返车辆，不临时单程打车上山。'],
+    ['香格里拉站 → 独克宗','直接打车；古城内以步行为主。'],
+    ['古城石板路','行李箱轮子容易被卡，尽量减少大件行李，穿防滑好走的鞋。'],
+    ['离线准备','提前下载离线地图，保存酒店、车站、旅拍店和紧急联系信息。']
+  ]
+};
+
+LJ.SAFETY = [
+  { t:'丽江 · 雨季＋紫外线＋早晚温差', en:'LIJIANG · 2,400m', icon:'sun', accent:'#4c6d94', accentSoft:'rgba(76,109,148,.13)',
+    intro:'丽江城区海拔约 2,400 米。8 月常见阵雨和较大的昼夜温差，阴天也可能有较强紫外线。穿搭的核心不是带很多厚衣服，而是方便增减。',
+    items:[
+      '短袖 2—3 件；薄长袖／卫衣 1—2 件；轻薄防风防水外套 1 件',
+      '薄长裤、舒适防滑鞋；拍照可带一套颜色鲜明的长裙或内搭',
+      '帽子、太阳镜、防晒霜、润唇膏和保湿用品',
+      '折叠伞或轻便雨衣'
+    ],
+    note:'古城石板雨后湿滑，不穿高跟鞋、硬底凉鞋或没有后跟固定的拖鞋。' },
+  { t:'香格里拉 · 保暖和防晒同时做', en:'SHANGRI-LA · 3,300m', icon:'snow', accent:'#b3542f', accentSoft:'rgba(179,84,47,.13)',
+    intro:'独克宗海拔约 3,300 米，通常比丽江更冷、风更明显。采用三层穿法：',
+    steps:['薄长袖内搭','薄卫衣／轻保暖层','防风防水外套'],
+    note:'下装以长裤为主，鞋子必须防滑、合脚。藏服拍摄结束后及时穿回保暖层，不要为了照片长时间受冷。' },
+  { t:'高原安全', en:'ALTITUDE RULES', icon:'shield', accent:'#a34a3a', accentSoft:'rgba(163,74,58,.12)',
+    items:[
+      '出发前一晚保证睡眠，不饮酒、不熬夜',
+      '到香格里拉后走慢、少爬坡、不奔跑、不空腹',
+      '及时补水和保暖，但不一次喝大量冰水',
+      '便携氧气可按需购买，不能替代医疗判断',
+      '明显或持续加重的头痛、恶心、胸闷、气短、走路不稳，应停止活动并寻求工作人员或医疗帮助',
+      '严重呼吸困难、意识异常等情况应尽快就医或下降，不要仅靠吸氧硬扛'
+    ],
+    note:'红景天提示：现有资料曾建议提前服用红景天，但药物或保健品效果、适用人群和禁忌并未得到充分医学支持，因此本手册不把它列为必须措施。个人用药以医生或药师建议为准。' },
+  { t:'雨季安全', en:'RAINY SEASON', icon:'cloud', accent:'#5f7d5a', accentSoft:'rgba(95,125,90,.13)',
+    items:[
+      '每天出门前查看逐小时天气和暴雨、雷暴、地质灾害提示',
+      '强降雨时不去山边、河道、低洼区域和不熟悉的小路',
+      '不在大树下或空旷高处躲雷雨',
+      '随身准备轻便雨具、干纸巾和设备防水袋',
+      '雨后古城石板很滑，缩短步幅，不边走边看手机'
+    ],
+    note:'天气预报只能作为参考，临时变化时优先执行停损线。' }
+];
+
+LJ.BOOKINGS = [
+  { item:'成都→丽江、丽江→成都动车', deadline:'起售即买／候补', prio:1, check:'日期、车站、时间、乘车人' },
+  { item:'香格里拉往返动车', deadline:'以 8/9 为默认日，开售时优先锁定', prio:2, check:'改签规则、返程时间、进站余量' },
+  { item:'酒店连续入住', deadline:'出发前 3—7 天', prio:1, check:'两笔订单合并、房间连续、早餐与接应' },
+  { item:'丽江站接驳和古城行李', deadline:'出发前 1—3 天', prio:1, check:'下车点、管家接应、费用' },
+  { item:'藏服妆造与跟拍', deadline:'出发前 1—3 天', prio:2, check:'服装、底片、精修、外景费、改期规则' },
+  { item:'白沙观景餐厅／露台位', deadline:'明确想去时再约', prio:3, check:'营业、座位、最低消费、雨天安排' },
+  { item:'玉湖村往返车', deadline:'确定去的前一天', prio:3, check:'正规车辆、往返时间、雨天取消' },
+  { item:'野生菌餐厅', deadline:'当天确认', prio:3, check:'卫生、排队、完全煮熟提示' },
+  { item:'8/6—8/11 天气和预警', deadline:'出发前 3 天起每日查看', prio:1, check:'逐小时降雨、雷暴、道路和地质提示' }
+];
+
+LJ.BUDGET = {
+  rows:[
+    { item:'成都—丽江往返动车二等座', range:'约 1,536', note:'以 12306 实际支付为准' },
+    { item:'丽江—香格里拉往返动车', range:'约 280', note:'以实际车次和票价为准' },
+    { item:'丽江及周边打车', range:'400—650', note:'含车站、白沙及市内短途' },
+    { item:'香格里拉短途交通', range:'80—180', note:'车站与独克宗往返' },
+    { item:'餐饮', range:'1,800—2,600', note:'含正餐、小吃和简单夜宵' },
+    { item:'咖啡、茶、一次清吧', range:'300—600', note:'不追求高频网红店' },
+    { item:'藏服妆造／简易跟拍', range:'300—800', note:'依服装、精修和拍摄时长变化' },
+    { item:'玉湖村可选用车', range:'200—500', note:'不去则不产生' },
+    { item:'临时备用金', range:'500—1,000', note:'天气、改签、医疗和临时交通' }
+  ],
+  totals:[
+    { key:'base', label:'基础玩法', num:'约 5,000—6,500 元', note:'不做跟拍、不去玉湖村且餐饮控制得当' },
+    { key:'full', label:'全体验版', num:'约 5,300—8,150 元', note:'升级旅拍、包车、观景餐厅或较多伴手礼时，建议再预留 500—1,500 元' }
+  ],
+  note:'不含酒店和个人高额购物。'
+};
+
+LJ.PACKING = [
+  { cat:'证件与电子设备', items:[
+    '身份证',
+    '12306 订单和酒店订单截图',
+    '手机、充电器、充电宝、充电线',
+    '耳机、相机／备用电池（如携带）',
+    '离线地图和重要地址截图',
+    '酒店、旅拍店、司机联系方式'
+  ]},
+  { cat:'衣物与防护', items:[
+    '短袖 2—3 件',
+    '薄长袖／卫衣 1—2 件',
+    '轻薄防风防水外套 1 件',
+    '长裤、舒适防滑鞋',
+    '拍照服装 1 套',
+    '帽子、太阳镜',
+    '防晒霜、润唇膏、保湿用品',
+    '折叠伞／轻便雨衣'
+  ]},
+  { cat:'药品与健康', items:[
+    '个人处方药',
+    '常用肠胃药、感冒药、创可贴',
+    '纸巾、湿巾、口罩',
+    '少量能量零食和水',
+    '旅游保险信息（如购买）'
+  ]},
+  { cat:'出发前最后核验', items:[
+    '两笔酒店订单已确认连续入住',
+    '丽江站下车点和酒店接应已确认',
+    '8 月 9 日香格里拉车票已锁定',
+    '旅拍价格、底片和改期规则已书面确认',
+    '8 月 8 日晚完成天气与身体状态判断',
+    '返程动车和退房用车已确认'
+  ]}
+];
+
+LJ.SCENARIOS = [
+  { t:'8/9 白天降雨较少', d:'无雷暴、道路或铁路预警，两人身体正常', r:'按主计划 8/9 前往' },
+  { t:'8/9 持续中到大雨', d:'8/10 明显更好', r:'改到 8/10' },
+  { t:'两天均有阵雨', d:'但无预警且身体正常', r:'选 8/9，保留室内妆造、藏餐和古城短逛' },
+  { t:'身体或交通异常', d:'明显头痛、恶心、胸闷、睡眠很差或交通预警', r:'缩短或取消，不硬撑' }
+];
+
+LJ.STOPLOSS = [
+  '持续大雨、雷暴或地质灾害提示',
+  '明显头痛、恶心、胸闷、气短或走路不稳',
+  '前一晚睡眠很差，长时间疲劳',
+  '两个人中有一人已经明显不想继续',
+  '交通拥堵、排队或临时关闭让原计划失去舒适感'
+];
+
+LJ.PRINCIPLES = [
+  { n:'壹', t:'不换酒店', d:'5 晚均住丽江古城花间府·植梦，不为香格里拉搬行李，也不临时增加异地住宿。' },
+  { n:'贰', t:'每天只有一个主场景', d:'抵达、丽江古城、白沙、独克宗、恢复日和返程各自成天。' },
+  { n:'叁', t:'香格里拉不做全域打卡', d:'主线只保留独克宗古城、藏服妆造、藏餐和慢逛，不把普达措、松赞林寺、纳帕海强行塞进同一天。' },
+  { n:'肆', t:'给高原和雨季留余地', d:'8/9 是香格里拉默认日，8/10 作为天气或身体状态备用日。' },
+  { n:'伍', t:'雪山随缘', d:'白沙和玉湖都是远眺玉龙雪山的机会，但不为索道、排队或阴天硬赶。' },
+  { n:'陆', t:'酒店也是目的地', d:'院子喝茶、早餐、午休、雨声和庭院拍照，都是这趟旅行的一部分，而不是“没出去玩”。' }
+];
+
+LJ.NAV = [
+  ['旅行理念','#philosophy'], ['酒店主场','#hotel'], ['行程总览','#overview'], ['两个决定','#decisions'],
+  ['每日行程','#days'], ['文化预习','#culture'], ['摄影指南','#photo'], ['美食清单','#food'],
+  ['备选方案','#alt'], ['交通攻略','#transport'], ['安全备忘','#safety'], ['预约清单','#bookings'],
+  ['参考预算','#budget'], ['出发清单','#packing']
+];
+
+</script>
+<script>
+/* =========================================================
+   慢行滇西 · 应用脚本 1/2
+   工具函数 + 各区块渲染器
+   ========================================================= */
+(function(){
+'use strict';
+
+/* ---------- 图标库（内联 SVG，离线可用） ---------- */
+var IC = {
+  clock:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>',
+  bowl:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16a8 8 0 0 1-16 0z"/><path d="M8 12a4 4 0 0 1 4-4 4 4 0 0 1 4 4"/></svg>',
+  train:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="15" rx="3"/><path d="M5 13h14M9 21l-2 3M15 21l2 3M9.5 7h5M9.5 10.5h5"/></svg>',
+  car:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16l1.5-4.5A2 2 0 0 1 8.4 10h7.2a2 2 0 0 1 1.9 1.5L19 16M5 16h14M5 16a1.5 1.5 0 0 0-1.5 1.5v2h3v-2M19 16a1.5 1.5 0 0 1 1.5 1.5v2h-3v-2M7.5 16v3M16.5 16v3"/></svg>',
+  note:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg>',
+  book:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h14"/></svg>',
+  camera:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg>',
+  shield:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>',
+  coin:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5c0-1 1.1-1.5 2.5-1.5s2.5.5 2.5 1.5c0 .8-.9 1.2-2 1.4M9.5 14.5c0 1 1.1 1.5 2.5 1.5s2.5-.5 2.5-1.5c0-.8-.9-1.2-2-1.4"/></svg>',
+  house:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg>',
+  cloud:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4.5 4.5 0 0 1-.6-8.96A6 6 0 0 1 18 9.6 4 4 0 0 1 17 18H7z"/></svg>',
+  flag:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4c4-2 7 2 11 0v9c-4 2-7-2-11 0"/></svg>',
+  mount:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20L10 5l4 8 2-3 5 10H3z"/><path d="M3 20h18"/></svg>',
+  bag:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l1.5 12h-15L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>',
+  check:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg>',
+  moon:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>',
+  sun:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5 5l1.4 1.4M17.6 17.6L19 19M19 5l-1.4 1.4M6.4 17.6L5 19"/></svg>',
+  snow:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M4 6l16 12M20 6L4 18"/></svg>',
+  coffee:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z"/><path d="M17 10h2a2.5 2.5 0 0 1 0 5h-2M8 4c0 1-1 1.5-1 3M12 4c0 1-1 1.5-1 3M16 4c0 1-1 1.5-1 3"/></svg>',
+  leaf:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20C4 9 11 4 20 4c0 9-5 16-16 16z"/><path d="M4 20c4-6 8-10 12-12"/></svg>',
+  music:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>',
+  lake:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 12c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 7c2-2 4-2 6 0s4 2 6 0 4-2 6 0"/></svg>',
+  bridge:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h18M4 8v8M20 8v8M6 8v8M18 8v8M3 20h18"/></svg>',
+  art:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="2"/><path d="M4 21l7-9 4 5 3-4 6 8"/><path d="M3 21h18"/></svg>',
+  tower:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l6 3v2H6V6l6-3zM8 8v10M16 8v10M6 18h12M5 21h14M8 18h8"/></svg>',
+  museum:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9l8-5 8 5M5 9v9M9 9v9M15 9v9M19 9v9M3 21h18M3 18h18"/></svg>',
+  market:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l2-7h12l2 7M4 10a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0M5 13v8h14v-8"/></svg>',
+  star:'<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.2 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2z"/></svg>'
+};
+function ic(name, cls){ return '<span class="'+(cls||'')+'">'+(IC[name]||IC.note)+'</span>'; }
+
+/* 勾选图标（清单/停损线/决策通用） */
+var CK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.8l5 5L19.5 6.8"/></svg>';
+
+/* ---------- 星星渲染 ---------- */
+function starsHTML(n){
+  var s='<span class="stars">';
+  for(var i=0;i<5;i++){ s+= i<n ? '★' : '<span class="off">☆</span>'; }
+  return s+'</span>';
+}
+
+/* ---------- 通用 DOM 工具 ---------- */
+function el(tag, html){ var e=document.createElement(tag); if(html!==undefined) e.innerHTML=html; return e; }
+function qs(sel, root){ return (root||document).querySelector(sel); }
+function qsa(sel, root){ return Array.prototype.slice.call((root||document).querySelectorAll(sel)); }
+
+/* ---------- 非线性补间工具 ---------- */
+function easeOutExpo(t){ return t===1?1:1-Math.pow(2,-10*t); }
+function easeInOutQuint(t){ return t<.5?16*t*t*t*t*t:1-Math.pow(-2*t+2,5)/2; }
+function easeOutBack(t){ var c=1.70158; return 1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2); }
+
+function smoothTo(targetY, dur){
+  dur = dur || 900;
+  var start = window.pageYOffset, diff = targetY - start, t0 = performance.now();
+  function step(now){
+    var p = Math.min(1, (now-t0)/dur);
+    window.scrollTo(0, start + diff*easeInOutQuint(p));
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+function countUp(el, to, dur, suffix){
+  dur = dur || 1300; suffix = suffix || '';
+  var t0 = performance.now(), from = 0;
+  function step(now){
+    var p = Math.min(1,(now-t0)/dur);
+    el.textContent = Math.round(from + (to-from)*easeOutExpo(p)).toLocaleString('en-US') + suffix;
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* ---------- 滚动入场观察器 ---------- */
+var revealObs;
+function initReveal(){
+  revealObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){
+        en.target.classList.add('in');
+        revealObs.unobserve(en.target);
+      }
+    });
+  },{ threshold:.12, rootMargin:'0px 0px -6% 0px' });
+  qsa('.reveal').forEach(function(n){ revealObs.observe(n); });
+}
+function observeReveal(node){
+  qsa('.reveal', node).forEach(function(n){ revealObs && revealObs.observe(n); });
+}
+
+/* =========================================================
+   渲染器 ① 旅行理念（可翻转小卡）
+   ========================================================= */
+function renderPrinciples(){
+  var grid = qs('#prinGrid'); if(!grid) return;
+  LJ.PRINCIPLES.forEach(function(p, i){
+    var card = el('div','');
+    card.className = 'flip prin reveal';
+    card.style.transitionDelay = (i*0.06)+'s';
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    card.setAttribute('aria-label','翻转查看：'+p.t);
+    card.innerHTML =
+      '<div class="flip-inner">'+
+        '<div class="flip-face prin-face prin-front">'+
+          '<span class="prin-no">'+p.n+'</span>'+
+          '<h4>'+p.t+'</h4>'+
+          '<span class="prin-hint">轻触翻转 ↻</span>'+
+        '</div>'+
+        '<div class="flip-face flip-back prin-face prin-back">'+
+          '<p>'+p.d+'</p>'+
+        '</div>'+
+      '</div>';
+    grid.appendChild(card);
+    card.addEventListener('click', function(){ card.classList.toggle('flipped'); });
+    card.addEventListener('keydown', function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); card.classList.toggle('flipped'); }
+    });
+  });
+}
+
+/* =========================================================
+   渲染器 ② 行程总览（横滑卡）
+   ========================================================= */
+function renderOverview(){
+  var track = qs('#ovTrack'); if(!track) return;
+  LJ.DAYS.forEach(function(d){
+    var card = el('div','');
+    card.className = 'ov';
+    card.style.setProperty('--acc', d.accent);
+    card.style.setProperty('--acc-soft', d.accentSoft);
+    card.innerHTML =
+      '<span class="ov-no">'+d.n+'</span>'+
+      '<div class="ov-top">'+
+        '<span class="ov-date">'+d.date+' · '+d.weekday+'<small>'+d.en.toUpperCase()+'</small></span>'+
+        '<span class="stars">'+starsHTML(d.intensity)+'</span>'+
+      '</div>'+
+      '<div class="ov-scene">'+d.title+'</div>'+
+      '<div class="ov-kw">'+d.keywords.map(function(k){return '<span class="chip">'+k+'</span>';}).join('')+'</div>'+
+      '<div class="ov-foot"><b>核心取舍</b>　'+d.tradeoff+'<br><b>备用方案</b>　'+d.backup+'</div>'+
+      '<span class="ov-go">查看当日详情 <span style="transition:transform .5s var(--ease-spring)">→</span></span>';
+    card.addEventListener('click', function(){
+      var sec = qs('#day-'+d.n);
+      if(sec){ smoothTo(sec.getBoundingClientRect().top + window.pageYOffset - 70, 1000); }
+    });
+    track.appendChild(card);
+  });
+}
+
+/* =========================================================
+   渲染器 ③ 香格里拉日期决策
+   ========================================================= */
+var scnState = 0;
+function renderScenarios(){
+  var grid = qs('#scnGrid'); if(!grid) return;
+  LJ.SCENARIOS.forEach(function(s, i){
+    var b = el('button','');
+    b.className = 'scn-opt' + (i===0?' on':'');
+    b.innerHTML = '<span class="scn-ck">'+CK_SVG+'</span><b>'+s.t+'</b>'+s.d;
+    b.addEventListener('click', function(){
+      if(scnState === i) return;
+      scnState = i;
+      qsa('.scn-opt', grid).forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      var res = qs('#scnResTx');
+      if(res){
+        res.innerHTML = s.r;
+        var box = qs('#scnRes');
+        box.classList.remove('pop');
+        void box.offsetWidth;
+        box.classList.add('pop');
+      }
+    });
+    grid.appendChild(b);
+  });
+  var res = qs('#scnResTx');
+  if(res) res.innerHTML = LJ.SCENARIOS[0].r;
+}
+
+/* =========================================================
+   渲染器 ④ 停损线（点按确认）
+   ========================================================= */
+var slKey = 'ljxl-sl';
+function renderStoploss(){
+  var box = qs('#slBox'); if(!box) return;
+  var saved = {};
+  try{ saved = JSON.parse(localStorage.getItem(slKey)||'{}'); }catch(e){}
+  LJ.STOPLOSS.forEach(function(tx, i){
+    var item = el('button','');
+    item.className = 'sl-item' + (saved[i] ? ' ack' : '');
+    item.innerHTML =
+      '<span class="sl-check">'+CK_SVG+'</span>'+
+      '<span class="sl-tx"><b>'+String(i+1)+' · </b>'+tx+'</span>';
+    item.addEventListener('click', function(){
+      saved[i] = !saved[i];
+      try{ localStorage.setItem(slKey, JSON.stringify(saved)); }catch(e){}
+      item.classList.toggle('ack', saved[i]);
+    });
+    box.appendChild(item);
+  });
+}
+
+/* =========================================================
+   渲染器 ⑤ 每日行程（翻转卡 + 展开时间轴）
+   ========================================================= */
+function renderDays(){
+  var root = qs('#daysRoot'); if(!root) return;
+  LJ.DAYS.forEach(function(d, idx){
+    var mod = el('section','');
+    mod.className = 'day-mod reveal';
+    mod.id = 'day-'+d.n;
+    mod.style.setProperty('--acc', d.accent);
+    mod.style.setProperty('--acc-soft', d.accentSoft);
+    mod.style.transitionDelay = (idx*0.05)+'s';
+
+    var flip = el('div','');
+    flip.className = 'flip day-flip';
+    flip.setAttribute('role','button');
+    flip.setAttribute('tabindex','0');
+    flip.setAttribute('aria-label','翻转查看 '+d.title);
+    flip.innerHTML =
+      '<div class="flip-inner">'+
+        '<div class="flip-face day-front">'+
+          '<span class="df-bg">'+d.n+'</span>'+
+          '<div class="day-front-top">'+
+            '<span class="day-no">'+d.n+'<small>DAY</small></span>'+
+            '<div class="day-head-tx">'+
+              '<div class="day-title">'+d.title+'</div>'+
+              '<div class="day-sub">'+d.date+' · '+d.weekday+' ｜ '+d.sub+'</div>'+
+            '</div>'+
+          '</div>'+
+          '<div class="day-front-mid">'+
+            '<div class="day-theme">主场景　<b>'+d.theme+'</b></div>'+
+            '<div class="day-kw">'+d.keywords.map(function(k){return '<span class="chip on">'+k+'</span>';}).join('')+'</div>'+
+          '</div>'+
+          '<div class="day-front-foot">'+
+            '<span class="stars">'+starsHTML(d.intensity)+'</span>'+
+            '<span class="day-hint">轻触翻转 <span class="h-arr">↻</span></span>'+
+          '</div>'+
+        '</div>'+
+        '<div class="flip-face flip-back day-back">'+
+          '<div>'+
+            '<div class="db-t">今日目标<em> · Goal</em></div>'+
+            '<p>'+d.goal+'</p>'+
+            '<div class="db-k">'+
+              '<span class="chip">核心取舍：'+d.tradeoff+'</span>'+
+              '<span class="chip">备用方案：'+d.backup+'</span>'+
+            '</div>'+
+          '</div>'+
+          '<button class="day-open-btn" data-open="day-'+d.n+'">展开全天时间轴 ↓</button>'+
+        '</div>'+
+      '</div>';
+    mod.appendChild(flip);
+
+    /* 展开区 */
+    var body = el('div','');
+    body.className = 'day-body';
+    var bodyIn = el('div','');
+    bodyIn.className = 'day-body-in';
+    var pad = el('div','');
+    pad.className = 'day-body-pad';
+
+    /* 穿搭 */
+    pad.appendChild(noteHTML('穿搭建议', 'outfit', '出门前看一眼', d.outfit, d.accent, d.accentSoft));
+    /* 方案标签（Day5 有 A/B） */
+    if(d.plans.length > 1){
+      var pt = el('div','');
+      pt.className = 'plan-tabs';
+      var panels = [];
+      d.plans.forEach(function(pl, pi){
+        var tb = el('button','');
+        tb.className = 'plan-tab' + (pi===0?' on':'');
+        tb.innerHTML = pl.label+'<small>'+pl.sub+'</small>';
+        tb.addEventListener('click', function(){
+          qsa('.plan-tab', pt).forEach(function(x){x.classList.remove('on');});
+          tb.classList.add('on');
+          panels.forEach(function(pn, j){ pn.classList.toggle('on', j===pi); });
+        });
+        pt.appendChild(tb);
+        var pn = el('div','');
+        pn.className = 'plan-panel' + (pi===0?' on':'');
+        pl.timeline.forEach(function(row){ pn.appendChild(tlHTML(row, d.accent, d.accentSoft)); });
+        panels.push(pn);
+      });
+      pad.appendChild(pt);
+      panels.forEach(function(pn){ pad.appendChild(pn); });
+    } else {
+      d.plans[0].timeline.forEach(function(row){ pad.appendChild(tlHTML(row, d.accent, d.accentSoft)); });
+    }
+
+    /* 笔记区 */
+    if(d.notes){
+      d.notes.forEach(function(nt){
+        pad.appendChild(noteHTML(nt.t, nt.icon, '', nt, d.accent, d.accentSoft));
+      });
+    }
+    /* 支出 */
+    pad.appendChild(costHTML(d.cost, d.accent, d.accentSoft));
+
+    bodyIn.appendChild(pad);
+    body.appendChild(bodyIn);
+    mod.appendChild(body);
+    root.appendChild(mod);
+
+    /* 翻转 + 展开联动 */
+    flip.addEventListener('click', function(e){
+      if(e.target.closest('.day-open-btn')){
+        mod.classList.toggle('open');
+        flip.classList.remove('flipped');
+        var arrow = qs('.day-open-btn', mod);
+        if(arrow) arrow.innerHTML = mod.classList.contains('open') ? '收起时间轴 ↑' : '展开全天时间轴 ↓';
+        return;
+      }
+      flip.classList.toggle('flipped');
+    });
+    flip.addEventListener('keydown', function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); flip.classList.toggle('flipped'); }
+    });
+  });
+}
+
+/* 时间轴单项 */
+function tlHTML(row, acc, accSoft){
+  var w = el('article','');
+  w.className = 'tl';
+  w.style.setProperty('--acc', acc);
+  w.style.setProperty('--acc-soft', accSoft);
+  var head = el('button','');
+  head.className = 'tl-head';
+  head.innerHTML =
+    '<span class="tl-node"></span>'+
+    '<span class="tl-time">'+row.t+'</span>'+
+    '<span class="tl-title">'+row.h+'</span>'+
+    '<span class="tl-arr">+</span>';
+  head.addEventListener('click', function(){ w.classList.toggle('open'); });
+  var det = el('div','');
+  det.className = 'tl-detail';
+  det.innerHTML =
+    '<div class="tl-detail-in"><div class="tl-detail-pad">'+
+      dfHTML('安排', 'clock', row.d)+
+      dfHTML('行程 · 餐饮', 'bowl', row.f)+
+      dfHTML('交通方式', 'train', row.m)+
+      dfHTML('详细备注', 'note', row.n)+
+    '</div></div>';
+  w.appendChild(head);
+  w.appendChild(det);
+  return w;
+}
+function dfHTML(label, icon, txt){
+  return '<div class="df"><span class="df-ic">'+(IC[icon]||IC.note)+'</span><div class="df-tx"><em>'+label+'</em><p>'+txt+'</p></div></div>';
+}
+
+/* 笔记卡 */
+function noteHTML(title, icon, sub, data, acc, accSoft){
+  var w = el('div','');
+  w.className = 'note';
+  w.style.setProperty('--acc', acc);
+  w.style.setProperty('--acc-soft', accSoft);
+  var html = '<div class="note-h"><span class="note-ic">'+(IC[icon]||IC.note)+'</span><h4>'+title+(sub?'<small>'+sub+'</small>':'')+'</h4></div>';
+  if(data.para) html += '<p>'+data.para+'</p>';
+  if(data.para2) html += '<p>'+data.para2+'</p>';
+  if(data.list && data.list.length) html += '<ul>'+data.list.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+  if(data.list2 && data.list2.length) html += '<ul>'+data.list2.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+  if(Array.isArray(data) && data.length){
+    html += '<ul>'+data.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+  }
+  if(data.kw) html += '<div class="kw-row">'+data.kw.map(function(k){return '<span class="chip on">'+k+'</span>';}).join('')+'</div>';
+  w.innerHTML = html;
+  return w;
+}
+
+/* 支出卡 */
+function costHTML(cost, acc, accSoft){
+  var w = el('div','');
+  w.className = 'cost';
+  w.style.setProperty('--acc', acc);
+  w.style.setProperty('--acc-soft', accSoft);
+  var html =
+    '<div class="cost-h">'+IC.coin+'<span>今日双人参考支出</span></div>'+
+    '<div class="cost-b">'+
+      cost.rows.map(function(r){ return '<div class="bd-row"><span>'+r[0]+'</span><span class="bd-v">'+r[1]+'</span></div>'; }).join('')+
+    '</div>'+
+    '<div class="bd-total"><span class="bd-t-l">'+cost.total[0]+'</span><span class="bd-t-r">'+cost.total[1]+'</span></div>';
+  w.innerHTML = html;
+  return w;
+}
+
+/* 导出供第 2 部分使用 */
+window.LJUI = {
+  IC:IC, CK:CK_SVG, ic:ic, starsHTML:starsHTML, el:el, qs:qs, qsa:qsa,
+  smoothTo:smoothTo, countUp:countUp, initReveal:initReveal, observeReveal:observeReveal,
+  renderPrinciples:renderPrinciples, renderOverview:renderOverview,
+  renderScenarios:renderScenarios, renderStoploss:renderStoploss, renderDays:renderDays
+};
+})();
+/* =========================================================
+   慢行滇西 · 应用脚本 2/2
+   渲染器（文化/摄影/美食/备选/交通/安全/清单/预算）
+   + 全部交互（导航/视差/进度/日期坞/清单持久化）
+   ========================================================= */
+(function(){
+'use strict';
+var U = window.LJUI;
+var IC = U.IC, ic = U.ic, starsHTML = U.starsHTML, el = U.el, qs = U.qs, qsa = U.qsa;
+var smoothTo = U.smoothTo;
+
+/* =========================================================
+   渲染器 ⑥ 文化预习（翻转卡）
+   ========================================================= */
+function renderCulture(){
+  var grid = qs('#cultureGrid'); if(!grid) return;
+  LJ.CULTURE.forEach(function(c, i){
+    var card = el('div','');
+    card.className = 'flip culture reveal';
+    card.style.transitionDelay = (i*0.08)+'s';
+    card.style.setProperty('--acc', c.accent);
+    card.style.setProperty('--acc-soft', c.accentSoft);
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    card.innerHTML =
+      '<div class="flip-inner">'+
+        '<div class="flip-face cult-face cult-front">'+
+          '<div>'+
+            '<span class="cult-no">'+c.no+'</span>'+
+            '<h3 class="cult-name">'+c.name+'</h3>'+
+            '<div class="cult-en">'+c.en+'</div>'+
+          '</div>'+
+          '<div class="cult-kw">'+c.kw.map(function(k){return '<span class="chip on">'+k+'</span>';}).join('')+'</div>'+
+        '</div>'+
+        '<div class="flip-face flip-back cult-face cult-back">'+
+          '<h4>'+c.name+' · 文化线索</h4>'+
+          c.paras.map(function(p){return '<p>'+p+'</p>';}).join('')+
+          '<div class="kw-row">'+c.kw.map(function(k){return '<span class="chip gold">'+k+'</span>';}).join('')+'</div>'+
+        '</div>'+
+      '</div>';
+    card.addEventListener('click', function(){ card.classList.toggle('flipped'); });
+    card.addEventListener('keydown', function(e){
+      if(e.key==='Enter'||e.key===' '){ e.preventDefault(); card.classList.toggle('flipped'); }
+    });
+    grid.appendChild(card);
+  });
+}
+
+/* =========================================================
+   渲染器 ⑦ 摄影氛围（标签页）
+   ========================================================= */
+var photoActive = 0;
+function renderPhoto(){
+  var tabs = qs('#photoTabs'), panel = qs('#photoPanel');
+  if(!tabs || !panel) return;
+  var keys = Object.keys(LJ.PHOTO);
+  keys.forEach(function(k, i){
+    var tb = el('button','');
+    tb.className = 'tab' + (i===0?' on':'');
+    tb.textContent = k;
+    tb.addEventListener('click', function(){
+      photoActive = i;
+      qsa('.tab', tabs).forEach(function(x){ x.classList.remove('on'); });
+      tb.classList.add('on');
+      drawPhotoPanel();
+    });
+    tabs.appendChild(tb);
+  });
+  function drawPhotoPanel(){
+    panel.innerHTML = LJ.PHOTO[keys[photoActive]].map(function(s, j){
+      return '<div class="p-row"><span class="p-idx">'+String(j+1).padStart(2,'0')+'</span>'+
+        '<div><h5>'+s.scene+'</h5><div class="p-kw">'+s.kw+'</div><p>'+s.tip+'</p></div></div>';
+    }).join('');
+  }
+  drawPhotoPanel();
+}
+
+/* =========================================================
+   渲染器 ⑧ 美食清单
+   ========================================================= */
+function accItem(icon, title, sub, bodyHTML){
+  var w = el('div','');
+  w.className = 'acc';
+  w.innerHTML =
+    '<button class="acc-head"><span class="acc-ic">'+(IC[icon]||IC.bowl)+'</span>'+
+    '<span class="acc-tx"><h5>'+title+'</h5>'+(sub?'<small>'+sub+'</small>':'')+'</span>'+
+    '<span class="acc-arr">+</span></button>'+
+    '<div class="acc-body"><div class="acc-body-in"><div class="acc-pad">'+bodyHTML+'</div></div></div>';
+  qs('.acc-head', w).addEventListener('click', function(){ w.classList.toggle('open'); });
+  return w;
+}
+function renderFood(){
+  var root = qs('#foodRoot'); if(!root) return;
+  var F = LJ.FOOD;
+
+  var h1 = secDivider('一 · 丽江必尝正餐');
+  root.appendChild(h1);
+  F.mains.forEach(function(d){
+    var body =
+      '<div class="stars">'+starsHTML(d.stars)+'</div>'+
+      '<div class="sub-h">适合安排</div><p>'+d.when+'</p>'+
+      '<div class="sub-h">两人点餐建议</div><ul>'+d.points.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>'+
+      (d.note ? '<div class="sub-h">食用提醒</div><p>'+d.note+'</p>' : '')+
+      (d.search ? '<p style="margin-top:8px;color:var(--accent);font-weight:600">'+d.search+'</p>' : '');
+    root.appendChild(accItem('bowl', d.name, d.when, body));
+  });
+
+  root.appendChild(secDivider('二 · 丽江街头小吃'));
+  F.snacks.forEach(function(d){
+    var body =
+      '<div class="stars">'+starsHTML(d.stars)+'</div>'+
+      '<div class="sub-h">适合安排</div><p>'+d.when+'</p>'+
+      '<div class="sub-h">点单建议</div><ul>'+d.points.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>'+
+      (d.note ? '<div class="sub-h">提醒</div><p>'+d.note+'</p>' : '');
+    root.appendChild(accItem('leaf', d.name, d.when, body));
+  });
+
+  root.appendChild(secDivider('三 · 白沙古镇餐饮与咖啡'));
+  F.baisha.forEach(function(d){
+    var body = d.body.map(function(p){return '<p>'+p+'</p>';}).join('') + '<ul>'+d.list.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+    root.appendChild(accItem(d.icon, d.t, '', body));
+  });
+
+  root.appendChild(secDivider('四 · 香格里拉藏餐清单'));
+  F.tibet.forEach(function(d){
+    var body =
+      '<div class="stars">'+starsHTML(d.stars)+'</div>'+
+      '<div class="sub-h">适合安排</div><p>'+d.when+'</p>'+
+      '<div class="sub-h">两人点餐建议</div><ul>'+d.points.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>'+
+      (d.note ? '<div class="sub-h">提醒</div><p>'+d.note+'</p>' : '');
+    root.appendChild(accItem('snow', d.name, d.when, body));
+  });
+  var tibetCand = el('div','');
+  tibetCand.className = 'note';
+  tibetCand.style.setProperty('--acc','#b3542f');
+  tibetCand.style.setProperty('--acc-soft','rgba(179,84,47,.13)');
+  tibetCand.innerHTML = '<div class="note-h"><span class="note-ic">'+IC.bowl+'</span><h4>藏餐候选</h4></div><ul>'+
+    '<li>塔洛藏餐吧</li><li>顺顺小吃</li><li>独克宗古城内近期评价稳定、价格清楚的藏餐店</li></ul>'+
+    '<p style="margin-top:8px">候选店铺以当天营业、卫生、距离旅拍店远近和是否需要排队为准。午餐后需要拍摄，餐厅不应距离门店太远。</p>';
+  root.appendChild(tibetCand);
+
+  root.appendChild(secDivider('五 · 饮品与咖啡清单'));
+  F.drinks.forEach(function(d){
+    var body = d.body.map(function(p){return '<p>'+p+'</p>';}).join('');
+    root.appendChild(accItem(d.icon, d.t, '', body));
+  });
+
+  root.appendChild(secDivider('六 · 忠义市场小吃路线'));
+  var mkt = el('div','');
+  mkt.className = 'note';
+  mkt.style.setProperty('--acc','#5f7d5a');
+  mkt.style.setProperty('--acc-soft','rgba(95,125,90,.13)');
+  mkt.innerHTML =
+    '<div class="note-h"><span class="note-ic">'+IC.market+'</span><h4>推荐顺序<small>适合放在恢复日上午，用 60—90 分钟体验</small></h4></div>'+
+    '<p>'+F.market.steps.map(function(s,i){ return (['①','②','③','④','⑤','⑥','⑦'][i]||'·')+' '+s; }).join('<br>')+'</p>'+
+    '<div class="sub-h" style="margin-top:14px">不建议购买</div>'+
+    '<ul>'+F.market.avoid.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+  root.appendChild(mkt);
+
+  root.appendChild(secDivider('七 · 六天餐饮安排参考'));
+  var tbl = el('div','');
+  tbl.className = 'tbl-wrap';
+  tbl.innerHTML =
+    '<table class="tbl"><thead><tr><th>日期</th><th>早餐</th><th>午餐</th><th>晚餐／加餐</th></tr></thead><tbody>'+
+    F.week.map(function(r){
+      return '<tr><td class="td-k">'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>';
+    }).join('')+'</tbody></table>';
+  root.appendChild(tbl);
+
+  var tip = el('div','');
+  tip.className = 'quote-ink';
+  tip.innerHTML = '本清单的作用是帮助现场快速决定「吃什么」，而不是要求逐项打卡。餐厅可能停业、换址、换主厨或出现长时间排队，所有店铺名称仅作搜索候选——出发前查看地图平台最近 1—3 个月评价，并确认营业时间、距离和是否需要预约。';
+  root.appendChild(tip);
+}
+function secDivider(tx){
+  var d = el('div','');
+  d.className = 'divider';
+  d.innerHTML = '<span>'+tx+'</span>';
+  return d;
+}
+
+/* =========================================================
+   渲染器 ⑨ 备选景点
+   ========================================================= */
+function renderAlt(){
+  var root = qs('#altRoot'); if(!root) return;
+  LJ.ALT.forEach(function(a, i){
+    var body = '';
+    if(a.warn) body += '<p style="color:var(--accent);font-weight:600;margin-bottom:10px">'+a.warn+'</p>';
+    a.blocks.forEach(function(b){
+      body += '<div class="sub-h">'+b.h+'</div>';
+      if(b.p) body += '<p>'+b.p+'</p>';
+      if(b.p2) body += '<p>'+b.p2+'</p>';
+      if(b.list) body += '<ul>'+b.list.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+    });
+    var sub = a.pos+' · 建议 '+a.time+' · '+starsHTML(a.stars)+'<br>替换建议：'+a.replace;
+    var item = accItem(a.icon, a.t, sub, body);
+    item.style.setProperty('--acc', i%2 ? '#5f7d5a' : '#4c6d94');
+    item.style.setProperty('--acc-soft', i%2 ? 'rgba(95,125,90,.13)' : 'rgba(76,109,148,.13)');
+    root.appendChild(item);
+  });
+}
+
+/* =========================================================
+   渲染器 ⑩ 交通
+   ========================================================= */
+function renderTransport(){
+  var root = qs('#transportRoot'); if(!root) return;
+  var wrap = el('div','');
+  var html = '';
+  LJ.TRANSPORT.big.forEach(function(t, i){
+    html += '<div class="tr-card reveal"><span class="tr-no">'+(i+1)+'</span>'+
+      '<div class="tr-line"><span class="tr-dot"></span><h4>'+t.line+'</h4></div>'+
+      '<div class="tr-scheme"><b>'+t.scheme+'</b></div>'+
+      '<div class="tr-rule">使用原则：<em>'+t.rule+'</em></div></div>';
+  });
+  html += '<div class="divider"><span>市内交通</span></div><ul class="tr-list">';
+  LJ.TRANSPORT.local.forEach(function(x){
+    html += '<li><span class="tr-ic">'+(x[0].indexOf('丽江站')>=0?IC.train:(x[0].indexOf('玉湖')>=0?IC.mount:IC.car))+'</span><span><b>'+x[0]+'</b><br>'+x[1]+'</span></li>';
+  });
+  html += '</ul>';
+  var tip = el('div','');
+  tip.className = 'quote-ink reveal';
+  tip.innerHTML = '大交通原则：<b>动车只以铁路 12306 支付页为准</b>；餐厅、咖啡馆和旅拍店出发前用地图平台确认近期评价及营业状态；酒店服务以管家回复为准。';
+  wrap.innerHTML = html;
+  root.appendChild(wrap);
+  root.appendChild(tip);
+}
+
+/* =========================================================
+   渲染器 ⑪ 穿搭 · 天气 · 高原安全
+   ========================================================= */
+function renderSafety(){
+  var root = qs('#safetyRoot'); if(!root) return;
+  var grid = el('div','');
+  grid.className = 'safe-grid';
+  LJ.SAFETY.forEach(function(s){
+    var card = el('div','');
+    card.className = 'safe-card reveal';
+    card.style.setProperty('--acc', s.accent);
+    card.style.setProperty('--acc-soft', s.accentSoft);
+    var body = '<p style="font-size:13px;line-height:1.95;color:var(--ink-2)">'+s.intro+'</p>';
+    if(s.steps){
+      body += '<ol style="margin-top:10px">'+s.steps.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ol>';
+    }
+    if(s.items){
+      body += '<ul style="margin-top:10px">'+s.items.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';
+    }
+    if(s.note) body += '<p style="margin-top:12px;font-size:12px;color:var(--ink-3);border-top:1px dashed var(--line);padding-top:10px">※ '+s.note+'</p>';
+    card.innerHTML =
+      '<div class="sc-h"><span class="sc-ic">'+(IC[s.icon]||IC.shield)+'</span><h4>'+s.t+'<small>'+s.en+'</small></h4></div>'+body;
+    grid.appendChild(card);
+  });
+  root.appendChild(grid);
+}
+
+/* =========================================================
+   渲染器 ⑫ 预约核验清单 + 出发清单（localStorage 持久化）
+   ========================================================= */
+var ckStore = {};
+try{ ckStore = JSON.parse(localStorage.getItem('ljxl-ck')||'{}'); }catch(e){}
+function ckGet(k){ return !!ckStore[k]; }
+function ckSet(k, v){
+  ckStore[k] = v;
+  try{ localStorage.setItem('ljxl-ck', JSON.stringify(ckStore)); }catch(e){}
+}
+function ckCat(title, sub, items, prefix, accent, accentSoft){
+  var cat = el('div','');
+  cat.className = 'ck-cat reveal';
+  cat.style.setProperty('--acc', accent);
+  cat.style.setProperty('--acc-soft', accentSoft);
+  cat.innerHTML =
+    '<div class="ck-cat-h">'+
+      '<div class="ck-t"><h4>'+title+'</h4><small>'+sub+'</small></div>'+
+      '<span class="ck-num" data-num>0/'+items.length+'</span>'+
+      '<span class="ck-bar"><i data-bar></i></span>'+
+    '</div>';
+  var list = el('div','');
+  items.forEach(function(it, i){
+    var id = prefix+'-'+i;
+    var row = el('div','');
+    row.className = 'ck-item' + (ckGet(id)?' done':'');
+    row.innerHTML =
+      '<span class="ck-box">'+U.CK+'</span>'+
+      '<span class="ck-txt">'+it.html+'</span>'+
+      (it.badge ? '<span class="ck-badge">'+it.badge+'</span>' : '');
+    row.addEventListener('click', function(){
+      var v = !ckGet(id); ckSet(id, v);
+      row.classList.toggle('done', v);
+      updCk(cat);
+    });
+    list.appendChild(row);
+  });
+  cat.appendChild(list);
+  updCk(cat);
+  return cat;
+  function updCk(c){
+    var done = qsa('.ck-item.done', c).length, total = qsa('.ck-item', c).length;
+    var bar = qs('[data-bar]', c), num = qs('[data-num]', c);
+    if(bar) bar.style.width = (total? done/total*100:0) + '%';
+    if(num) num.textContent = done+'/'+total;
+  }
+}
+function renderBookings(){
+  var root = qs('#bookingRoot'); if(!root) return;
+  var prioMap = {1:'<span class="tag pri-1">必须</span>', 2:'<span class="tag pri-2">强烈建议</span>', 3:'<span class="tag pri-3">可选</span>'};
+  root.appendChild(ckCat('预约与核验清单', '按最晚处理时间逐项完成', LJ.BOOKINGS.map(function(b){
+    return { html:'<b>'+b.item+'</b> · <span style="font-size:12px;color:var(--ink-3)">'+b.deadline+'</span><br>'+b.check, badge: prioMap[b.prio] };
+  }), 'b', '#4c6d94', 'rgba(76,109,148,.13)'));
+}
+function renderPacking(){
+  var root = qs('#packRoot'); if(!root) return;
+  var accents = ['#7c6a4e','#4c6d94','#3e6b52','#a97d2c'];
+  var softs = ['rgba(124,106,78,.12)','rgba(76,109,148,.13)','rgba(62,107,82,.13)','rgba(169,125,44,.15)'];
+  LJ.PACKING.forEach(function(cat, i){
+    root.appendChild(ckCat(cat.cat, '收拾行李时对照勾选', cat.items.map(function(x){return {html:x};}), 'p'+i, accents[i%4], softs[i%4]));
+  });
+  var reset = qs('#packReset');
+  if(reset) reset.addEventListener('click', function(){
+    Object.keys(ckStore).forEach(function(k){ if(k.indexOf('p')===0) delete ckStore[k]; });
+    try{ localStorage.setItem('ljxl-ck', JSON.stringify(ckStore)); }catch(e){}
+    qsa('.ck-item', root).forEach(function(r){ r.classList.remove('done'); });
+    qsa('.ck-cat', root).forEach(function(c){
+      qsa('[data-bar]', c).forEach(function(b){ b.style.width='0%'; });
+      qsa('[data-num]', c).forEach(function(n){ n.textContent='0/'+qsa('.ck-item', c).length; });
+    });
+  });
+}
+
+/* =========================================================
+   渲染器 ⑬ 预算（计数动画 + 玩法切换）
+   ========================================================= */
+function countRange(el, str){
+  var m = str.match(/^约 ([\d,]+)—([\d,]+)(.*)$/);
+  if(!m){ el.textContent = str; return; }
+  var target = parseInt(m[1].replace(/,/g,''),10);
+  var t0 = performance.now(), dur = 1500;
+  function step(now){
+    var p = Math.min(1,(now-t0)/dur);
+    el.textContent = '约 ' + Math.round(target * (1-Math.pow(2,-10*p))).toLocaleString('en-US') + '—' + m[2] + m[3];
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function renderBudget(){
+  var root = qs('#budgetRoot'); if(!root) return;
+  var B = LJ.BUDGET;
+  var wrap = el('div','');
+  var html =
+    '<div class="bd-head-opt">'+
+      B.totals.map(function(t, i){
+        return '<button class="btn btn-ghost'+(i===0?' on':'')+'" data-mode="'+t.key+'">'+t.label+'</button>';
+      }).join('')+
+    '</div>'+
+    '<div class="bd-totals">'+
+      B.totals.map(function(t, i){
+        return '<div class="bd-tcard '+(i===0?'main':'sub')+'" data-tc="'+t.key+'">'+
+          '<span class="bt-t">'+t.label.toUpperCase()+' · 预计合计</span>'+
+          '<span class="bt-n" data-num>'+t.num+'</span>'+
+          '<span class="bt-s">'+t.note+'</span></div>';
+      }).join('')+
+    '</div>';
+  wrap.innerHTML = html;
+  root.appendChild(wrap);
+
+  var rows = el('div','');
+  rows.className = 'card';
+  rows.style.marginTop = '18px';
+  rows.style.padding = '8px 18px 6px';
+  rows.innerHTML = B.rows.map(function(r){
+    return '<div class="bd-row"><span>'+r.item+'<br><small style="color:var(--ink-3);font-size:11px">'+r.note+'</small></span><span class="bd-v">'+r.range+' 元</span></div>';
+  }).join('') + '<div class="bd-row"><span style="font-weight:600;color:var(--ink)">注</span><span style="font-size:12px;color:var(--ink-3)">'+B.note+'</span></div>';
+  root.appendChild(rows);
+
+  var revealObs2 = new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if(en.isIntersecting){
+        qsa('[data-num]', wrap).forEach(function(n){ countRange(n, n.textContent); });
+        revealObs2.disconnect();
+      }
+    });
+  },{threshold:.3});
+  revealObs2.observe(wrap);
+
+  var mode = 'base';
+  qsa('[data-mode]', wrap).forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(mode === btn.dataset.mode) return;
+      mode = btn.dataset.mode;
+      qsa('[data-mode]', wrap).forEach(function(x){ x.classList.toggle('on', x.dataset.mode===mode); });
+      qsa('[data-tc]', wrap).forEach(function(c){
+        var on = c.dataset.tc === mode;
+        c.classList.toggle('off', !on);
+        if(on){ var n = qs('[data-num]', c); countRange(n, n.textContent); }
+      });
+    });
+  });
+}
+
+/* =========================================================
+   导航 / 顶栏 / 进度条 / 视差 / 日期坞 / 返回顶部
+   ========================================================= */
+function renderNav(){
+  var grid = qs('#navGrid'); if(!grid) return;
+  grid.innerHTML = LJ.NAV.map(function(n, i){
+    return '<a href="'+n[1]+'" data-target="'+n[1]+'" style="--i:'+i+'"><span class="no">'+String(i+1).padStart(2,'0')+'</span>'+n[0]+'</a>';
+  }).join('');
+  var nav = qs('#nav'), btn = qs('#menuBtn');
+  function toggle(open){
+    nav.classList.toggle('open', open);
+    btn.classList.toggle('open', open);
+    nav.setAttribute('aria-hidden', open ? 'false' : 'true');
+  }
+  btn.addEventListener('click', function(){ toggle(!nav.classList.contains('open')); });
+  qsa('a[data-target]', nav).forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      toggle(false);
+      var sec = qs(a.dataset.target);
+      if(sec) setTimeout(function(){ smoothTo(sec.getBoundingClientRect().top + window.pageYOffset - 70, 950); }, 260);
+    });
+  });
+}
+
+function initHeader(){
+  var hdr = qs('#hdr');
+  var ticking = false;
+  function onScroll(){
+    if(!ticking){ requestAnimationFrame(function(){
+      hdr.classList.toggle('scrolled', window.pageYOffset > 40);
+      qs('#top').classList.toggle('show', window.pageYOffset > 700);
+      ticking = false;
+    }); ticking = true; }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  qs('#top').addEventListener('click', function(){ smoothTo(0, 800); });
+}
+
+function initProgress(){
+  var bar = qs('#prog');
+  var cur = 0, target = 0, raf = null;
+  function loop(){
+    cur += (target - cur) * 0.12;               /* 指数平滑 → 非线性跟随 */
+    bar.style.width = (cur*100).toFixed(2) + '%';
+    if(Math.abs(target - cur) > 0.0005) raf = requestAnimationFrame(loop);
+    else raf = null;
+  }
+  window.addEventListener('scroll', function(){
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    target = h > 0 ? window.pageYOffset / h : 0;
+    if(!raf) raf = requestAnimationFrame(loop);
+  }, {passive:true});
+}
+
+function initParallax(){
+  var layers = qsa('[data-parallax]');
+  if(!layers.length) return;
+  var ticking = false;
+  function onScroll(){
+    if(!ticking){ requestAnimationFrame(function(){
+      var y = window.pageYOffset;
+      if(y < window.innerHeight * 1.2){
+        layers.forEach(function(l){
+          l.style.transform = 'translateY(' + (y * parseFloat(l.dataset.parallax)) + 'px)';
+        });
+      }
+      ticking = false;
+    }); ticking = true; }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+}
+
+function initDock(){
+  var dock = qs('#dayDock'); if(!dock) return;
+  var days = LJ.DAYS;
+  dock.innerHTML = days.map(function(d){
+    return '<button data-goto="day-'+d.n+'" aria-label="跳转 Day '+d.n+'">'+d.n+'<small>'+d.date+'</small></button>';
+  }).join('');
+  qsa('button', dock).forEach(function(b){
+    b.addEventListener('click', function(){
+      var sec = qs('#' + b.dataset.goto);
+      if(sec) smoothTo(sec.getBoundingClientRect().top + window.pageYOffset - 70, 900);
+    });
+  });
+  /* 显示时机：进入 #days 区域 */
+  var daysSec = qs('#days');
+  var dockObs = new IntersectionObserver(function(es){
+    es.forEach(function(en){ dock.classList.toggle('show', en.isIntersecting); });
+  },{threshold:.02});
+  if(daysSec) dockObs.observe(daysSec);
+  /* 当前日高亮 */
+  var actObs = new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if(en.isIntersecting){
+        qsa('button', dock).forEach(function(b){ b.classList.toggle('on', b.dataset.goto === en.target.id); });
+      }
+    });
+  },{rootMargin:'-40% 0px -55% 0px'});
+  days.forEach(function(d){ var s = qs('#day-'+d.n); if(s) actObs.observe(s); });
+}
+
+/* =========================================================
+   启动
+   ========================================================= */
+function boot(){
+  renderNav();
+  U.renderPrinciples();
+  U.renderOverview();
+  U.renderScenarios();
+  U.renderStoploss();
+  U.renderDays();
+  renderCulture();
+  renderPhoto();
+  renderFood();
+  renderAlt();
+  renderTransport();
+  renderSafety();
+  renderBookings();
+  renderPacking();
+  renderBudget();
+
+  initHeader();
+  initProgress();
+  initParallax();
+  initDock();
+  U.initReveal();
+}
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', boot);
+} else { boot(); }
+})();
+
+</script>
+</body>
+</html>
