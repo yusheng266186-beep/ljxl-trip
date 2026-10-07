@@ -5,6 +5,27 @@
 > 在线页面：[打开六日慢旅行手册](https://yusheng266186-beep.github.io/ljxl-trip/)  
 > GitHub：[查看源代码](https://github.com/yusheng266186-beep/ljxl-trip)
 
+<!-- project-navigation:start -->
+## 项目概览
+
+| 项目 | 说明 |
+| --- | --- |
+| 分类 | 旅行与互动展示 |
+| 平台 | 浏览器 / 静态网页 |
+| 当前定位 | 已归档 · 旅行手册 |
+
+面向手机阅读的六天五晚双人慢旅行手册。
+
+[历史页面](https://yusheng266186-beep.github.io/ljxl-trip/) · [使用与开发](#使用方式) · [项目总导航](https://github.com/yusheng266186-beep/yusheng266186-beep)
+
+与 [旅行视觉展示](https://github.com/yusheng266186-beep/lijiang-travel)、[漫山随身手册](https://github.com/yusheng266186-beep/manshan-guide) 同属丽江 / 香格里拉旅行项目，各自保留原行程和展示方式。
+
+**归档说明：** 本库保留历史作品与当时的开发、部署或行程记录。原文中的日期、价格和版本具有历史语境，使用前需核对当前信息。
+
+**阅读导航：** [使用方式](#使用方式) · [目录结构](#目录结构)
+
+<!-- project-navigation:end -->
+
 ## 行程概况
 
 - 出发地：成都；
